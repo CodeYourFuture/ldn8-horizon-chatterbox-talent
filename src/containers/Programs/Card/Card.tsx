@@ -21,7 +21,7 @@ const Card = ({
     stepsToApply,
     careerType,
 }: Partial<ProgramInterface>) => {
-    const [availableTabs, setAvailableTabs] = useState(['Reviews', 'Information']);
+    const availableTabs = ['Reviews', 'Information'];
     const [activeTabIndex, setActiveTabIndex] = useState(1);
 
     const renderComponentsTab = (tabTitle: string): (JSX.Element | null | undefined) => {
@@ -58,7 +58,7 @@ const Card = ({
             </div>
             {renderComponentsTab(availableTabs[activeTabIndex])}
             <div className={styles.buttonsWrapper}>
-                <a href={website} target="_blank"><button className={styles.hollowButton}>Find out more</button></a>
+                <a href={website} target="_blank" rel="noreferrer"><button className={styles.hollowButton}>Find out more</button></a>
                 <button className={styles.filledButton}>Send your review</button>
             </div>
         </div>

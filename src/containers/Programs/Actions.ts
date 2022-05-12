@@ -1,5 +1,5 @@
 import { Dispatch } from "@reduxjs/toolkit";
-import { adaptPrograms, RawProgramInterface } from './adapter';
+import { adaptPrograms } from './adapter';
 import { base } from "../../setup/airtable.setup";
 import { GET_ALL_PROGRAMS_FAIL, GET_ALL_PROGRAMS_LOADING, GET_ALL_PROGRAMS_SUCCESS, GET_PROGRAM_REVIEWS_FAIL, GET_PROGRAM_REVIEWS_LOADING, GET_PROGRAM_REVIEWS_SUCCESS } from "./ActionTypes"
 import { ProgramInterface } from "./Reducer";
@@ -47,10 +47,10 @@ const getProgramReviewsLoading = (status: boolean) => ({
     payload: status,
 })
 
-const getProgramReviewsSuccess = (programs: ProgramInterface[]) => ({
-    type: GET_PROGRAM_REVIEWS_SUCCESS,
-    payload: programs,
-})
+// const getProgramReviewsSuccess = (programs: ProgramInterface[]) => ({
+//     type: GET_PROGRAM_REVIEWS_SUCCESS,
+//     payload: programs,
+// })
 
 const getProgramReviewsFail = () => ({
     type: GET_PROGRAM_REVIEWS_FAIL,
@@ -63,7 +63,6 @@ export const getProgramReviews = (programId: string) => {
         try {
             const rawReviews = await base('Reviews').find(programId);
             console.log(rawReviews);
-            const adaptedReviews = 
             getProgramReviewsLoading(false);
         } catch (err) {
             getProgramReviewsFail();

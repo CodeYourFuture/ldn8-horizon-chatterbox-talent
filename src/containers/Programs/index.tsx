@@ -21,6 +21,7 @@ const Programs = ({ getAllProgramsInformationAction, programsInformation, isLoad
 
     useEffect(() => {
         getAllProgramsInformationAction();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

@@ -2,10 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Tip from '../../../../components/Tip/Tip';
 
-import IconBook from '../../../../assets/icon-book.svg';
-import IconCoding from '../../../../assets/icon-coding.svg';
-import IconPerson from '../../../../assets/icon-person.svg';
-import { CareersEnum, ProgramInterface } from '../../Reducer';
+import { ProgramInterface } from '../../Reducer';
 
 const InformationWrapper = styled.div`
     padding: 1em 2em;
@@ -51,23 +48,23 @@ const RegularWrapper = styled.div`
 //     }
 // `
 
-const Info = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5em;
-    background-color: rgba(196, 196, 196, 0.4);
-    padding: 1em;
-    border-radius: 10px;
-    max-width: 120px;
+// const Info = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+//     gap: 0.5em;
+//     background-color: rgba(196, 196, 196, 0.4);
+//     padding: 1em;
+//     border-radius: 10px;
+//     max-width: 120px;
 
-    span {
-        font-size: 0.8em;
-        max-width: 80%;
-        text-align: center;
-    }
-`
+//     span {
+//         font-size: 0.8em;
+//         max-width: 80%;
+//         text-align: center;
+//     }
+// `
 
 const CleanList = styled.ul`
     list-decoration: none;
