@@ -5,6 +5,7 @@ import Tip from '../../../../components/Tip/Tip';
 import IconBook from '../../../../assets/icon-book.svg';
 import IconCoding from '../../../../assets/icon-coding.svg';
 import IconPerson from '../../../../assets/icon-person.svg';
+import { CareersEnum, ProgramInterface } from '../../Reducer';
 
 const InformationWrapper = styled.div`
     padding: 1em 2em;
@@ -23,32 +24,32 @@ const LocationsWrapper = styled.div`
     justify-content: flex-start;
     align-items: center;
     gap: 1em;
-    margin-bottom: 2em;
+    margin-bottom: 2.2em;
 `
 
-const AboutTheProgramWrapper = styled.div`
-    margin-bottom: 2em;
+const RegularWrapper = styled.div`
+    margin-bottom: 2.2em;
     h2 {
         margin-bottom: 0.8em;
     }
 
     p {
-        line-height: 1.2em;
+        line-height: 1.4em;
     }
 `
 
-const WhatIsIncludedWrapper = styled.div`
-    margin-bottom: 2em;    
-    h2 {
-        margin-bottom: 1em;
-    }
+// const WhatIsIncludedWrapper = styled.div`
+//     margin-bottom: 2.2em;    
+//     h2 {
+//         margin-bottom: 1em;
+//     }
 
-    & > div {
-        display: flex;
-        flex-direction: row;
-        gap: 1em;
-    }
-`
+//     & > div {
+//         display: flex;
+//         flex-direction: row;
+//         gap: 1em;
+//     }
+// `
 
 const Info = styled.div`
     display: flex;
@@ -68,23 +69,75 @@ const Info = styled.div`
     }
 `
 
-interface InformationProps {
-    description?: string;
-    locations?: string[];
-}
+const CleanList = styled.ul`
+    list-decoration: none;
 
-const Information = ({ description, locations }: InformationProps) => {
+    li {
+        line-height: 1.4em;
+        margin-bottom: 0.2em;
+    }
+`
+
+const ListSubItem = styled.li`
+    padding-left: 2em;
+`
+
+const Information = ({ 
+    description, 
+    locations,
+    keyFacts,
+    stepsToApply,
+    careerType,
+}: Partial<ProgramInterface>) => {
+
+    const parseArrayWithIndexIntoList = (arr: string[] | undefined) => {
+        if (!arr) return;
+        let currentIndex = 1;
+
+        return arr.map(item => {
+            const listIndex = Number(item.slice(0, 2));
+            if (listIndex === currentIndex) {
+                currentIndex++;
+                return <li>{item}</li>;
+            }
+
+            return <ListSubItem>{item}</ListSubItem>
+        })
+    };
+
+    // const getCareerTipColor = (career: keyof typeof CareersEnum) => {
+    //     const color = CareersEnum[career];
+    //     if (!color) return "#eacef2";
+    //     return color;
+    // }
+
     return (
         <InformationWrapper>
             <LocationsWrapper>
                 <h2>Locations:</h2>
-                {locations && locations.map(location => <Tip color="gold">{location}</Tip>)}
+                {locations && locations.map((location, index) => <Tip key={index} color="gold">{location}</Tip>)}
             </LocationsWrapper>
-            <AboutTheProgramWrapper>
+            <RegularWrapper>
                 <h2>About the program</h2>
                 <p>{description || ''}</p>
-            </AboutTheProgramWrapper>
-            <WhatIsIncludedWrapper>
+            </RegularWrapper>
+            <LocationsWrapper>
+                <h2>Career types:</h2>
+                {careerType && careerType.map((career, index) => <Tip key={index} color="#74c4ff">{career}</Tip>)}
+            </LocationsWrapper>    
+            <RegularWrapper>
+                <h2>Key facts</h2>
+                <CleanList>
+                    {keyFacts?.map(keyFact => <li>{keyFact}</li> )}
+                </CleanList>
+            </RegularWrapper>           
+            <RegularWrapper>
+                <h2>Steps to apply</h2>
+                <CleanList>
+                    {parseArrayWithIndexIntoList(stepsToApply)}
+                </CleanList>
+            </RegularWrapper>
+            {/* <WhatIsIncludedWrapper>
                 <h2>What's included</h2>
                 <div>
                     <Info>
@@ -100,7 +153,7 @@ const Information = ({ description, locations }: InformationProps) => {
                         <span>Online content</span>
                     </Info>
                 </div>
-            </WhatIsIncludedWrapper>
+            </WhatIsIncludedWrapper> */}
         </InformationWrapper>
     );
 };

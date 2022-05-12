@@ -5,7 +5,6 @@ import Rating from '../../../components/Rating/Rating';
 import Tabs from './Tabs/Tabs';
 import Tip from '../../../components/Tip/Tip';
 
-import ChatterboxLogo from '../../../assets/chatterbox-logo-dark.png';
 import styles from './Card.module.scss';
 import Reviews from './Reviews';
 import { ProgramInterface } from '../Reducer';
@@ -14,25 +13,34 @@ const Card = ({
     logo,
     programName,
     programDuration,
+    onSite,
     description,
     locations,
-    website
+    website,
+    keyFacts,
+    stepsToApply,
+    careerType,
 }: Partial<ProgramInterface>) => {
     const [availableTabs, setAvailableTabs] = useState(['Reviews', 'Information']);
     const [activeTabIndex, setActiveTabIndex] = useState(1);
 
     const renderComponentsTab = (tabTitle: string): (JSX.Element | null | undefined) => {
-        if (tabTitle === "Information") return <Information description={description} locations={locations}/>;
-        if (tabTitle === "Reviews") return <Reviews mainReview={mainReview} recommendation={recommendation} />;
+        if (tabTitle === "Information") return (
+            <Information 
+                description={description}
+                locations={locations}
+                keyFacts={keyFacts}
+                stepsToApply={stepsToApply}
+                careerType={careerType}
+            />
+        );
+        if (tabTitle === "Reviews") return <Reviews />;
     }
 
     const getProgramLogo = () => {
         if (!logo || !logo.length || !logo[0].thumbnails) return '';
         return logo[0].thumbnails.large.url;
-    }
-
-    const recommendation = "I’d recommend this course if you’ve already got strong English skills. You don’t need to know how to code though";
-    const mainReview = "Overall the course taught me a lot of useful coding knowledge - I feel confident in my Javascript skills now.";
+    };
 
     if (!programName) return null;
 
@@ -44,6 +52,7 @@ const Card = ({
                 <Rating rating={5} numberOfReviews={1230}/>
                 <div className={styles.tipsWrapper}>
                     {programDuration && <Tip color="#A791E2">{programDuration}</Tip>}
+                    {onSite && <Tip color="#91e2a7">{onSite}</Tip>}
                 </div>
                 <Tabs tabs={availableTabs} activeTabIndex={activeTabIndex} onTabChange={setActiveTabIndex}/>
             </div>

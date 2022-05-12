@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import Rating from '../../../../components/Rating/Rating';
-
-import styles from './Reviews.module.scss';
+import { getProgramReviews } from '../../Actions';
 
 interface ReviewsProps {
-    mainReview: string;
-    recommendation: string;
+    mainReview?: string;
+    recommendation?: string;
+    getProgramReviewsAction(programId: string): void;
 }
+
+const ReviewsWrapper = styled.div`
+    width: 100%;
+    padding: 1em 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2em;
+
+    p {
+        line-height: 1.3em;
+    }
+`
 
 const CommentsWrapper = styled.div`
     display: flex;
@@ -53,11 +67,15 @@ const PropertyRatingWrapper = styled.div`
     }
 `
 
-const Reviews = ({ mainReview, recommendation }: ReviewsProps) => {
+const Reviews = ({ mainReview, recommendation, getProgramReviewsAction }: ReviewsProps) => {
+
+    useEffect(() => {
+        // getProgramReviewsAction()
+    }, [])
     return (
-        <div className={styles.reviewsWrapper}>
+        <ReviewsWrapper>
             <Rating rating={5} onlyStars/>
-            <p>{mainReview}</p>
+            <p>{''}</p>
             <CommentsWrapper>
                 <KeyRatingsWrapper>
                     <h3>Key ratings</h3>
@@ -67,11 +85,17 @@ const Reviews = ({ mainReview, recommendation }: ReviewsProps) => {
                 </KeyRatingsWrapper>
                 <IdealForWrapper>
                     <h3>Ideal for...</h3>
-                    <p>{recommendation}</p>
+                    <p>{ ''}</p>
                 </IdealForWrapper>
             </CommentsWrapper>
-        </div>
+        </ReviewsWrapper>
     );
 };
 
-export default Reviews;
+// const mapStateToProps = state => ({
+
+// });
+
+export default connect(null, {
+    getProgramReviewsAction: getProgramReviews,
+})(Reviews);

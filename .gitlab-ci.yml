@@ -1,0 +1,21 @@
+stages:
+  - build
+  - deploy
+
+build-react-app:
+  image: node:14-alpine
+  stage: build
+  script:
+    - npm ci
+    - npm run build
+  artifacts:
+    paths:
+      - build
+
+deploy-to-s3:
+  stage: deploy
+  image:
+    name: amazon/aws-cli:2.6.4
+    entrypoint: [""]
+  script:
+    - aws --version

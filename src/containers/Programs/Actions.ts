@@ -1,32 +1,30 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { adaptPrograms, RawProgramInterface } from './adapter';
 import { base } from "../../setup/airtable.setup";
-import { GET_PROGRAMS_FAIL, GET_PROGRAMS_LOADING, GET_PROGRAMS_SUCCESS } from "./ActionTypes"
+import { GET_ALL_PROGRAMS_FAIL, GET_ALL_PROGRAMS_LOADING, GET_ALL_PROGRAMS_SUCCESS, GET_PROGRAM_REVIEWS_FAIL, GET_PROGRAM_REVIEWS_LOADING, GET_PROGRAM_REVIEWS_SUCCESS } from "./ActionTypes"
 import { ProgramInterface } from "./Reducer";
 
-const getProgramsLoading = (status: boolean) => ({
-    type: GET_PROGRAMS_LOADING,
+const getAllProgramsInformationLoading = (status: boolean) => ({
+    type: GET_ALL_PROGRAMS_LOADING,
     payload: status,
 })
 
-const getProgramsSuccess = (programs: ProgramInterface[]) => ({
-    type: GET_PROGRAMS_SUCCESS,
+const getAllProgramsInformationSuccess = (programs: ProgramInterface[]) => ({
+    type: GET_ALL_PROGRAMS_SUCCESS,
     payload: programs,
 })
 
-const getProgramsFail = () => ({
-    type: GET_PROGRAMS_FAIL,
+const getAllProgramsInformationFail = () => ({
+    type: GET_ALL_PROGRAMS_FAIL,
 })
 
-export const getPrograms = () => {
+export const getAllProgramsInformation = () => {
     return async (dispatch: Dispatch) => {
-        dispatch(getProgramsLoading(true));
+        dispatch(getAllProgramsInformationLoading(true));
 
         try {
             const rawPrograms = await base('Programs')
-                .select({
-                    view: 'All Opportunities'
-                })
+                .select({ view: 'Live Opportunities' })
                 .all();
     
             const adaptedPrograms = rawPrograms.map( program => {
@@ -34,12 +32,42 @@ export const getPrograms = () => {
                 return adaptPrograms(fields);
             })
     
-            dispatch(getProgramsSuccess(adaptedPrograms));
-            dispatch(getProgramsLoading(false));
+            dispatch(getAllProgramsInformationSuccess(adaptedPrograms));
+            dispatch(getAllProgramsInformationLoading(false));
         } catch (err) {
-            dispatch(getProgramsFail());
-            dispatch(getProgramsLoading(false));
+            dispatch(getAllProgramsInformationFail());
+            dispatch(getAllProgramsInformationLoading(false));
         }
 
     }
 };
+
+const getProgramReviewsLoading = (status: boolean) => ({
+    type: GET_PROGRAM_REVIEWS_LOADING,
+    payload: status,
+})
+
+const getProgramReviewsSuccess = (programs: ProgramInterface[]) => ({
+    type: GET_PROGRAM_REVIEWS_SUCCESS,
+    payload: programs,
+})
+
+const getProgramReviewsFail = () => ({
+    type: GET_PROGRAM_REVIEWS_FAIL,
+})
+
+export const getProgramReviews = (programId: string) => {
+    return async (dispatch: Dispatch) => {
+        getProgramReviewsLoading(true);
+
+        try {
+            const rawReviews = await base('Reviews').find(programId);
+            console.log(rawReviews);
+            const adaptedReviews = 
+            getProgramReviewsLoading(false);
+        } catch (err) {
+            getProgramReviewsFail();
+            getProgramReviewsLoading(false);
+        }
+    }
+}

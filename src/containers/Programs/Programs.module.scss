@@ -4,6 +4,14 @@ flex-direction: column;
 justify-content: center;
 gap: 3em;
 
+    .loadingWrapper {
+        width: 100vw;
+        height: 50vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .title {
         text-align: center;
         font-size: 2em;
