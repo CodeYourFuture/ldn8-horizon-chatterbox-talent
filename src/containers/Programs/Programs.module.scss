@@ -1,0 +1,21 @@
+.content {
+display: flex;
+flex-direction: column;
+justify-content: center;
+gap: 3em;
+
+    .title {
+        text-align: center;
+        font-size: 2em;
+        font-weight: 700;
+    }
+
+    .cardsWrapper {
+        padding: 0 3vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        flex-wrap: wrap;
+        gap: 2vw;
+    }
+}

@@ -1,0 +1,39 @@
+.emptyCardWrapper {
+    background-color: #8CE4C0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45vw;
+    min-width: 405px;
+    height: 20vw;
+    border: 1px solid #333;
+    border-radius: 0.2em;
+    padding: 3em;
+    gap: 2em;
+
+    @media screen and (max-width: 900px) {
+        width: 100vw;
+    }
+
+    .headlines {
+        font-size: 1.2em;
+        line-height: 1.2em;
+        font-weight: 700;
+        color: #FFF;
+        text-align: center;
+    }
+
+    .actionButton {
+        outline: none;
+        border: 1px solid #333;
+        border-radius: 0.2em;
+        padding: 0.5em 0.7em;
+        background-color: #FFF;
+        color: #333;
+
+        &:hover {
+            color: #8CE4C0;
+        }
+    }
+}
