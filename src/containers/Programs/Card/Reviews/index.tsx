@@ -25,6 +25,7 @@ const ReviewsWrapper = styled.div`
 `
 
 const CommentsWrapper = styled.div`
+    width: 100%;
     display: flex;
     justify-content: space-between;
 `
