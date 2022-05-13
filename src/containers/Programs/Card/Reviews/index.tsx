@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Button from '../../../../components/Button/Button';
 import ClipLoader from 'react-spinners/ClipLoader';

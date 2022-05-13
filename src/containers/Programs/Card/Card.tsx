@@ -36,11 +36,11 @@ const Card = ({
 }: CardsProps)  => {
     const availableTabs = ['Reviews', 'Information'];
     const [activeTabIndex, setActiveTabIndex] = useState(1);
-    const [programReviews, setProgramReviews] = useState([] as ReviewInterface[]);
     const emptyReviews = !Boolean(reviews?.length);
     
     useEffect(() => {
         !emptyReviews && getProgramReviewsAction(programId!, reviews!);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const extractReviewsForThisProgram = (mapLikeData: ReviewsStateInterface['data']) => {
