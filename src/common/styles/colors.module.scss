@@ -1,0 +1,37 @@
+$green-main: #6AE7BE;
+$green-main-light: #a0fff1;
+$green-main-dark: #2eb48e;
+
+$pink-complementary: #E76A93;
+
+$green-monochromatic: #3EE0AB;
+
+$green-analogous: #6AE780;
+$blue-analogous: #6AD1E7;
+$background-blue-analogous: rgba(106, 209, 231, 0.7);
+
+$purple-triadic: #BE6AE7;
+$beige-triadic: #F5CC4E;
+$background-beige-triadic: rgba(245, 204, 78, 0.7);
+
+$purple-tetradic: #806AE7;
+$background-purple-tetradic: rgba(128, 106, 231, 0.6);
+$pink-tetradic: #E76A93;
+$background-pink-tetradic: rgba(231, 106, 147, 0.6);
+$green-tetradic: #D1E76A;
+$background-green-tetradic: rgba(209, 231, 106, 0.7);
+
+$black-font: #333;
+
+$white: #fff;
+$black: #282936;
+
+:export {
+    green-main: $green-main;
+    green-analogous: $green-analogous;
+    background-purple-tetradic: $background-purple-tetradic;
+    background-green-tetradic: $background-green-tetradic;
+    background-pink-tetradic: $background-pink-tetradic;
+    background-blue-analogous: $background-blue-analogous;
+    background-beige-triadic: $background-beige-triadic;
+}

@@ -1,0 +1,20 @@
+@import '../../common/styles/colors.module.scss';
+
+.button {
+  padding: 0.7em 1em;
+  border-radius: 0.2em;
+
+  &.hollow {
+    border: 1px solid $green-main;
+    &:hover {
+        background-color: $green-main;
+    }
+  }
+
+  &.filled {
+    background-color: $green-main;
+    &:hover {
+        opacity: 0.8;
+    }
+  }
+}

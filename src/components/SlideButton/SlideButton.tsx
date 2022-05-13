@@ -1,12 +1,12 @@
 import React from 'react';
 
-import styles from './ActionButton.module.scss';
+import styles from './SlideButton.module.scss';
 
-interface ActionButtonProps {
+interface SlideButtonProps {
     buttonText: string;
 }
 
-const ActionButton = ({ buttonText }: ActionButtonProps) => {
+const SlideButton = ({ buttonText }: SlideButtonProps) => {
     return (
         <div id="container">
             <button className={styles["learn-more"]}>
@@ -19,4 +19,4 @@ const ActionButton = ({ buttonText }: ActionButtonProps) => {
     )
 };
 
-export default ActionButton;
+export default SlideButton;

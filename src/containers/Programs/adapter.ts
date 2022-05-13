@@ -2,6 +2,7 @@ import { CareersEnum, ProgramInterface, ReviewInterface } from "./Reducer";
 import { splitStringIntoSeparatedPhrases } from "./utils";
 
 export interface RawProgramInterface {
+    id: string;
     "Actively hiring?"?: boolean;
     "Career type"?: (keyof typeof CareersEnum)[];
     "Description"?: string;
@@ -43,6 +44,7 @@ interface Thumbnail {
 
 export const adaptPrograms = (rawData: RawProgramInterface): ProgramInterface => {
     return {
+        id: rawData.id,
         isActivelyHiring: rawData["Actively hiring?"] || false,
         careerType: rawData["Career type"] || ['-'],
         description: rawData["Description"] || '',
@@ -59,29 +61,27 @@ export const adaptPrograms = (rawData: RawProgramInterface): ProgramInterface =>
 };
 
 export interface RawReviewInterface {
+    "Application Process": number;
     "Email": string;
-    "Notes": string[];
-    "Language Support Rating": number;
-    "Mentor?": string;
     "Experience summary": string;
-    "Professional Development Rating": number;
     "Future Prospects Rating": number;
     "How likely is it that you would recommend this scheme to a friend?": string;
-    "Program live?": string;
-    "Application Process": number;
+    "Language Support Rating": number;
+    "Mentor?": string;
+    "Notes": string[];
+    "Professional Development Rating": number;
 }
 
 export const adaptReview = (rawReview: RawReviewInterface): ReviewInterface => {
     return {
+        applicationProcessRating: rawReview["Application Process"] || 0,
         email: rawReview["Email"] || '',
-        notes: rawReview["Notes"] || [],
+        experienceSummary: rawReview["Experience summary"] || '',
+        futureProspectsRating: rawReview["Future Prospects Rating"] || 0,
+        likelyRecommendToAFriend: rawReview["How likely is it that you would recommend this scheme to a friend?"] || '-',
         languageSupportRating: rawReview["Language Support Rating"] || 0,
         isMentor: rawReview["Mentor?"] === 'Yes' ? true : false,
-        experienceSummary: rawReview["Experience summary"] || '',
+        notes: rawReview["Notes"] || [],
         professionalDevelopmentRating: rawReview["Professional Development Rating"] || 0,
-        futureProspectsRating: rawReview["Future Prospects Rating"] || 0,
-        recommendToAFriend: rawReview["How likely is it that you would recommend this scheme to a friend?"] || '-',
-        isProgramLive: rawReview["Program live?"] === 'Yes' ? true : false,
-        applicationProcessRating: rawReview["Application Process"] || 0,
     }
 }

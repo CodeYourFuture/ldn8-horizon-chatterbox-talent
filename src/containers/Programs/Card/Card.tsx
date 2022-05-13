@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Information from './Information/Information';
 import Rating from '../../../components/Rating/Rating';
@@ -7,9 +7,18 @@ import Tip from '../../../components/Tip/Tip';
 
 import styles from './Card.module.scss';
 import Reviews from './Reviews';
-import { ProgramInterface } from '../Reducer';
+import { ProgramInterface, ReviewInterface, ReviewsStateInterface } from '../Reducer';
+import Button from '../../../components/Button/Button';
+import { getProgramReviews } from '../Actions';
+import { connect } from 'react-redux';
+import { RootReducerInterface } from '../../../reducers';
+
+type CardsProps = Partial<ProgramInterface> & Partial<ReviewsStateInterface> & { 
+    getProgramReviewsAction(programId: string, reviewsId: string[]): void;
+};
 
 const Card = ({
+    id: programId,
     logo,
     programName,
     programDuration,
@@ -20,9 +29,24 @@ const Card = ({
     keyFacts,
     stepsToApply,
     careerType,
-}: Partial<ProgramInterface>) => {
+    reviews,
+    getProgramReviewsAction,
+    data: reviewsData,
+    isLoadingReviews,
+}: CardsProps)  => {
     const availableTabs = ['Reviews', 'Information'];
     const [activeTabIndex, setActiveTabIndex] = useState(1);
+    const [programReviews, setProgramReviews] = useState([] as ReviewInterface[]);
+    const emptyReviews = !Boolean(reviews?.length);
+    
+    useEffect(() => {
+        !emptyReviews && getProgramReviewsAction(programId!, reviews!);
+    }, [])
+
+    const extractReviewsForThisProgram = (mapLikeData: ReviewsStateInterface['data']) => {
+        const dataMap = new Map(mapLikeData);
+        return dataMap.get(programId!) || [];
+    }
 
     const renderComponentsTab = (tabTitle: string): (JSX.Element | null | undefined) => {
         if (tabTitle === "Information") return (
@@ -34,7 +58,12 @@ const Card = ({
                 careerType={careerType}
             />
         );
-        if (tabTitle === "Reviews") return <Reviews />;
+        if (tabTitle === "Reviews") return (
+            <Reviews
+                reviews={extractReviewsForThisProgram(reviewsData!)}
+                isLoading={isLoadingReviews!}
+            />
+        );
     }
 
     const getProgramLogo = () => {
@@ -51,18 +80,25 @@ const Card = ({
                 <h2>{programName}</h2>
                 <Rating rating={5} numberOfReviews={1230}/>
                 <div className={styles.tipsWrapper}>
-                    {programDuration && <Tip color="#A791E2">{programDuration}</Tip>}
-                    {onSite && <Tip color="#91e2a7">{onSite}</Tip>}
+                    {programDuration && <Tip color={styles["background-purple-tetradic"]}>{programDuration}</Tip>}
+                    {onSite && <Tip color={styles["background-pink-tetradic"]}>{onSite}</Tip>}
                 </div>
                 <Tabs tabs={availableTabs} activeTabIndex={activeTabIndex} onTabChange={setActiveTabIndex}/>
             </div>
             {renderComponentsTab(availableTabs[activeTabIndex])}
             <div className={styles.buttonsWrapper}>
-                <a href={website} target="_blank" rel="noreferrer"><button className={styles.hollowButton}>Find out more</button></a>
-                <button className={styles.filledButton}>Send your review</button>
+                <a href={website} target="_blank" rel="noreferrer"><Button outfit='hollow'>Find out more</Button></a>
+                {!emptyReviews && <Button>Send your review</Button>}
             </div>
         </div>
     )
 }
 
-export default Card;
+const mapStateToProps = (state: RootReducerInterface) => ({
+    data: state.ProgramsReducer.reviews.data,
+    isLoadingReviews: state.ProgramsReducer.reviews.isLoadingReviews,
+});
+
+export default connect(mapStateToProps, {
+    getProgramReviewsAction: getProgramReviews,
+})(Card);

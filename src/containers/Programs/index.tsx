@@ -1,23 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import SyncLoader from 'react-spinners/SyncLoader';
 
 import { getAllProgramsInformation } from './Actions';
 import { RootReducerInterface } from '../../reducers';
-import { ProgramInterface } from './Reducer';
+import { ProgramsStateInterface } from './Reducer';
 
 import Card from './Card/Card';
 import EmptyCard from './EmptyCard/EmptyCard';
 
 import styles from './Programs.module.scss';
 
-interface ProgramsProps {
+interface ProgramsProps extends ProgramsStateInterface {
     getAllProgramsInformationAction() : void;
-    programsInformation: ProgramInterface[];
-    isLoading: boolean;
 }
 
-const Programs = ({ getAllProgramsInformationAction, programsInformation, isLoading }: ProgramsProps) => {
+const Programs = ({
+    getAllProgramsInformationAction,
+    information,
+    isLoadingPrograms,
+}: ProgramsProps) => {
 
     useEffect(() => {
         getAllProgramsInformationAction();
@@ -27,11 +29,11 @@ const Programs = ({ getAllProgramsInformationAction, programsInformation, isLoad
     return (
         <div className={styles.content}>
             <h1 className={styles.title}>Opportunities for Refugees</h1>
-            {isLoading
-                ? <div className={styles.loadingWrapper}><SyncLoader color="#8CE4C0" loading={isLoading} /></div>
+            {isLoadingPrograms
+                ? <div className={styles.loadingWrapper}><SyncLoader color={styles["green-main"]} loading={isLoadingPrograms} /></div>
                 : (
                     <div className={styles.cardsWrapper}>
-                        {programsInformation.map((programInformation, index) => <Card key={index} {...programInformation}/>)}
+                        {information.map((data, index) => <Card key={index} {...data}/>)}
                         <EmptyCard/>
                     </div>
                 )
@@ -41,8 +43,8 @@ const Programs = ({ getAllProgramsInformationAction, programsInformation, isLoad
 };
 
 const mapStateToProps = (state: RootReducerInterface) => ({
-    programsInformation: state.Programs.information,
-    isLoading: state.Programs.isLoading,
+    information: state.ProgramsReducer.programs.information,
+    isLoadingPrograms: state.ProgramsReducer.programs.isLoadingPrograms,
 })
 
 export default connect(mapStateToProps, {

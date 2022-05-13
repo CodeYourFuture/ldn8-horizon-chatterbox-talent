@@ -1,5 +1,7 @@
+@import '../../../common/styles/colors.module.scss';
+
 .emptyCardWrapper {
-    background-color: #8CE4C0;
+    background-color: $green-monochromatic;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,7 +9,7 @@
     width: 45vw;
     min-width: 405px;
     height: 20vw;
-    border: 1px solid #333;
+    border: 1px solid $black-font;
     border-radius: 0.2em;
     padding: 3em;
     gap: 2em;
@@ -20,20 +22,7 @@
         font-size: 1.2em;
         line-height: 1.2em;
         font-weight: 700;
-        color: #FFF;
+        color: $black;
         text-align: center;
-    }
-
-    .actionButton {
-        outline: none;
-        border: 1px solid #333;
-        border-radius: 0.2em;
-        padding: 0.5em 0.7em;
-        background-color: #FFF;
-        color: #333;
-
-        &:hover {
-            color: #8CE4C0;
-        }
     }
 }

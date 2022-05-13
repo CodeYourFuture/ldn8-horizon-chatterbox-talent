@@ -1,10 +1,12 @@
+@import '../../common/styles/colors.module.scss';
+
 @mixin active {
-    background-color: #8CE4C0;
+    background-color: $green-main;
     font-weight: 700;
 }
 
 .link {
-    color: #333;
+    color: $black-font;
     text-decoration: none !important;
     border: none !important;
     outline: none !important;

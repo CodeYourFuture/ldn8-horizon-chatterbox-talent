@@ -1,3 +1,5 @@
+@import '../../common/styles/colors.module.scss';
+
 .content {
 display: flex;
 flex-direction: column;
@@ -14,8 +16,9 @@ gap: 3em;
 
     .title {
         text-align: center;
-        font-size: 2em;
+        font-size: 2.5em;
         font-weight: 700;
+        color: $black-font;
     }
 
     .cardsWrapper {

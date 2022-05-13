@@ -1,12 +1,12 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { programsReducer, ProgramsReducerStateInterface } from "../containers/Programs/Reducer";
+import programsReducer , { ProgramsReducerInterface } from "../containers/Programs/Reducer";
 
 export interface RootReducerInterface {
-    Programs: ProgramsReducerStateInterface;
+    ProgramsReducer: ProgramsReducerInterface;
 }
 
 const rootReducer = combineReducers({
-    Programs: programsReducer,
+    ProgramsReducer: programsReducer,
 });
 
 export default rootReducer;

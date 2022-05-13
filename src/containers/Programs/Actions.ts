@@ -1,8 +1,8 @@
 import { Dispatch } from "@reduxjs/toolkit";
-import { adaptPrograms } from './adapter';
+import { adaptPrograms, adaptReview, RawReviewInterface } from './adapter';
 import { base } from "../../setup/airtable.setup";
 import { GET_ALL_PROGRAMS_FAIL, GET_ALL_PROGRAMS_LOADING, GET_ALL_PROGRAMS_SUCCESS, GET_PROGRAM_REVIEWS_FAIL, GET_PROGRAM_REVIEWS_LOADING, GET_PROGRAM_REVIEWS_SUCCESS } from "./ActionTypes"
-import { ProgramInterface } from "./Reducer";
+import { ProgramInterface, ReviewInterface } from "./Reducer";
 
 const getAllProgramsInformationLoading = (status: boolean) => ({
     type: GET_ALL_PROGRAMS_LOADING,
@@ -28,8 +28,8 @@ export const getAllProgramsInformation = () => {
                 .all();
     
             const adaptedPrograms = rawPrograms.map( program => {
-                const { fields } = program;
-                return adaptPrograms(fields);
+                const { id, fields } = program;
+                return adaptPrograms({ id, ...fields});
             })
     
             dispatch(getAllProgramsInformationSuccess(adaptedPrograms));
@@ -47,26 +47,34 @@ const getProgramReviewsLoading = (status: boolean) => ({
     payload: status,
 })
 
-// const getProgramReviewsSuccess = (programs: ProgramInterface[]) => ({
-//     type: GET_PROGRAM_REVIEWS_SUCCESS,
-//     payload: programs,
-// })
+const getProgramReviewsSuccess = (programId:string, reviews: ReviewInterface[]) => ({
+    type: GET_PROGRAM_REVIEWS_SUCCESS,
+    payload: {
+        programId,
+        reviews
+    },
+})
 
 const getProgramReviewsFail = () => ({
     type: GET_PROGRAM_REVIEWS_FAIL,
 })
 
-export const getProgramReviews = (programId: string) => {
+export const getProgramReviews = (programId: string, reviewsIds: string[]) => {
     return async (dispatch: Dispatch) => {
-        getProgramReviewsLoading(true);
+        dispatch(getProgramReviewsLoading(true));
 
         try {
-            const rawReviews = await base('Reviews').find(programId);
-            console.log(rawReviews);
-            getProgramReviewsLoading(false);
+            const rawReviews = await Promise.all(reviewsIds.map(async reviewId => await base('Reviews').find(reviewId)));
+            const adaptedReviews = rawReviews.map( review => {
+                const { fields } = review as unknown as { fields: RawReviewInterface};
+                return adaptReview(fields);
+            })
+            dispatch(getProgramReviewsSuccess(programId, adaptedReviews));
+            dispatch(getProgramReviewsLoading(false));
         } catch (err) {
-            getProgramReviewsFail();
-            getProgramReviewsLoading(false);
+            console.log(err);
+            dispatch(getProgramReviewsFail());
+            dispatch(getProgramReviewsLoading(false));
         }
     }
 }

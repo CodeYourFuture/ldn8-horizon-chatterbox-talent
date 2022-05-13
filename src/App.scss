@@ -1,7 +1,12 @@
 @import './reset.scss';
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@700&display=swap');
 
 .App {
   font-size: 16px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Karla', sans-serif;
+
+  h1 {
+    font-family: 'Work Sans', sans-serif;
+  }
 }
