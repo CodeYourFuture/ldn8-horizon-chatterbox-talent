@@ -7,7 +7,7 @@ import Tip from '../../../components/Tip/Tip';
 
 import styles from './Card.module.scss';
 import Reviews from './Reviews';
-import { ProgramInterface, ReviewInterface, ReviewsStateInterface } from '../Reducer';
+import { ProgramInterface, ReviewsStateInterface } from '../Reducer';
 import Button from '../../../components/Button/Button';
 import { getProgramReviews } from '../Actions';
 import { connect } from 'react-redux';

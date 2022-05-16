@@ -8,15 +8,7 @@
     justify-content: flex-start;
     align-items: center;
     gap: 1em;
-    padding: 1em 0 6em;
-    width: 45vw;
-    min-width: 405px;
-    border: 1px solid $black-font;
-    border-radius: 0.2em;
-
-    @media screen and (max-width: 900px) {
-        width: 100vw;
-    }
+    width: 100%;
 
     .imageWrapper {
         display: flex;
@@ -24,7 +16,7 @@
         align-items: center;
         max-width: 300px;
         height: 120px;
-        margin: 1em 0;
+        margin: 0 0 1em;
 
         img {
             width: 100%;
@@ -57,10 +49,9 @@
 
     .buttonsWrapper {
         width: 100%;
-        padding: 1em 2em 0;
-        position: absolute;
-        bottom: 1.5em;
+        padding: 1em 0;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
+        gap: 1vw;
     }
 }

@@ -6,7 +6,7 @@ import { ProgramInterface } from '../../Reducer';
 import styles from '../../../../common/styles/colors.module.scss';
 
 const InformationWrapper = styled.div`
-    padding: 1em 2em;
+    padding: 1em 0;
     display: flex;
     flex-direction: column;
 

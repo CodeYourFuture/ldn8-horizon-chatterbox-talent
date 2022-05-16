@@ -9,6 +9,10 @@ const TipWrapper = styled.div`
     border-radius: 1em;
 `
 
+const TextContent = styled.span`
+    white-space: nowrap;
+`
+
 interface TipProps {
     children: any;
     color: string;
@@ -17,7 +21,7 @@ interface TipProps {
 const Tip = ({ children, color }: TipProps) => {
     return (
         <TipWrapper color={color}>
-            <span>{children}</span>
+            <TextContent>{children}</TextContent>
         </TipWrapper>
     );
 };
