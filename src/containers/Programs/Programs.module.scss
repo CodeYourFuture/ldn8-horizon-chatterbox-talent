@@ -4,8 +4,8 @@
 display: flex;
 flex-direction: column;
 justify-content: center;
-gap: 3em;
-padding: 4vh 3.5vw;
+gap: 2vh;
+padding: 1vh 3.5vw;
 
     .title__wrapper {
         .title {
@@ -30,15 +30,14 @@ padding: 4vh 3.5vw;
     .content__wrapper {
         display: flex;
         justify-content: space-between;
-        // border: 5px solid $green-main;
         border-radius: 10px;
-        padding: 1vw;
+        padding: 1vw 0;
 
         .all-programs__wrapper {
             width: 30%;
             height: 80vh;
             overflow-y: auto;
-            margin: 0.5em 1em;
+            margin: 0.5em 0;
             position: relative;
             border-right: 1px solid $green-main-dark;
             display: flex;
@@ -51,6 +50,14 @@ padding: 4vh 3.5vw;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+            }
+
+            .thumbnails__wrapper {
+                .thumbnail__sticky {
+                    position: sticky;
+                    top: 0;
+                    z-index: 1000;
+                }
             }
         }
 

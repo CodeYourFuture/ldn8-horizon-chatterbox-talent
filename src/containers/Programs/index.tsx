@@ -40,7 +40,7 @@ const Programs = ({
                         ? <div className={styles.loadingWrapper}><ClipLoader color={styles["green-main"]} loading={isLoadingPrograms} /></div>
                         : (
                             <div className={styles["thumbnails__wrapper"]}>
-                                <EmptyCard />
+                                <div className={styles["thumbnail__sticky"]}><EmptyCard /></div>
                                 {information.map((data, index) => {
                                     return <Thumbnail
                                         key={index} 
