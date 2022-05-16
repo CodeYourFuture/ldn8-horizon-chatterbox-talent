@@ -17,6 +17,9 @@ interface ButtonProps {
 
 const Button = styled.button<ButtonProps>`
     position: relative;
+    border: none;
+    outline: none;
+    background-color: transparent;
 
     &:after {
         content: ' ';
@@ -25,7 +28,7 @@ const Button = styled.button<ButtonProps>`
         border-right:10px solid #333;
         position: absolute;
         right: 40%;
-        bottom: -70%;
+        bottom: -65%;
         transform: rotate(45deg);
     }
 `

@@ -3,6 +3,9 @@
 .button {
   padding: 0.7em 1em;
   border-radius: 0.2em;
+  outline: none;
+  border: none;
+  background-color: transparent;
 
   &.hollow {
     border: 1px solid $green-main;

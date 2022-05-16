@@ -15,7 +15,6 @@ interface ReviewsProps {
 
 const ReviewsWrapper = styled.div`
     width: 100%;
-    padding: 1em 2em;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -60,12 +59,13 @@ const CommentsWrapper = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
+    gap: 1vw;
 `
 
 const KeyRatingsWrapper = styled.div`
     background-color: rgba(66, 92, 82, 0.2);
     padding: 1.5em;
-    width: 45%;
+    width: 30%;
 
     h3 {
         font-weight: 700;
@@ -76,7 +76,7 @@ const KeyRatingsWrapper = styled.div`
 const IdealForWrapper = styled.div`
     background-color: rgba(91, 91, 91, 0.2);
     padding: 1.5em;
-    width: 50%;
+    width: 60%;
 
     h3 {
         font-weight: 700;

@@ -4,25 +4,16 @@
     background-color: $green-monochromatic;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 45vw;
-    min-width: 405px;
-    height: 20vw;
-    border: 1px solid $black-font;
-    border-radius: 0.2em;
-    padding: 3em;
-    gap: 2em;
-
-    @media screen and (max-width: 900px) {
-        width: 100vw;
-    }
+    align-items: flex-start;
+    padding: 1.5vw;
+    gap: 1em;
+    margin-bottom: 1vw;
 
     .headlines {
-        font-size: 1.2em;
+        font-size: 1em;
         line-height: 1.2em;
         font-weight: 700;
         color: $black;
-        text-align: center;
+        text-align: left;
     }
 }

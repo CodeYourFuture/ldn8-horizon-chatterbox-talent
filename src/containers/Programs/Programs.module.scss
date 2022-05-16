@@ -5,28 +5,62 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 gap: 3em;
+padding: 4vh 3.5vw;
 
-    .loadingWrapper {
-        width: 100vw;
-        height: 50vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .title__wrapper {
+        .title {
+            text-align: left;
+            font-size: 2.7em;
+            line-height: 1.1em;
+            font-weight: 700;
+            color: $black-font;
+
+            .green-text {
+                color: $green-main;
+            }
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-top: 1em;
+        }
+        
     }
 
-    .title {
-        text-align: center;
-        font-size: 2.5em;
-        font-weight: 700;
-        color: $black-font;
-    }
-
-    .cardsWrapper {
-        padding: 0 3vw;
+    .content__wrapper {
         display: flex;
         justify-content: space-between;
-        align-items: stretch;
-        flex-wrap: wrap;
-        gap: 2vw;
+        // border: 5px solid $green-main;
+        border-radius: 10px;
+        padding: 1vw;
+
+        .all-programs__wrapper {
+            width: 30%;
+            height: 80vh;
+            overflow-y: auto;
+            margin: 0.5em 1em;
+            position: relative;
+            border-right: 1px solid $green-main-dark;
+            display: flex;
+            justify-content: stretch;
+
+            .loadingWrapper {
+                position: absolute;
+                left: 50%;
+                top: 10%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        .specific-program__wrapper {
+            max-height: 80vh;
+            padding: 0 2vw;
+            width: 65%;
+            overflow-y: auto;
+            display: flex;
+            justify-content: center;
+        }
     }
 }
