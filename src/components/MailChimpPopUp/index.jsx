@@ -108,7 +108,8 @@ const MailChimPopUp = ({ onSuccess, onClose }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        if (isSuccess) onSuccess();
+        if (isSuccess && !error) onSuccess();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSuccess])
 
     const handleEmailInput = (evt) => {
