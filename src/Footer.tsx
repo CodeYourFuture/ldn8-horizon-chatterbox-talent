@@ -7,7 +7,7 @@ const Footer = () => {
     return (
         <footer className={styles.footerWrapper}>
             <span>Powered by</span>
-            <img src={ChatterboxLogo} alt="Chatterbox logo" />
+            <a href='https://www.chatterbox.io/'><img src={ChatterboxLogo} alt="Chatterbox logo" /></a>
         </footer>
     )
 };
