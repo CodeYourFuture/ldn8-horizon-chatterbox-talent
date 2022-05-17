@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Ransford from '../../assets/ransford.jpg';
 import Stephanie from '../../assets/stephanie.jpg';
 
 const Wrapper = styled.div`
@@ -32,16 +31,6 @@ const TextContainer = styled.div`
                 color: #6AE7BE;
             }
         }
-    }
-`
-
-const FAQWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-
-    h2 {
-        font-weight: 700;
     }
 `
 
