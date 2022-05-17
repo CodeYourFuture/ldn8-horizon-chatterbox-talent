@@ -123,10 +123,8 @@ const MailChimPopUp = ({ onSuccess, onClose }) => {
         onClose();
     }
 
-    // https://chatterbox.us17.list-manage.com/subscribe/post-json?u=cc97cbe1c1989bcac00c4ba4a&id=18dda6dfb3&c=jQuery19006619638440281914_1652798485675&EMAIL=otavio%40chatterbox.io&interestgroup_field=&gdpr%5B90226%5D=Y&b_cc97cbe1c1989bcac00c4ba4a_18dda6dfb3=&subscribe=Subscribe&_=1652798485676
-
     const handleSubscription = () => {
-        const mailchimpUrl = 'https://chatterbox.us17.list-manage.com/subscribe/post-json?u=cc97cbe1c1989bcac00c4ba4a&id=18dda6dfb3';
+        const mailchimpUrl = `${process.env.REACT_APP_MAILCHIMP_ENDPOINT_URL}u=${process.env.REACT_APP_MAILCHIMP_U}&id=${process.env.REACT_APP_MAILCHIMP_ID}`;
         const getAjaxUrl = url => url.replace("/post?", "/post-json?");
         const params = toQueryString({ "EMAIL": email });
         const url = getAjaxUrl(mailchimpUrl) + "&" + params;
