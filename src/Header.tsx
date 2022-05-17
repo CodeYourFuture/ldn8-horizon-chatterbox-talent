@@ -7,6 +7,7 @@ const Header = () => {
     return (
         <header className={styles.headerWrapper}>
             <CustomLink to="/">Opportunities</CustomLink>
+            <CustomLink to="/faq">FAQ</CustomLink>
             <CustomLink to="/about">About</CustomLink>
         </header>
     )
