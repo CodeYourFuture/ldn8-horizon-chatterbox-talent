@@ -43,7 +43,7 @@ const Wrapper = styled.button`
     justify-content: center;
     position: relative;
     gap: 1vw;
-    padding: 1.5vw;
+    padding: 0 1.5vw;
     margin-bottom: 3vw;
     &:after {
         content: '';
