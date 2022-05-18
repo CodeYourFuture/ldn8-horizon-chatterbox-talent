@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Button from '../../../../components/Button/Button';
 import ClipLoader from 'react-spinners/ClipLoader';
@@ -7,9 +8,6 @@ import Rating from '../../../../components/Rating/Rating';
 import { selectProgramReviews, selectProgramScore } from '../../Reducer';
 
 import styles from '../../../../common/styles/colors.module.scss';
-import { calculateAverage } from '../../utils';
-import { connect, useSelector } from 'react-redux';
-import { RootReducerInterface } from '../../../../reducers';
 
 interface ReviewsProps {
     programId: string;

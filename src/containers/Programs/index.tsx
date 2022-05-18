@@ -5,14 +5,13 @@ import ClipLoader from 'react-spinners/ClipLoader';
 
 import { getAllProgramsInformation } from './Actions';
 import { RootReducerInterface } from '../../reducers';
-import { ProgramsStateInterface, ReviewsStateInterface, ScoresInterface } from './Reducer';
+import { ProgramsStateInterface } from './Reducer';
 
 import Card from './Card/Card';
 import EmptyCard from './EmptyCard/EmptyCard';
 
 import styles from './Programs.module.scss';
 import Thumbnail from './Thumbnail/Thumbnail';
-import Reviews from './Card/Reviews';
 
 const SpecificProgramWrapper = styled.div<{isShowing: boolean}>`
     max-height: 80vh;

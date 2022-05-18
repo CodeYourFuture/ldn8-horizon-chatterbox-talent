@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import Information from './Information/Information';
 import Rating from '../../../components/Rating/Rating';
@@ -7,7 +7,7 @@ import Tip from '../../../components/Tip/Tip';
 
 import styles from './Card.module.scss';
 import Reviews from './Reviews';
-import { ProgramInterface, ReviewsStateInterface, ScoresInterface, selectProgramScore } from '../Reducer';
+import { ProgramInterface, ReviewsStateInterface, selectProgramScore } from '../Reducer';
 import Button from '../../../components/Button/Button';
 import { connect, useSelector } from 'react-redux';
 import { RootReducerInterface } from '../../../reducers';

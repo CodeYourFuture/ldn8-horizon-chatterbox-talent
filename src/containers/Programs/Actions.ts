@@ -33,7 +33,7 @@ export const getAllProgramsInformation = () => {
                 return adaptPrograms({ id, ...fields});
             })
 
-            const availableReviews = await Promise.all(adaptedPrograms.map(async ({ id, reviews }) => {
+            await Promise.all(adaptedPrograms.map(async ({ id, reviews }) => {
                 getProgramReviews(id, reviews)(dispatch);
             }));
     
