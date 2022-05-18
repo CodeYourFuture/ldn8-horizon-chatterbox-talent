@@ -1,4 +1,5 @@
 @import '../../../common/styles/colors.module.scss';
+@import '../../../common/styles/breakpoints.module.scss';
 
 .emptyCardWrapper {
     background-color: $green-monochromatic;
@@ -9,11 +10,21 @@
     gap: 1em;
     margin-bottom: 1vw;
 
+    @include breakpoint-max(md) {
+        padding: 3vw;
+        gap: 5vw;
+        align-items: center;
+    }
+
     .headlines {
         font-size: 1em;
         line-height: 1.2em;
         font-weight: 700;
         color: $black;
         text-align: left;
+
+        @include breakpoint-max(md) {
+            text-align: center;
+        }
     }
 }

@@ -22,6 +22,15 @@ const ReviewsWrapper = styled.div`
 
     p {
         line-height: 1.3em;
+
+        @media screen and (max-width:768px) {
+            text-align: center;
+        }
+
+    }
+
+    @media screen and (max-width:768px) {
+        align-items: center;
     }
 `
 
@@ -39,6 +48,7 @@ const EmptyReviewsWrapper = styled.div`
         span {
             font-weight: 700;
         }
+
     }
 `
 
@@ -53,6 +63,10 @@ const OverallWrapper = styled.div`
         font-weight: 700;
         margin-bottom: 0.5em;
     }
+
+    @media screen and (max-width:768px) {
+        align-items: center;
+    }
 `
 
 const CommentsWrapper = styled.div`
@@ -60,6 +74,11 @@ const CommentsWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     gap: 1vw;
+
+    @media screen and (max-width:768px) {
+        flex-direction: column;
+        gap: 2vw;
+    }
 `
 
 const KeyRatingsWrapper = styled.div`
@@ -70,6 +89,10 @@ const KeyRatingsWrapper = styled.div`
     h3 {
         font-weight: 700;
         margin-bottom: 2em;
+    }
+
+    @media screen and (max-width:768px) {
+        width: 100%;
     }
 `
 
@@ -85,6 +108,10 @@ const IdealForWrapper = styled.div`
 
     p {
         line-height: 1.3em;
+    }
+
+    @media screen and (max-width:768px) {
+        width: 100%;
     }
 `
 
