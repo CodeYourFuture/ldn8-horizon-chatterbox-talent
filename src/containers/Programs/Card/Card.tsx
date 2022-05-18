@@ -78,7 +78,7 @@ const Card = ({
             <div className={styles.imageWrapper}><img src={getProgramLogo()} alt={`${programName}`} /></div>
             <div className={styles.schemaOverview}>
                 <h2>{programName}</h2>
-                <Rating rating={5} numberOfReviews={1230}/>
+                <Rating rating={0} numberOfReviews={0}/>
                 <div className={styles.tipsWrapper}>
                     {programDuration && <Tip color={styles["background-purple-tetradic"]}>{programDuration}</Tip>}
                     {onSite && <Tip color={styles["background-pink-tetradic"]}>{onSite}</Tip>}

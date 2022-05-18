@@ -72,8 +72,8 @@ const OverallWrapper = styled.div`
 const CommentsWrapper = styled.div`
     width: 100%;
     display: flex;
-    justify-content: space-between;
-    gap: 1vw;
+    justify-content: stretch;
+    gap: 2vw;
 
     @media screen and (max-width:768px) {
         flex-direction: column;
@@ -84,7 +84,7 @@ const CommentsWrapper = styled.div`
 const KeyRatingsWrapper = styled.div`
     background-color: rgba(66, 92, 82, 0.2);
     padding: 1.5em;
-    width: 30%;
+    width: 45%;
 
     h3 {
         font-weight: 700;

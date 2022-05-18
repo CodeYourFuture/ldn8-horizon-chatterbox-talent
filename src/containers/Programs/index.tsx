@@ -12,6 +12,7 @@ import EmptyCard from './EmptyCard/EmptyCard';
 
 import styles from './Programs.module.scss';
 import Thumbnail from './Thumbnail/Thumbnail';
+import Reviews from './Card/Reviews';
 
 const SpecificProgramWrapper = styled.div<{isShowing: boolean}>`
     max-height: 80vh;
@@ -44,6 +45,7 @@ const SpecificProgramWrapper = styled.div<{isShowing: boolean}>`
 
 const CardWrapper = styled.div`
     position: relative;
+    width: 100%;
 `
 
 const Caret = styled.button`
@@ -105,6 +107,8 @@ const Programs = ({
                                         title={data.programName}
                                         onThumbnailSelection={handleUserSelection}
                                         isSelected={index === selectedProgramIndex}
+                                        numberOfReviews={data.reviews.length}
+                                        rating={0}
                                     />
                                 })}
                             </div>

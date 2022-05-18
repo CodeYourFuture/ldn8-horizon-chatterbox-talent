@@ -16,11 +16,6 @@ const SectionTitle = styled.h2`
     font-size: 2em;
     font-weight: 700;
     margin-top: 2.5vw;
-
-    span {
-        background-color: #6AE7BE;
-        padding: 0 1em 0 0.2em;
-    }
 `
 
 const FAQ = () => {
@@ -58,7 +53,7 @@ const FAQ = () => {
                 />
                 <ExpandableCard 
                     headerText="Who manages this page?" 
-                    response="The Chatterbox team independently manage this page, whilst we’re trying to build relationships with."
+                    response="The Chatterbox team independently manage this page, whilst we’re trying to build relationships with refugee organisations who run employment programs our priority will always be to maintain anonymity of our reviewers."
                 />
             </FAQWrapper>
         </Wrapper>

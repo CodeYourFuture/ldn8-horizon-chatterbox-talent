@@ -13,6 +13,7 @@ const TextContent = styled.p`
     font-size: 0.95em;
     font-weight: 400;
     line-height: 1.4em;
+    text-align: left;
 `
 
 const StrongTextContent = styled(TextContent)`
@@ -68,13 +69,15 @@ interface ThumbnailProps {
     locations: string[];
     onThumbnailSelection(index: number):void;
     title: string;
+    rating: number;
+    numberOfReviews: number;
 }
 
-const Thumbnail = ({ index, isSelected, careerTypes, locations, title, onThumbnailSelection }: ThumbnailProps) => {
+const Thumbnail = ({ index, isSelected, careerTypes, locations, title, onThumbnailSelection, numberOfReviews, rating }: ThumbnailProps) => {
     return (
         <Wrapper onClick={() => onThumbnailSelection(index)} isSelected={isSelected}>
             <Title>{title}</Title>
-            <Rating rating={5} numberOfReviews={1230}/>
+            {Boolean(rating) && <Rating rating={rating} numberOfReviews={numberOfReviews}/>}
             {locations && (
                 <TextBlock>
                     <b><StrongTextContent>Locations: </StrongTextContent></b>
