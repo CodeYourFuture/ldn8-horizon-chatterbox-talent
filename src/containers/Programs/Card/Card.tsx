@@ -7,15 +7,12 @@ import Tip from '../../../components/Tip/Tip';
 
 import styles from './Card.module.scss';
 import Reviews from './Reviews';
-import { ProgramInterface, ReviewsStateInterface } from '../Reducer';
+import { ProgramInterface, ReviewsStateInterface, ScoresInterface, selectProgramScore } from '../Reducer';
 import Button from '../../../components/Button/Button';
-import { getProgramReviews } from '../Actions';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { RootReducerInterface } from '../../../reducers';
 
-type CardsProps = Partial<ProgramInterface> & Partial<ReviewsStateInterface> & { 
-    getProgramReviewsAction(programId: string, reviewsId: string[]): void;
-};
+type CardsProps = Partial<ProgramInterface> & Partial<ReviewsStateInterface>;
 
 const Card = ({
     id: programId,
@@ -30,23 +27,12 @@ const Card = ({
     stepsToApply,
     careerType,
     reviews,
-    getProgramReviewsAction,
-    data: reviewsData,
     isLoadingReviews,
 }: CardsProps)  => {
     const availableTabs = ['Reviews', 'Information'];
     const [activeTabIndex, setActiveTabIndex] = useState(1);
     const emptyReviews = !Boolean(reviews?.length);
-    
-    useEffect(() => {
-        !emptyReviews && getProgramReviewsAction(programId!, reviews!);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    const extractReviewsForThisProgram = (mapLikeData: ReviewsStateInterface['data']) => {
-        const dataMap = new Map(mapLikeData);
-        return dataMap.get(programId!) || [];
-    }
+    const programScore = useSelector(selectProgramScore(programId!));
 
     const renderComponentsTab = (tabTitle: string): (JSX.Element | null | undefined) => {
         if (tabTitle === "Information") return (
@@ -60,7 +46,7 @@ const Card = ({
         );
         if (tabTitle === "Reviews") return (
             <Reviews
-                reviews={extractReviewsForThisProgram(reviewsData!)}
+                programId={programId!}
                 isLoading={isLoadingReviews!}
             />
         );
@@ -71,6 +57,27 @@ const Card = ({
         return logo[0].thumbnails.large.url;
     };
 
+    const getButtons = () => {
+        if (availableTabs[activeTabIndex] === 'Information') {
+            return (
+                <div className={styles.buttonsWrapper}>
+                    <a href={`${process.env.REACT_APP_AIRTABLE_REVIEW_FORM_URL}`} target="_blank" rel="noreferrer"><Button outfit='hollow'>Review this program</Button></a>
+                    <a href={website} target="_blank" rel="noreferrer"><Button>Find out more</Button></a>
+                </div>
+            )
+        };
+
+        if (emptyReviews) {
+            return null;
+        }
+
+        return (
+            <div className={styles.buttonsWrapper}>
+                <a href={`${process.env.REACT_APP_AIRTABLE_REVIEW_FORM_URL}`} target="_blank" rel="noreferrer"><Button>Review this program</Button></a>
+            </div>
+        );
+    }
+
     if (!programName) return null;
 
     return (
@@ -78,7 +85,7 @@ const Card = ({
             <div className={styles.imageWrapper}><img src={getProgramLogo()} alt={`${programName}`} /></div>
             <div className={styles.schemaOverview}>
                 <h2>{programName}</h2>
-                <Rating rating={0} numberOfReviews={0}/>
+                <Rating rating={programScore?.overall || 0} numberOfReviews={reviews!.length || 0}/>
                 <div className={styles.tipsWrapper}>
                     {programDuration && <Tip color={styles["background-purple-tetradic"]}>{programDuration}</Tip>}
                     {onSite && <Tip color={styles["background-pink-tetradic"]}>{onSite}</Tip>}
@@ -86,19 +93,13 @@ const Card = ({
                 <Tabs tabs={availableTabs} activeTabIndex={activeTabIndex} onTabChange={setActiveTabIndex}/>
             </div>
             {renderComponentsTab(availableTabs[activeTabIndex])}
-            <div className={styles.buttonsWrapper}>
-                <a href={website} target="_blank" rel="noreferrer"><Button outfit='hollow'>Find out more</Button></a>
-                {!emptyReviews && <Button>Send your review</Button>}
-            </div>
+            {getButtons()}
         </div>
     )
 }
 
 const mapStateToProps = (state: RootReducerInterface) => ({
-    data: state.ProgramsReducer.reviews.data,
     isLoadingReviews: state.ProgramsReducer.reviews.isLoadingReviews,
 });
 
-export default connect(mapStateToProps, {
-    getProgramReviewsAction: getProgramReviews,
-})(Card);
+export default connect(mapStateToProps)(Card);

@@ -5,7 +5,7 @@ import ClipLoader from 'react-spinners/ClipLoader';
 
 import { getAllProgramsInformation } from './Actions';
 import { RootReducerInterface } from '../../reducers';
-import { ProgramsStateInterface } from './Reducer';
+import { ProgramsStateInterface, ReviewsStateInterface, ScoresInterface } from './Reducer';
 
 import Card from './Card/Card';
 import EmptyCard from './EmptyCard/EmptyCard';
@@ -63,7 +63,7 @@ const Caret = styled.button`
     }
 `
 
-interface ProgramsProps extends ProgramsStateInterface {
+type ProgramsProps = ProgramsStateInterface & {
     getAllProgramsInformationAction() : void;
 }
 
@@ -108,7 +108,7 @@ const Programs = ({
                                         onThumbnailSelection={handleUserSelection}
                                         isSelected={index === selectedProgramIndex}
                                         numberOfReviews={data.reviews.length}
-                                        rating={0}
+                                        programId={data.id}
                                     />
                                 })}
                             </div>
@@ -120,7 +120,7 @@ const Programs = ({
                         ? <div className={styles.loadingWrapper}><ClipLoader color={styles["green-main"]} loading={isLoadingPrograms} /></div>
                         : (
                             <CardWrapper onClick={(evt: SyntheticEvent) => evt.stopPropagation()}>
-                                <Card {...information[selectedProgramIndex]}/>
+                                <Card {...information[selectedProgramIndex]} />
                                 <Caret onClick={() => setIsShowingModalOnMobile(false)}>X</Caret>
                             </CardWrapper>
                         )

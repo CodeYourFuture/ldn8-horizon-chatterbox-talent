@@ -4,12 +4,15 @@ import Button from '../../../../components/Button/Button';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 import Rating from '../../../../components/Rating/Rating';
-import { ReviewInterface } from '../../Reducer';
+import { selectProgramReviews, selectProgramScore } from '../../Reducer';
 
 import styles from '../../../../common/styles/colors.module.scss';
+import { calculateAverage } from '../../utils';
+import { connect, useSelector } from 'react-redux';
+import { RootReducerInterface } from '../../../../reducers';
 
 interface ReviewsProps {
-    reviews: ReviewInterface[] | never[];
+    programId: string;
     isLoading: boolean;
 }
 
@@ -128,34 +131,10 @@ const PropertyRatingWrapper = styled.div`
     }
 `
 
-const Reviews = ({ reviews, isLoading }: ReviewsProps) => {
-    const [applicationProcessRating, setApplicationProcessRating] = useState(0);
-    const [languageSupportRating, setLanguageSupportRating] = useState(0);
-    const [futureProspectsRating, setFutureProspectsRating] = useState(0);
-    const [professionalDevelopmentRating, setProfessionalDevelopmentRating] = useState(0);
-    const [overall, setOverall] = useState(0);
+const Reviews = ({ programId, isLoading }: ReviewsProps) => {
 
-    const calculateAverage = (attr: (keyof ReviewInterface), data: ReviewInterface[]) => {
-        const sum = data.reduce((acc, cv) => {
-            if (!Number(cv[attr])) return acc;
-            return acc + Number(cv[attr]);
-        }, 0);
-
-        return sum/(data.length);
-    };
-
-    useEffect(() => {
-        const applicationAvg = calculateAverage('applicationProcessRating', reviews);
-        setApplicationProcessRating(applicationAvg);
-        const languageSupportAvg = calculateAverage('languageSupportRating', reviews);
-        setLanguageSupportRating(languageSupportAvg);
-        const futureProspectsAvg = calculateAverage('futureProspectsRating', reviews);
-        setFutureProspectsRating(futureProspectsAvg);
-        const professionalDevelopAvg = calculateAverage('professionalDevelopmentRating', reviews);
-        setProfessionalDevelopmentRating(professionalDevelopAvg);
-        const overallAvg = (applicationAvg + languageSupportAvg + futureProspectsAvg + professionalDevelopAvg)/4;
-        setOverall(overallAvg);
-    }, [reviews])
+    const programScore = useSelector(selectProgramScore(programId));
+    const programReviews = useSelector(selectProgramReviews(programId));
 
     if (isLoading) {
         return (
@@ -165,10 +144,10 @@ const Reviews = ({ reviews, isLoading }: ReviewsProps) => {
         )
     }
 
-    if (!reviews.length) {
+    if (!programReviews?.length) {
         return (
             <EmptyReviewsWrapper>
-                <Button>Review this program</Button>
+                <a href={`${process.env.REACT_APP_AIRTABLE_REVIEW_FORM_URL}`} target="_blank" rel="noreferrer"><Button>Review this program</Button></a>
                 <p><span>Anonymous reviews</span> can be completed by anyone who has completed this program.
                 <br/>They're anonymous to support honesty and are incredibly valuable to other refugees considering this program.</p>
             </EmptyReviewsWrapper>
@@ -179,17 +158,17 @@ const Reviews = ({ reviews, isLoading }: ReviewsProps) => {
         <ReviewsWrapper>
             <OverallWrapper>
                 <h2>Overall</h2>
-                <Rating rating={overall} onlyStars/>
+                <Rating rating={programScore?.overall || 0} onlyStars/>
             </OverallWrapper>
-            <p>{reviews[0].experienceSummary}</p>
+            <p>{programReviews[0]?.experienceSummary}</p>
             <CommentsWrapper>
                 <KeyRatingsWrapper>
                     <h3>Key ratings</h3>
-                    <PropertyRatingWrapper><Rating rating={5} starSize="18px" color='gold' onlyStars/><span>Course content</span></PropertyRatingWrapper>
-                    <PropertyRatingWrapper><Rating rating={applicationProcessRating} starSize="18px" color='gold' onlyStars/><span>Application Process</span></PropertyRatingWrapper>
-                    <PropertyRatingWrapper><Rating rating={languageSupportRating} starSize="18px" color='gold' onlyStars/><span>Language support</span></PropertyRatingWrapper>
-                    <PropertyRatingWrapper><Rating rating={futureProspectsRating} starSize="18px" color='gold' onlyStars/><span>Future prospects</span></PropertyRatingWrapper>
-                    <PropertyRatingWrapper><Rating rating={professionalDevelopmentRating} starSize="18px" color='gold' onlyStars/><span>Professional Development</span></PropertyRatingWrapper>
+                    <PropertyRatingWrapper><Rating rating={0} starSize="18px" color='gold' onlyStars/><span>Course content</span></PropertyRatingWrapper>
+                    <PropertyRatingWrapper><Rating rating={programScore?.application || 0} starSize="18px" color='gold' onlyStars/><span>Application Process</span></PropertyRatingWrapper>
+                    <PropertyRatingWrapper><Rating rating={programScore?.languageSupport || 0} starSize="18px" color='gold' onlyStars/><span>Language support</span></PropertyRatingWrapper>
+                    <PropertyRatingWrapper><Rating rating={programScore?.futureProspect || 0} starSize="18px" color='gold' onlyStars/><span>Future prospects</span></PropertyRatingWrapper>
+                    <PropertyRatingWrapper><Rating rating={programScore?.professionalDevelopment || 0} starSize="18px" color='gold' onlyStars/><span>Professional Development</span></PropertyRatingWrapper>
                 </KeyRatingsWrapper>
                 <IdealForWrapper>
                     <h3>Ideal for...</h3>
@@ -199,6 +178,5 @@ const Reviews = ({ reviews, isLoading }: ReviewsProps) => {
         </ReviewsWrapper>
     );
 };
-
 
 export default Reviews;
