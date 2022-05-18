@@ -40,7 +40,7 @@ const FAQ = () => {
                 <SectionTitle><span>About the schemes</span></SectionTitle>
                 <ExpandableCard 
                     headerText="How can I submit a new opportunity?" 
-                    response="Submit the details of another employment scheme here. Our team will use the details you provide to create a new opportunity and get in touch once the scheme is live."
+                    response={<p>Submit the details of another employment scheme <a href={`${process.env.REACT_APP_AIRTABLE_SUBMIT_PROGRAM_FORM_URL}`} target="_blank" rel='noreferrer'>here</a>. Our team will use the details you provide to create a new opportunity and get in touch once the scheme is live.</p>}
                 />
                 <ExpandableCard 
                     headerText="What if our scheme gets a bad review?" 

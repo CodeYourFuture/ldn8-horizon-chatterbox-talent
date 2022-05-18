@@ -67,6 +67,7 @@ export interface RawReviewInterface {
     "Future Prospects Rating": number;
     "How likely is it that you would recommend this scheme to a friend?": string;
     "Language Support Rating": number;
+    "Live review": string;
     "Mentor?": string;
     "Notes": string[];
     "Professional Development Rating": number;
@@ -80,6 +81,7 @@ export const adaptReview = (rawReview: RawReviewInterface): ReviewInterface => {
         futureProspectsRating: rawReview["Future Prospects Rating"] || 0,
         likelyRecommendToAFriend: rawReview["How likely is it that you would recommend this scheme to a friend?"] || '-',
         languageSupportRating: rawReview["Language Support Rating"] || 0,
+        liveReview: rawReview["Live review"] === 'Yes' ? true : false,
         isMentor: rawReview["Mentor?"] === 'Yes' ? true : false,
         notes: rawReview["Notes"] || [],
         professionalDevelopmentRating: rawReview["Professional Development Rating"] || 0,

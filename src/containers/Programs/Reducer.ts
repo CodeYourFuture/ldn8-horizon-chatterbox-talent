@@ -56,6 +56,7 @@ export interface ReviewInterface {
     futureProspectsRating: number;
     likelyRecommendToAFriend: string;
     languageSupportRating: number;
+    liveReview: boolean;
     isMentor: boolean;
     notes: string[];
     professionalDevelopmentRating: number;

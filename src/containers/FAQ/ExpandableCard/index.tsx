@@ -44,7 +44,7 @@ const CardWrapper = styled.div`
 
 interface ExpandableCardProps {
     headerText: string;
-    response: string;
+    response: React.ReactNode;
 }
 
 const ExpandableCard = ({ headerText, response }: ExpandableCardProps) => {
