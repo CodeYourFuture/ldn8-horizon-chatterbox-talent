@@ -23,7 +23,7 @@ const ContentWrapper = styled.div`
 
 const TextContainer = styled.div`
     p {
-        font-size: 1.5em;
+        font-size: 1.1em;
         line-height: 1.4em;
         margin-bottom: 2em;
 
@@ -44,7 +44,7 @@ const TextContainer = styled.div`
 `
 
 const ImageWrapper = styled.div`
-    width: 100%;
+    width: 80%;
     
     @media screen and (max-width: 1200px) {
         img:first-of-type {

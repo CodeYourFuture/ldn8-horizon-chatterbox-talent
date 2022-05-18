@@ -42,7 +42,8 @@ padding: 1vh 3.5vw;
 
     .content__wrapper {
         display: flex;
-        justify-content: space-between;
+        width: 100%;
+        justify-content: stretch;
         border-radius: 10px;
         padding: 1vw 0;
 
@@ -51,7 +52,7 @@ padding: 1vh 3.5vw;
         }
 
         .all-programs__wrapper {
-            width: 30%;
+            width: 35%;
             height: 80vh;
             overflow-y: auto;
             margin: 0.5em 0;
@@ -83,33 +84,5 @@ padding: 1vh 3.5vw;
                 }
             }
         }
-
-        // .specific-program__wrapper {
-        //     max-height: 80vh;
-        //     padding: 0 2vw;
-        //     width: 65%;
-        //     overflow-y: auto;
-        //     display: flex;
-        //     justify-content: center;
-
-        //     @include breakpoint-max(md) {
-        //         position: fixed;
-        //         top: 10vh;
-        //         left: 0;
-        //         right: 0;
-        //         bottom: 0;
-        //         width: 100%;
-        //         z-index: 1000;
-        //         max-height: 90vh;
-        //         overflow-y: auto;
-
-        //         &:before {
-        //             content: '';
-        //             position: fixed;
-        //             background-color: rgba(0, 0, 0, 0.8);
-        //             inset: 0;
-        //         }
-        //     }
-        // }
     }
 }
