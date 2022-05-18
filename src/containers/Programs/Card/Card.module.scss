@@ -1,4 +1,5 @@
 @import '../../../common/styles/colors.module.scss';
+@import '../../../common/styles/breakpoints.module.scss';
 
 .cardWrapper {
     background-color: #FFF;
@@ -9,6 +10,12 @@
     align-items: center;
     gap: 1em;
     width: 100%;
+    overflow: auto;
+
+    @include breakpoint-max(md) {
+        padding: 1em 2em;
+        border-radius: 5px;
+    }
 
     .imageWrapper {
         display: flex;
@@ -53,5 +60,9 @@
         display: flex;
         justify-content: flex-end;
         gap: 1vw;
+
+        @include breakpoint-max(md) {
+            justify-content: space-between;
+        }
     }
 }

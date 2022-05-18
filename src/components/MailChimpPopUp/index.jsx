@@ -25,6 +25,12 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
     position: relative;
+    z-index: 4000;
+
+    @media screen and (max-width: 768px) {
+        width: 90vw;
+        flex-direction: column;
+    }
 `
 
 const ContentWrapper = styled.div`
@@ -34,6 +40,12 @@ const ContentWrapper = styled.div`
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-around;
+
+    @media screen and (max-width: 768px) {
+        width: 90%;
+        padding: 10vw 5vw;
+        gap: 5vw;
+    }
 
     h3 {
         font-weight: 200;
@@ -68,6 +80,10 @@ const ImageWrapper = styled.div`
     background-repeat: no-repeat; 
     background-size: contain; 
     background-position: center center;
+
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
 `
 
 const SubscribeButton = styled.button`

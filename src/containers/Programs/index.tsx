@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import ClipLoader from 'react-spinners/ClipLoader';
 
@@ -12,6 +13,54 @@ import EmptyCard from './EmptyCard/EmptyCard';
 import styles from './Programs.module.scss';
 import Thumbnail from './Thumbnail/Thumbnail';
 
+const SpecificProgramWrapper = styled.div<{isShowing: boolean}>`
+    max-height: 80vh;
+    padding: 0 2vw;
+    width: 65%;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+
+    @media screen and (max-width:768px) {
+        display: ${props => !props.isShowing && 'none'};
+        position: fixed;
+        top: 10vh;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        z-index: 1200;
+        max-height: 90vh;
+        overflow-y: auto;
+
+        &:before {
+            content: ' ';
+            position: fixed;
+            background-color: rgba(0, 0, 0, 0.8);
+            inset: 0;
+        }
+    }
+`
+
+const CardWrapper = styled.div`
+    position: relative;
+`
+
+const Caret = styled.button`
+    display: none;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    @media screen and (max-width: 768px) {
+        display: block;
+        position: absolute;
+        color: black;
+        right: 5%;
+        top: 2%;
+        z-index: 1000;
+    }
+`
+
 interface ProgramsProps extends ProgramsStateInterface {
     getAllProgramsInformationAction() : void;
 }
@@ -22,6 +71,12 @@ const Programs = ({
     isLoadingPrograms,
 }: ProgramsProps) => {
     const [selectedProgramIndex, setSelectedProgramIndex] = useState(0);
+    const [isShowingModalOnMobile, setIsShowingModalOnMobile] = useState(false);
+
+    const handleUserSelection = (index: number) => {
+        setSelectedProgramIndex(index);
+        setIsShowingModalOnMobile(true);
+    }
 
     useEffect(() => {
         getAllProgramsInformationAction();
@@ -48,19 +103,25 @@ const Programs = ({
                                         index={index}
                                         locations={data.locations} 
                                         title={data.programName}
-                                        onThumbnailSelection={setSelectedProgramIndex}
+                                        onThumbnailSelection={handleUserSelection}
+                                        isSelected={index === selectedProgramIndex}
                                     />
                                 })}
                             </div>
                         )
                     }
                 </div>
-                <div className={styles["specific-program__wrapper"]}>
+                <SpecificProgramWrapper isShowing={isShowingModalOnMobile} onClick={() => setIsShowingModalOnMobile(false)}>
                     {isLoadingPrograms
                         ? <div className={styles.loadingWrapper}><ClipLoader color={styles["green-main"]} loading={isLoadingPrograms} /></div>
-                        : <Card {...information[selectedProgramIndex]}/>
+                        : (
+                            <CardWrapper onClick={(evt: SyntheticEvent) => evt.stopPropagation()}>
+                                <Card {...information[selectedProgramIndex]}/>
+                                <Caret onClick={() => setIsShowingModalOnMobile(false)}>X</Caret>
+                            </CardWrapper>
+                        )
                     }
-                </div>
+                </SpecificProgramWrapper>
             </section>
 
         </div>

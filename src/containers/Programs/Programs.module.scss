@@ -1,4 +1,5 @@
 @import '../../common/styles/colors.module.scss';
+@import '../../common/styles/breakpoints.module.scss';
 
 .content {
 display: flex;
@@ -7,13 +8,21 @@ justify-content: center;
 gap: 2vh;
 padding: 1vh 3.5vw;
 
+    @include breakpoint-max(md) {
+        padding: 1vh 6vw;
+    }
+
     .title__wrapper {
         .title {
             text-align: left;
             font-size: 2.7em;
-            line-height: 1.1em;
+            line-height: 1.2em;
             font-weight: 700;
             color: $black-font;
+
+            @include breakpoint-max(md) {
+                font-size: 2em;
+            }
 
             .green-text {
                 color: $green-main;
@@ -23,8 +32,12 @@ padding: 1vh 3.5vw;
         p {
             font-size: 1.2em;
             margin-top: 1em;
+
+            @include breakpoint-max(md) {
+                font-size: 1.2em;
+                line-height: 1.4em;
+            }
         }
-        
     }
 
     .content__wrapper {
@@ -32,6 +45,10 @@ padding: 1vh 3.5vw;
         justify-content: space-between;
         border-radius: 10px;
         padding: 1vw 0;
+
+        @include breakpoint-max(md) {
+            flex-direction: column;
+        }
 
         .all-programs__wrapper {
             width: 30%;
@@ -42,6 +59,12 @@ padding: 1vh 3.5vw;
             border-right: 1px solid $green-main-dark;
             display: flex;
             justify-content: stretch;
+
+            @include breakpoint-max(md) {
+                width: 100%;
+                border-right: none;
+                display: block;
+            }
 
             .loadingWrapper {
                 position: absolute;
@@ -61,13 +84,32 @@ padding: 1vh 3.5vw;
             }
         }
 
-        .specific-program__wrapper {
-            max-height: 80vh;
-            padding: 0 2vw;
-            width: 65%;
-            overflow-y: auto;
-            display: flex;
-            justify-content: center;
-        }
+        // .specific-program__wrapper {
+        //     max-height: 80vh;
+        //     padding: 0 2vw;
+        //     width: 65%;
+        //     overflow-y: auto;
+        //     display: flex;
+        //     justify-content: center;
+
+        //     @include breakpoint-max(md) {
+        //         position: fixed;
+        //         top: 10vh;
+        //         left: 0;
+        //         right: 0;
+        //         bottom: 0;
+        //         width: 100%;
+        //         z-index: 1000;
+        //         max-height: 90vh;
+        //         overflow-y: auto;
+
+        //         &:before {
+        //             content: '';
+        //             position: fixed;
+        //             background-color: rgba(0, 0, 0, 0.8);
+        //             inset: 0;
+        //         }
+        //     }
+        // }
     }
 }

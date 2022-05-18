@@ -15,6 +15,10 @@ const ContentWrapper = styled.div`
     img {
         width: 25vw;
     }
+
+    @media screen and (max-width: 1200px) {
+        flex-direction: column;
+    }
 `
 
 const TextContainer = styled.div`
@@ -32,6 +36,21 @@ const TextContainer = styled.div`
             }
         }
     }
+
+
+    @media screen and (max-width: 1200px) {
+
+    }
+`
+
+const ImageWrapper = styled.div`
+    width: 100%;
+    
+    @media screen and (max-width: 1200px) {
+        img:first-of-type {
+            display: none;
+        }
+    }
 `
 
 const About = () => {
@@ -43,7 +62,9 @@ const About = () => {
                     <p>We’re pairing a database of opportunities with an anonymous review system to help individuals hear real stories and gather real feedback to champion brilliant schemes and bring about real change in the sector. </p>
                     <p>P.S. if you’re an employer wondering how you can get involved - sign up to our <a href="https://www.chatterbox.io/talent">employer mailing list</a> & watch this space.</p>
                 </TextContainer>
-                <img src={Stephanie} alt="Stephanie"/>
+                <ImageWrapper>
+                    <img src={Stephanie} alt="Stephanie"/>
+                </ImageWrapper>
             </ContentWrapper>
         </Wrapper>
     );
