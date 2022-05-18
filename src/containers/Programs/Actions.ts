@@ -73,8 +73,9 @@ export const getProgramReviews = (programId: string, reviewsIds: string[]) => {
                 const { fields } = review as unknown as { fields: RawReviewInterface};
                 return adaptReview(fields);
             })
+            const onlyLiveReviews = adaptedReviews.filter(review => review.liveReview);
             
-            dispatch(getProgramReviewsSuccess(programId, adaptedReviews));
+            dispatch(getProgramReviewsSuccess(programId, onlyLiveReviews));
         } catch (err) {
             console.log(err);
             dispatch(getProgramReviewsFail());
