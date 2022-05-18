@@ -12,7 +12,6 @@ import EmptyCard from './EmptyCard/EmptyCard';
 
 import styles from './Programs.module.scss';
 import Thumbnail from './Thumbnail/Thumbnail';
-import Reviews from './Card/Reviews';
 
 const SpecificProgramWrapper = styled.div<{isShowing: boolean}>`
     max-height: 80vh;
@@ -63,7 +62,7 @@ const Caret = styled.button`
     }
 `
 
-interface ProgramsProps extends ProgramsStateInterface {
+type ProgramsProps = ProgramsStateInterface & {
     getAllProgramsInformationAction() : void;
 }
 
@@ -108,7 +107,7 @@ const Programs = ({
                                         onThumbnailSelection={handleUserSelection}
                                         isSelected={index === selectedProgramIndex}
                                         numberOfReviews={data.reviews.length}
-                                        rating={0}
+                                        programId={data.id}
                                     />
                                 })}
                             </div>
@@ -120,7 +119,7 @@ const Programs = ({
                         ? <div className={styles.loadingWrapper}><ClipLoader color={styles["green-main"]} loading={isLoadingPrograms} /></div>
                         : (
                             <CardWrapper onClick={(evt: SyntheticEvent) => evt.stopPropagation()}>
-                                <Card {...information[selectedProgramIndex]}/>
+                                <Card {...information[selectedProgramIndex]} />
                                 <Caret onClick={() => setIsShowingModalOnMobile(false)}>X</Caret>
                             </CardWrapper>
                         )

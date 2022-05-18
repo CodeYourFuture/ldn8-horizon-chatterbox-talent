@@ -1,12 +1,18 @@
 import React from 'react';
+import { connect, useSelector } from 'react-redux';
+import { ClipLoader } from 'react-spinners';
 import styled from 'styled-components';
 
 import Rating from '../../../components/Rating/Rating';
+import { RootReducerInterface } from '../../../reducers';
+import { selectProgramScore } from '../Reducer';
 
-const Title = styled.h3`
+const Title = styled.h3<{isSelected: boolean}>`
     font-size: 1.2em;
     font-weight: 700;
     text-align: left;
+    color: ${props => props.isSelected? '#6AE7BE': 'inherit'};
+    text-decoration: ${props => props.isSelected? 'underline': 'none'};
 `
 
 const TextContent = styled.p`
@@ -26,9 +32,9 @@ const TextBlock = styled.div`
     gap: 0.7em;
 `
 
-const Wrapper = styled.button<{isSelected: boolean}>`
+const Wrapper = styled.button`
     width: 100%;
-    background-color: ${props => props.isSelected ? 'rgba(106, 231, 190, 0.2)' : 'transparent'};
+    background-color: 'transparent';
     outline: none;
     border: none;
     display: flex;
@@ -59,6 +65,7 @@ const Wrapper = styled.button<{isSelected: boolean}>`
 
     @media screen and (max-width: 768px) {
         background-color: transparent;
+        gap: 3vw;
     }
 `
 
@@ -69,15 +76,20 @@ interface ThumbnailProps {
     locations: string[];
     onThumbnailSelection(index: number):void;
     title: string;
-    rating: number;
     numberOfReviews: number;
+    programId: string;
+    isLoadingReviews: boolean,
 }
 
-const Thumbnail = ({ index, isSelected, careerTypes, locations, title, onThumbnailSelection, numberOfReviews, rating }: ThumbnailProps) => {
+const Thumbnail = ({ index, isSelected, careerTypes, locations, title, onThumbnailSelection, numberOfReviews, programId, isLoadingReviews }: ThumbnailProps) => {
+    const programScore = useSelector(selectProgramScore(programId));
+
     return (
-        <Wrapper onClick={() => onThumbnailSelection(index)} isSelected={isSelected}>
-            <Title>{title}</Title>
-            {Boolean(rating) && <Rating rating={rating} numberOfReviews={numberOfReviews}/>}
+        <Wrapper onClick={() => onThumbnailSelection(index)}>
+            <Title isSelected={isSelected}>{title}</Title>
+            { isLoadingReviews
+                ? <ClipLoader size="20px" />
+                : Boolean(programScore?.overall) && <Rating rating={programScore?.overall || 0} numberOfReviews={numberOfReviews}/>}
             {locations && (
                 <TextBlock>
                     <b><StrongTextContent>Locations: </StrongTextContent></b>
@@ -94,4 +106,8 @@ const Thumbnail = ({ index, isSelected, careerTypes, locations, title, onThumbna
     )
 };
 
-export default Thumbnail;
+const mapStateToProps = (state: RootReducerInterface) => ({
+    isLoadingReviews: state.ProgramsReducer.reviews.isLoadingReviews,
+});
+
+export default connect(mapStateToProps)(Thumbnail);

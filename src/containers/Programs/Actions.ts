@@ -21,6 +21,7 @@ const getAllProgramsInformationFail = () => ({
 export const getAllProgramsInformation = () => {
     return async (dispatch: Dispatch) => {
         dispatch(getAllProgramsInformationLoading(true));
+        dispatch(getProgramReviewsLoading(true));
 
         try {
             const rawPrograms = await base('Programs')
@@ -31,9 +32,14 @@ export const getAllProgramsInformation = () => {
                 const { id, fields } = program;
                 return adaptPrograms({ id, ...fields});
             })
+
+            await Promise.all(adaptedPrograms.map(async ({ id, reviews }) => {
+                getProgramReviews(id, reviews)(dispatch);
+            }));
     
             dispatch(getAllProgramsInformationSuccess(adaptedPrograms));
             dispatch(getAllProgramsInformationLoading(false));
+            dispatch(getProgramReviewsLoading(false));
         } catch (err) {
             dispatch(getAllProgramsInformationFail());
             dispatch(getAllProgramsInformationLoading(false));
@@ -61,16 +67,14 @@ const getProgramReviewsFail = () => ({
 
 export const getProgramReviews = (programId: string, reviewsIds: string[]) => {
     return async (dispatch: Dispatch) => {
-        dispatch(getProgramReviewsLoading(true));
-
         try {
             const rawReviews = await Promise.all(reviewsIds.map(async reviewId => await base('Reviews').find(reviewId)));
             const adaptedReviews = rawReviews.map( review => {
                 const { fields } = review as unknown as { fields: RawReviewInterface};
                 return adaptReview(fields);
             })
+            
             dispatch(getProgramReviewsSuccess(programId, adaptedReviews));
-            dispatch(getProgramReviewsLoading(false));
         } catch (err) {
             console.log(err);
             dispatch(getProgramReviewsFail());

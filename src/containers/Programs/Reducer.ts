@@ -1,6 +1,8 @@
 import { AnyAction, combineReducers } from "@reduxjs/toolkit";
+import { RootReducerInterface } from "../../reducers";
 import { GET_ALL_PROGRAMS_LOADING, GET_ALL_PROGRAMS_SUCCESS, GET_PROGRAM_REVIEWS_LOADING, GET_PROGRAM_REVIEWS_SUCCESS } from "./ActionTypes";
 import { ImageInterface } from "./adapter";
+import { calculateAverage } from "./utils";
 
 export enum CareersEnum {
     Engineering= "#99e6b3",
@@ -59,14 +61,23 @@ export interface ReviewInterface {
     professionalDevelopmentRating: number;
 }
 
+export interface ScoresInterface {
+    application: number;
+    languageSupport: number;
+    futureProspect: number;
+    professionalDevelopment: number;
+    overall: number;
+}
 export interface ReviewsStateInterface {
     isLoadingReviews: boolean;
-    data: [string, ReviewInterface[]][];
+    programsReviews: [string, ReviewInterface[]][];
+    programsScore: [string, ScoresInterface][];
 }
 
 const reviewsInitialState = {
     isLoadingReviews: false,
-    data: [],
+    programsReviews: [],
+    programsScore: [],
 }
 
 interface ReviewsActionPayload {
@@ -74,9 +85,28 @@ interface ReviewsActionPayload {
     reviews: ReviewInterface[];
 }
 
-const reorganizeDataAsMap = (previousState: ReviewsStateInterface, { programId, reviews }: ReviewsActionPayload): ReviewsStateInterface['data'] => {
-    const dataMap = new Map(previousState.data);
+const reorganizeDataAsMap = (previousState: ReviewsStateInterface, { programId, reviews }: ReviewsActionPayload): ReviewsStateInterface['programsReviews'] => {
+    const dataMap = new Map(previousState.programsReviews);
     return Array.from(dataMap.set(programId, reviews));
+}
+
+const calculateRatings = ({ programId, reviews }: ReviewsActionPayload):  ReviewsStateInterface['programsScore'] => {
+    if (!reviews.length) return [];
+    const dataMap = new Map();
+    const applicationAvg = calculateAverage('applicationProcessRating', reviews);
+    const languageSupportAvg = calculateAverage('languageSupportRating', reviews);
+    const futureProspectsAvg = calculateAverage('futureProspectsRating', reviews);
+    const professionalDevelopAvg = calculateAverage('professionalDevelopmentRating', reviews);
+    const overallAvg = (applicationAvg + languageSupportAvg + futureProspectsAvg + professionalDevelopAvg)/4;
+    const scores = {
+        application: applicationAvg, 
+        languageSupport: languageSupportAvg, 
+        futureProspect: futureProspectsAvg, 
+        professionalDevelopment: professionalDevelopAvg, 
+        overall: overallAvg
+    };
+
+    return Array.from(dataMap.set(programId, scores));
 }
 
 function reviewsReducer(state:ReviewsStateInterface = reviewsInitialState, action: AnyAction): ReviewsStateInterface {
@@ -84,11 +114,23 @@ function reviewsReducer(state:ReviewsStateInterface = reviewsInitialState, actio
         case GET_PROGRAM_REVIEWS_LOADING:
             return { ...state, isLoadingReviews: action.payload }
         case GET_PROGRAM_REVIEWS_SUCCESS:
-            return { ...state, data: reorganizeDataAsMap(state, action.payload) }
+            return { ...state, programsReviews: reorganizeDataAsMap(state, action.payload), programsScore: calculateRatings(action.payload) }
         default:
             return state;
     }
 };
+
+export const selectProgramReviews = (programId: string) => (state: RootReducerInterface) => {
+    const allScores = state.ProgramsReducer.reviews.programsReviews;
+    const dataMap = new Map(allScores);
+    return dataMap.get(programId);
+}
+
+export const selectProgramScore = (programId: string) => (state: RootReducerInterface) => {
+    const allScores = state.ProgramsReducer.reviews.programsScore;
+    const dataMap = new Map(allScores);
+    return dataMap.get(programId);
+}
 
 export interface ProgramsReducerInterface {
     programs: ProgramsStateInterface;
