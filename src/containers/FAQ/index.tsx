@@ -25,13 +25,13 @@ const FAQ = () => {
                 <SectionTitle><span>About the reviews</span></SectionTitle>
                 <ExpandableCard 
                     headerText="Are reviews anonymous?" 
-                    response="Yes, all Chatterbox reviews are 100% anonymous. Nobody, including those running the 
-                    schemes will be able to see who left a review. The Chatterbox team will only ask for your email 
+                    response="Yes, all Chatterbox Talent reviews are 100% anonymous. Nobody, including those running the 
+                    schemes will be able to see who left a review. The Chatterbox Talent team will only ask for your email 
                     address to get in touch if we have any problems."
                 />
                 <ExpandableCard 
                     headerText="Are reviews moderated?" 
-                    response="All reviews are moderated by the Chatterbox team before being published on the platform. If we’re suspicious that a review is inaccurate, false or left in bad faith, the review will not be published."
+                    response="All reviews are moderated by the Chatterbox Talent team before being published on the platform. If we’re suspicious that a review is inaccurate, false or left in bad faith, the review will not be published."
                 />
                 <ExpandableCard 
                     headerText="Do I need to complete a program to leave a review?" 
@@ -44,7 +44,7 @@ const FAQ = () => {
                 />
                 <ExpandableCard 
                     headerText="What if our scheme gets a bad review?" 
-                    response="From time to time you might get a bad review, the Chatterbox team are squirrelling away collecting advice from participants on improvements to the schemes too, so if you’re affiliated with a scheme get in touch and we’ll happily share tips on what you could do better (anonymously of course)."
+                    response="From time to time you might get a bad review, the Chatterbox Talent team are squirrelling away collecting advice from participants on improvements to the schemes too, so if you’re affiliated with a scheme get in touch and we’ll happily share tips on what you could do better (anonymously of course)."
                 />
                 <SectionTitle><span>Getting in touch</span></SectionTitle>
                 <ExpandableCard 
@@ -53,7 +53,7 @@ const FAQ = () => {
                 />
                 <ExpandableCard 
                     headerText="Who manages this page?" 
-                    response="The Chatterbox team independently manage this page, whilst we’re trying to build relationships with refugee organisations who run employment programs our priority will always be to maintain anonymity of our reviewers."
+                    response="The Chatterbox Talent team independently manage this page, whilst we’re trying to build relationships with refugee organisations who run employment programs our priority will always be to maintain anonymity of our reviewers."
                 />
             </FAQWrapper>
         </Wrapper>

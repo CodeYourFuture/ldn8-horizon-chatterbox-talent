@@ -5,6 +5,7 @@ import jsonp from "jsonp";
 import { ClipLoader } from 'react-spinners';
 
 import SubscribeBackground from '../../assets/chatterbox-subscribe-background.png';
+import { validateEmail } from '../../common/utils/Validators';
 
 const BackgroundWrapper = styled.div`
     position: fixed;
@@ -91,14 +92,15 @@ const ImageWrapper = styled.div`
 const SubscribeButton = styled.button`
     border: none;
     outline: none;
-    background-color: black;
+    background-color: ${props => props.disabled ? 'lightgray' : 'black'};
     color: white;
     font-weight: 700;
     padding: 1em 2.5em;
     border-radius: 5px;
 
     &:hover {
-        opacity: 0.85;
+        opacity: ${props => props.disabled ? '1' : '0.85'};
+        cursor: ${props => props.disabled ? 'inherit' : 'pointer'};
     }
 `
 
@@ -121,6 +123,7 @@ const CloseButton = styled.button`
 
 const MailChimPopUp = ({ onSuccess, onClose }) => {
     const [email, setEmail] = useState('');
+    const [validEmail, setValidEmail] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -133,6 +136,8 @@ const MailChimPopUp = ({ onSuccess, onClose }) => {
     const handleEmailInput = (evt) => {
         const target = evt.target;
         const value = target.value;
+        const isValid = validateEmail(value);
+        setValidEmail(isValid);
         setEmail(value);
     }
 
@@ -171,7 +176,7 @@ const MailChimPopUp = ({ onSuccess, onClose }) => {
                     {
                         isLoading
                         ? <ClipLoader />
-                        : <SubscribeButton onClick={handleSubscription}>Susbcribe</SubscribeButton>
+                        : <SubscribeButton disabled={!validEmail} onClick={handleSubscription}>Susbcribe</SubscribeButton>
                     }
                     <p>By subscribing you are agreeing to receiving updates from Chatterbox Talent. You can unsubscribe at any time.</p>
                 </ContentWrapper>
