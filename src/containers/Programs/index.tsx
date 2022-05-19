@@ -87,7 +87,7 @@ const Programs = ({
     return (
         <div className={styles.content}>
             <div className={styles["title__wrapper"]}>
-                <h1 className={styles.title}><span className={styles["green-text"]}>Opportunities for Refugees</span>. We believe that talent is evenly distribute but opportunity is not! </h1>
+                <h1 className={styles.title}><span className={styles["green-text"]}>Opportunities for Refugees</span>. We believe that talent is evenly distributed but opportunity is not! </h1>
                 <p>We want to throw open the doors of opportunity for refugees and marginalised talent in the UK - this is just the start 🚀</p>
             </div>
             <section className={styles["content__wrapper"]}>
