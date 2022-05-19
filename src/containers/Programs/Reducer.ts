@@ -122,15 +122,25 @@ function reviewsReducer(state:ReviewsStateInterface = reviewsInitialState, actio
 };
 
 export const selectProgramReviews = (programId: string) => (state: RootReducerInterface) => {
-    const allScores = state.ProgramsReducer.reviews.programsReviews;
-    const dataMap = new Map(allScores);
-    return dataMap.get(programId);
+    if (!programId) return [];
+    const allReviews = state.ProgramsReducer.reviews.programsReviews;
+    const dataMap = new Map(allReviews);
+    return dataMap.get(programId) || [];
 }
 
 export const selectProgramScore = (programId: string) => (state: RootReducerInterface) => {
+    const defaultValue = {
+        application: 0,
+        languageSupport: 0,
+        futureProspect: 0,
+        professionalDevelopment: 0,
+        overall: 0,
+    };
+
     const allScores = state.ProgramsReducer.reviews.programsScore;
     const dataMap = new Map(allScores);
-    return dataMap.get(programId);
+    
+    return dataMap.get(programId) || defaultValue;
 }
 
 export interface ProgramsReducerInterface {

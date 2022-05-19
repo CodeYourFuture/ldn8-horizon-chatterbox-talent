@@ -67,15 +67,6 @@ padding: 1vh 3.5vw;
                 display: block;
             }
 
-            .loadingWrapper {
-                position: absolute;
-                left: 50%;
-                top: 10%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
             .thumbnails__wrapper {
                 .thumbnail__sticky {
                     position: sticky;
@@ -85,4 +76,13 @@ padding: 1vh 3.5vw;
             }
         }
     }
+}
+
+.loadingWrapper {
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

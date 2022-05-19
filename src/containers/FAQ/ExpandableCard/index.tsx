@@ -10,6 +10,10 @@ const Content = styled.div`
         font-size: 1.2em;
         font-weight: 700;
     }
+
+    &:hover {
+        cursor: pointer;
+    }
 `
 
 const Caret = styled.div<{isExpanded: boolean}>`
@@ -28,6 +32,15 @@ const ExpandedContent = styled.div`
         font-size: 1.1em;
         line-height: 1.4em;
     }
+
+    a {
+        color: #6AE7BE;
+        text-decoration: underline;
+
+        &:hover {
+            color: #2eb48e;
+        }
+    }
 `
 
 const CardWrapper = styled.div`
@@ -35,10 +48,6 @@ const CardWrapper = styled.div`
     background: #fff;
     padding: 1em 1.4em;
     border-radius: 5px;
-
-    &:hover {
-        cursor: pointer;
-    }
 `
 
 
