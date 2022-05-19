@@ -4,6 +4,8 @@ import toQueryString from "to-querystring";
 import jsonp from "jsonp";
 import { ClipLoader } from 'react-spinners';
 
+import SubscribeBackground from '../../assets/chatterbox-subscribe-background.png';
+
 const BackgroundWrapper = styled.div`
     position: fixed;
     top: 0;
@@ -74,7 +76,7 @@ const ContentWrapper = styled.div`
 `
 
 const ImageWrapper = styled.div`
-    background-image: url("https://mcusercontent.com/cc97cbe1c1989bcac00c4ba4a/images/096c4b6d-5e1f-a235-a607-9f555f01ca74.png"); 
+    background-image: url(${SubscribeBackground}); 
     width: 40%; 
     height: 100%; 
     background-repeat: no-repeat; 

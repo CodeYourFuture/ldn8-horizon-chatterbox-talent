@@ -7,7 +7,7 @@ import Tip from '../../../components/Tip/Tip';
 
 import styles from './Card.module.scss';
 import Reviews from './Reviews';
-import { ProgramInterface, ReviewsStateInterface, selectProgramScore } from '../Reducer';
+import { ProgramInterface, ReviewsStateInterface, selectProgramReviews, selectProgramScore } from '../Reducer';
 import Button from '../../../components/Button/Button';
 import { connect, useSelector } from 'react-redux';
 import { RootReducerInterface } from '../../../reducers';
@@ -26,12 +26,13 @@ const Card = ({
     keyFacts,
     stepsToApply,
     careerType,
-    reviews,
     isLoadingReviews,
 }: CardsProps)  => {
-    const availableTabs = ['Reviews', 'Information'];
     const [activeTabIndex, setActiveTabIndex] = useState(1);
-    const emptyReviews = !Boolean(reviews?.length);
+
+    const availableTabs = ['Reviews', 'Information'];
+    const programReviews = useSelector(selectProgramReviews(programId!));
+    const emptyReviews = !Boolean(programReviews?.length);
     const programScore = useSelector(selectProgramScore(programId!));
 
     const renderComponentsTab = (tabTitle: string): (JSX.Element | null | undefined) => {
@@ -85,7 +86,7 @@ const Card = ({
             <div className={styles.imageWrapper}><img src={getProgramLogo()} alt={`${programName}`} /></div>
             <div className={styles.schemaOverview}>
                 <h2>{programName}</h2>
-                <Rating rating={programScore?.overall || 0} numberOfReviews={reviews!.length || 0}/>
+                <Rating rating={programScore.overall} numberOfReviews={programReviews.length}/>
                 <div className={styles.tipsWrapper}>
                     {programDuration && <Tip color={styles["background-purple-tetradic"]}>{programDuration}</Tip>}
                     {onSite && <Tip color={styles["background-pink-tetradic"]}>{onSite}</Tip>}

@@ -142,7 +142,7 @@ const Reviews = ({ programId, isLoading }: ReviewsProps) => {
         )
     }
 
-    if (!programReviews?.length) {
+    if (!programReviews.length) {
         return (
             <EmptyReviewsWrapper>
                 <a href={`${process.env.REACT_APP_AIRTABLE_REVIEW_FORM_URL}`} target="_blank" rel="noreferrer"><Button>Review this program</Button></a>
@@ -163,10 +163,10 @@ const Reviews = ({ programId, isLoading }: ReviewsProps) => {
                 <KeyRatingsWrapper>
                     <h3>Key ratings</h3>
                     <PropertyRatingWrapper><Rating rating={0} starSize="18px" color='gold' onlyStars/><span>Course content</span></PropertyRatingWrapper>
-                    <PropertyRatingWrapper><Rating rating={programScore?.application || 0} starSize="18px" color='gold' onlyStars/><span>Application Process</span></PropertyRatingWrapper>
-                    <PropertyRatingWrapper><Rating rating={programScore?.languageSupport || 0} starSize="18px" color='gold' onlyStars/><span>Language support</span></PropertyRatingWrapper>
-                    <PropertyRatingWrapper><Rating rating={programScore?.futureProspect || 0} starSize="18px" color='gold' onlyStars/><span>Future prospects</span></PropertyRatingWrapper>
-                    <PropertyRatingWrapper><Rating rating={programScore?.professionalDevelopment || 0} starSize="18px" color='gold' onlyStars/><span>Professional Development</span></PropertyRatingWrapper>
+                    <PropertyRatingWrapper><Rating rating={programScore.application} starSize="18px" color='gold' onlyStars/><span>Application Process</span></PropertyRatingWrapper>
+                    <PropertyRatingWrapper><Rating rating={programScore.languageSupport} starSize="18px" color='gold' onlyStars/><span>Language support</span></PropertyRatingWrapper>
+                    <PropertyRatingWrapper><Rating rating={programScore.futureProspect} starSize="18px" color='gold' onlyStars/><span>Future prospects</span></PropertyRatingWrapper>
+                    <PropertyRatingWrapper><Rating rating={programScore.professionalDevelopment} starSize="18px" color='gold' onlyStars/><span>Professional Development</span></PropertyRatingWrapper>
                 </KeyRatingsWrapper>
                 <IdealForWrapper>
                     <h3>Ideal for...</h3>
