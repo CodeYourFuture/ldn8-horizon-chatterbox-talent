@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Stephanie from '../../assets/stephanie.jpg';
+import AboutUs from '../../assets/about-us.png';
 
 const Wrapper = styled.div`
     margin: 2vh 8vw;
@@ -12,16 +12,13 @@ const ContentWrapper = styled.div`
     justify-content: space-between;
     gap: 8vw;
 
-    img {
-        width: 25vw;
-    }
-
     @media screen and (max-width: 1200px) {
         flex-direction: column;
     }
 `
 
 const TextContainer = styled.div`
+    width: 50%;
     p {
         font-size: 1.1em;
         line-height: 1.4em;
@@ -36,16 +33,18 @@ const TextContainer = styled.div`
             }
         }
     }
-
-
-    @media screen and (max-width: 1200px) {
-
-    }
 `
 
 const ImageWrapper = styled.div`
-    width: 80%;
-    
+    width: 60%;
+
+    img {
+        width: 100%;
+        border-radius: 0 20px;
+        border: 1vw solid #6AE7BE;
+        box-sizing: content-box;
+    }
+
     @media screen and (max-width: 1200px) {
         img:first-of-type {
             display: none;
@@ -63,7 +62,7 @@ const About = () => {
                     <p>P.S. if you’re an employer wondering how you can get involved - sign up to our <a href="https://www.chatterbox.io/talent">employer mailing list</a> & watch this space.</p>
                 </TextContainer>
                 <ImageWrapper>
-                    <img src={Stephanie} alt="Stephanie"/>
+                    <img src={AboutUs} alt="Chatterbox Talent team"/>
                 </ImageWrapper>
             </ContentWrapper>
         </Wrapper>
