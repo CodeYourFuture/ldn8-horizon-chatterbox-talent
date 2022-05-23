@@ -20,6 +20,7 @@ const SpecificProgramWrapper = styled.div<{isShowing: boolean}>`
     overflow-y: auto;
     display: flex;
     justify-content: center;
+    position: relative;
 
     @media screen and (max-width:768px) {
         display: ${props => !props.isShowing && 'none'};
