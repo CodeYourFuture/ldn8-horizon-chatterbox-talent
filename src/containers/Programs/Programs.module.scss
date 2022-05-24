@@ -23,10 +23,6 @@ padding: 1vh 3.5vw;
             @include breakpoint-max(md) {
                 font-size: 2em;
             }
-
-            .green-text {
-                color: $green-main;
-            }
         }
 
         p {
