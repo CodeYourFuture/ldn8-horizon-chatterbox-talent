@@ -50,7 +50,7 @@ const CheckBoxFilter = ({
     if (resetState === false)
       setCheckedState(new Array(criteria.length).fill(false));
     if (checkedState.includes(true)) setResetState(true);
-  }, [resetState, criteria.push, checkedState]);
+  }, [resetState, criteria, checkedState]);
 
   const handleOnChange = (position: number) => {
     const updatedCheckedState = checkedState.map((item, index) =>
