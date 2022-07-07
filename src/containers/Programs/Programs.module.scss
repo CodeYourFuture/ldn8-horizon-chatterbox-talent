@@ -85,8 +85,22 @@ padding: 1vh 3.5vw;
 }
 
 .filters__wrapper {
-    padding: 1em 1.5em 1.5em 1.5em;
+    padding: 1vw 1.5vw 1.5vw 1.5vw;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     background-color: $white;
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: 1.3vw;
+        width: 90%;
+        height: 1px;
+        background-color: #2eb48e;
+    }
+   
+}
+.select__wrapper {
+border: none;
+font-family: inherit;
 }

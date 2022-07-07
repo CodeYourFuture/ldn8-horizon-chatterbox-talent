@@ -118,10 +118,10 @@ console.log(information)
                 <EmptyCard />
                 <div className={styles["filters__wrapper"]}>
                   <div>
-                    <label >Sort:</label>
-                    <select>
-                        <option>Top rating</option>
-                        <option>Most recent</option>
+                    <label>Sort:</label>
+                    <select className={styles["select__wrapper"]}>
+                      <option>Top rating</option>
+                      <option>Most recent</option>
                     </select>
                   </div>
                   <Button onClick={() => handleShowPopup(true)}>Filters</Button>
