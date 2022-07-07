@@ -83,3 +83,10 @@ padding: 1vh 3.5vw;
     justify-content: center;
     align-items: center;
 }
+
+.filters__wrapper {
+    padding: 1em 1.5em 1.5em 1.5em;
+    display: flex;
+    justify-content: space-between;
+    background-color: $white;
+}
