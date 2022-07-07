@@ -86,8 +86,6 @@ const Programs = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    console.log(searchQuery)
-
     if (searchQuery) {
         information = information.filter(programs => programs.programName.toLowerCase().includes(searchQuery))
     }

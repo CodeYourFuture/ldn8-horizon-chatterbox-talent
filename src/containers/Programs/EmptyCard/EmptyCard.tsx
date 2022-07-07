@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux'
+import { searchPrograms } from '../Actions'
+
 import MailChimPopUp from '../../../components/MailChimpPopUp';
 
 import SlideButton from '../../../components/SlideButton/SlideButton';
@@ -6,6 +9,8 @@ import SlideButton from '../../../components/SlideButton/SlideButton';
 import styles from './EmptyCard.module.scss';
 
 const EmptyCard = () => {
+    const dispatch = useDispatch()
+
     const [showPopup, setShowPopup] = useState(false);
     const [programSearchQuery, setProgramSearchQuery] = useState("")
 
@@ -14,6 +19,7 @@ const EmptyCard = () => {
     }
 
     const handleSearch = () => {
+        dispatch(searchPrograms(programSearchQuery))
         setProgramSearchQuery("")
     }
 
