@@ -81,6 +81,7 @@ const Programs = ({
     setSelectedProgramIndex(index);
     setIsShowingModalOnMobile(true);
   };
+ 
   const handleShowPopup = (option: boolean) => {
     setShowPopup(option);
   };
@@ -128,7 +129,7 @@ console.log(information)
                 </div>
                 {showPopup && (
                   <FiltersPopUp
-                    array={information}
+                    information={information}
                     onSuccess={() => handleShowPopup(false)}
                     onClose={() => handleShowPopup(false)}
                   />

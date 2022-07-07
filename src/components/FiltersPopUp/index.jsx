@@ -50,20 +50,20 @@ const ContentWrapper = styled.div`
     line-height: 1.2em;
   }
   input {
-      padding: 0.5em 0.8em;
-      border: 1px solid gray;
+    padding: 0.5em 0.8em;
+    border: 1px solid gray;
   }
   label {
-      font-weight: 300;
-      letter-spacing: 0.2px;
-      font-size: 1em;
-      line-height: 1.2em;
-      padding-left: 0.2em;
+    font-weight: 300;
+    letter-spacing: 0.2px;
+    font-size: 0.8em;
+    line-height: 1.2em;
+    padding-left: 0.2em;
   }
   form {
-  display: flex;
-  gap: 1.5em;
-  width: 100%;
+    display: flex;
+    gap: 1.5em;
+    width: 100%;
   }
   legend {
     font-weight: 400;
@@ -124,7 +124,7 @@ const CloseButton = styled.button`
   }
 `;
 
-const FiltersPopUp = ({ onSuccess, onClose, array }) => {
+const FiltersPopUp = ({ onSuccess, onClose, information }) => {
   const handleSubmitFilters = () => {
     alert("bnt working");
   };
@@ -135,48 +135,80 @@ const FiltersPopUp = ({ onSuccess, onClose, array }) => {
   };
 
   const locationsSet = new Set();
-  array.forEach((v) => v.locations.forEach((val) => locationsSet.add(val)));
-  const locationsOptions = Array.from(locationsSet);
+  information.forEach((v) =>
+    v.locations.forEach((val) => locationsSet.add(val))
+  );
+  const locationsOptions = Array.from(locationsSet).sort();
 
   const careerTypeSet = new Set();
-  array.forEach((v) => v.careerType.forEach((val) => careerTypeSet.add(val)));
-  const careerTypeOptions = Array.from(careerTypeSet);
+  information.forEach((v) =>
+    v.careerType.forEach((val) => careerTypeSet.add(val))
+  );
+  const careerTypeOptions = Array.from(careerTypeSet).sort();
 
   const programDurationSet = new Set();
-  array.forEach((v) => programDurationSet.add(v.programDuration));
+  information.forEach((v) => programDurationSet.add(v.programDuration));
   const programDurationOptions = Array.from(programDurationSet);
 
   const onSiteSet = new Set();
-  array.forEach((v) => onSiteSet.add(v.onSite));
-  const onSiteOptions = Array.from(onSiteSet);
+  information.forEach((v) => onSiteSet.add(v.onSite));
+  const onSiteOptions = Array.from(onSiteSet).sort();
 
   const isActivelyHiringSet = new Set();
-  array.forEach((v) => isActivelyHiringSet.add(v.isActivelyHiring));
+  information.forEach((v) => isActivelyHiringSet.add(v.isActivelyHiring));
   const isActivelyHiringOptions = Array.from(isActivelyHiringSet).map((v) => {
     if (v === true) return (v = "Actively hiring");
     else return (v = "Show all");
   });
-
+  const [resetState, setResetState] = useState(true);
   return (
     <BackgroundWrapper>
       <Wrapper>
         <ContentWrapper>
           <h3>Filter programs:</h3>
           <form>
-            <CheckBoxFilter array={locationsOptions} name="Locations" />
-            <CheckBoxFilter array={careerTypeOptions} name="Career Type" />
             <CheckBoxFilter
-              array={programDurationOptions}
+              criteria={locationsOptions}
+              name="Locations"
+              resetState={resetState}
+              setResetState={setResetState}
+            />
+            <CheckBoxFilter
+              criteria={careerTypeOptions}
+              name="Career Type"
+              resetState={resetState}
+              setResetState={setResetState}
+            />
+            <CheckBoxFilter
+              criteria={programDurationOptions}
               name="Program Duration"
+              resetState={resetState}
+              setResetState={setResetState}
             />
-            <CheckBoxFilter array={onSiteOptions} name="Remote/On-Site" />
-            <CheckBoxFilter
-              array={isActivelyHiringOptions}
-              name="Only show"
-            />
+            <div>
+              <CheckBoxFilter
+                criteria={onSiteOptions}
+                name="Remote/On-Site"
+                resetState={resetState}
+                setResetState={setResetState}
+              />
+              <div style={{ height: "20px" }}></div>
+              <CheckBoxFilter
+                criteria={isActivelyHiringOptions}
+                name="Only show"
+                resetState={resetState}
+                setResetState={setResetState}
+              />
+            </div>
           </form>
           <ButtonsWrapper>
-            <ResetButton>Reset</ResetButton>
+            <ResetButton
+              onClick={() => {
+                setResetState(false);
+              }}
+            >
+              Reset
+            </ResetButton>
             <DoneButton onClick={handleSubmitFilters}>Done</DoneButton>
           </ButtonsWrapper>
         </ContentWrapper>
