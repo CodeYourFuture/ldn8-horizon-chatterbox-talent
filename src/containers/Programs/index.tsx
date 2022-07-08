@@ -71,6 +71,7 @@ const Programs = ({
     getAllProgramsInformationAction,
     information,
     isLoadingPrograms,
+    searchQuery
 }: ProgramsProps) => {
     const [selectedProgramIndex, setSelectedProgramIndex] = useState(0);
     const [isShowingModalOnMobile, setIsShowingModalOnMobile] = useState(false);
@@ -84,6 +85,10 @@ const Programs = ({
         getAllProgramsInformationAction();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    if (searchQuery) {
+        information = information.filter(programs => programs.programName.toLowerCase().includes(searchQuery))
+    }
 
     return (
         <div className={styles.content}>
@@ -135,6 +140,7 @@ const Programs = ({
 const mapStateToProps = (state: RootReducerInterface) => ({
     information: state.ProgramsReducer.programs.information,
     isLoadingPrograms: state.ProgramsReducer.programs.isLoadingPrograms,
+    searchQuery: state.ProgramsReducer.programs.searchQuery
 })
 
 export default connect(mapStateToProps, {
