@@ -160,6 +160,7 @@ const FiltersPopUp = ({ onSuccess, onClose, information }) => {
     if (v === true) return (v = "Actively hiring");
     else return (v = "Show all");
   });
+  
   const [resetState, setResetState] = useState(true);
   return (
     <BackgroundWrapper>

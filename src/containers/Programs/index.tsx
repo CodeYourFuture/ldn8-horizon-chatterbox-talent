@@ -85,7 +85,6 @@ const Programs = ({
   const handleShowPopup = (option: boolean) => {
     setShowPopup(option);
   };
-console.log(information)
   useEffect(() => {
     getAllProgramsInformationAction();
     // eslint-disable-next-line react-hooks/exhaustive-deps
