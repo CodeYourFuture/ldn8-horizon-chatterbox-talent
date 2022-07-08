@@ -1,6 +1,6 @@
 import { AnyAction, combineReducers } from "@reduxjs/toolkit";
 import { RootReducerInterface } from "../../reducers";
-import { GET_ALL_PROGRAMS_LOADING, GET_ALL_PROGRAMS_SUCCESS, GET_PROGRAM_REVIEWS_LOADING, GET_PROGRAM_REVIEWS_SUCCESS } from "./ActionTypes";
+import { GET_ALL_PROGRAMS_LOADING, GET_ALL_PROGRAMS_SUCCESS, GET_PROGRAM_REVIEWS_LOADING, GET_PROGRAM_REVIEWS_SUCCESS, SEARCH_PROGRAMS } from "./ActionTypes";
 import { ImageInterface } from "./adapter";
 import { calculateAverage } from "./utils";
 
@@ -31,11 +31,13 @@ export interface ProgramInterface {
 const programsInitialState = {
     isLoadingPrograms: false,
     information: [],
+    searchQuery: ""
 }
 
 export interface ProgramsStateInterface {
     isLoadingPrograms: boolean;
     information: ProgramInterface[];
+    searchQuery: string
 }
 
 function programsReducer(state:ProgramsStateInterface = programsInitialState, action: AnyAction): ProgramsStateInterface {
@@ -44,6 +46,8 @@ function programsReducer(state:ProgramsStateInterface = programsInitialState, ac
             return { ...state, isLoadingPrograms: action.payload }
         case GET_ALL_PROGRAMS_SUCCESS:
             return { ...state, information: action.payload }
+        case SEARCH_PROGRAMS:
+            return { ...state, searchQuery: action.payload}
         default:
             return state;
     }
