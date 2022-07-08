@@ -8,7 +8,6 @@
     align-items: flex-start;
     padding: 1.5vw;
     gap: 1em;
-    margin-bottom: 1vw;
 
     @include breakpoint-max(md) {
         padding: 3vw;
