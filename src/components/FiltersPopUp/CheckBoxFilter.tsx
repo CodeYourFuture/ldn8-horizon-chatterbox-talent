@@ -50,6 +50,7 @@ const CheckBoxFilter = ({
     if (resetState === false)
       setCheckedState(new Array(criteria.length).fill(false));
     if (checkedState.includes(true)) setResetState(true);
+    // eslint-disable-next-line
   }, [resetState, criteria, checkedState]);
 
   const handleOnChange = (position: number) => {
