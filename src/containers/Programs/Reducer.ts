@@ -31,7 +31,6 @@ export interface ProgramInterface {
 const programsInitialState = {
     isLoadingPrograms: false,
     information: [],
-    searchQuery: "",
     searchedInformation: []
 }
 
