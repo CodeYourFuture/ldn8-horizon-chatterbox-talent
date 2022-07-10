@@ -31,13 +31,14 @@ export interface ProgramInterface {
 const programsInitialState = {
     isLoadingPrograms: false,
     information: [],
-    searchQuery: ""
+    searchQuery: "",
+    searchedInformation: []
 }
 
 export interface ProgramsStateInterface {
     isLoadingPrograms: boolean;
     information: ProgramInterface[];
-    searchQuery: string
+    searchedInformation: ProgramInterface[]
 }
 
 function programsReducer(state:ProgramsStateInterface = programsInitialState, action: AnyAction): ProgramsStateInterface {
@@ -47,7 +48,7 @@ function programsReducer(state:ProgramsStateInterface = programsInitialState, ac
         case GET_ALL_PROGRAMS_SUCCESS:
             return { ...state, information: action.payload }
         case SEARCH_PROGRAMS:
-            return { ...state, searchQuery: action.payload}
+            return { ...state, searchedInformation: action.payload}
         default:
             return state;
     }

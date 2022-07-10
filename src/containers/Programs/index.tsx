@@ -73,7 +73,7 @@ const Programs = ({
   getAllProgramsInformationAction,
   information,
   isLoadingPrograms,
-  searchQuery,
+  searchedInformation
 }: ProgramsProps) => {
   const dispatch = useDispatch();
 
@@ -92,7 +92,9 @@ const Programs = ({
   };
 
   const handleSearch = () => {
-    dispatch(searchPrograms(programSearchQuery));
+    dispatch(searchPrograms(information.filter((programs) =>
+      programs.programName.toLowerCase().includes(programSearchQuery)
+    )))
     setProgramSearchQuery("");
   };
 
@@ -100,12 +102,6 @@ const Programs = ({
     getAllProgramsInformationAction();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  if (searchQuery) {
-    information = information.filter((programs) =>
-      programs.programName.toLowerCase().includes(searchQuery)
-    );
-  }
 
   return (
     <div className={styles.content}>
@@ -166,7 +162,7 @@ const Programs = ({
                   />
                 )}
               </div>
-              {information.map((data, index) => {
+              {(searchedInformation.length > 0 ? searchedInformation : information).map((data, index) => {
                 return (
                   <Thumbnail
                     key={index}
@@ -212,7 +208,7 @@ const Programs = ({
 const mapStateToProps = (state: RootReducerInterface) => ({
   information: state.ProgramsReducer.programs.information,
   isLoadingPrograms: state.ProgramsReducer.programs.isLoadingPrograms,
-  searchQuery: state.ProgramsReducer.programs.searchQuery,
+  searchedInformation: state.ProgramsReducer.programs.searchedInformation
 });
 
 export default connect(mapStateToProps, {

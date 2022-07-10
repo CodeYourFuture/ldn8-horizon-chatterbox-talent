@@ -14,7 +14,7 @@ const getAllProgramsInformationSuccess = (programs: ProgramInterface[]) => ({
     payload: programs,
 })
 
-export const searchPrograms = (query: string) => ({
+export const searchPrograms = (query: ProgramInterface[]) => ({
     type: SEARCH_PROGRAMS,
     payload: query
 })
