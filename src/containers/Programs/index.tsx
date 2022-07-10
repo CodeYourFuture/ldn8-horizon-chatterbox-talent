@@ -143,6 +143,12 @@ const Programs = ({
                   >
                     Search
                   </button>
+                  <button
+                    className={styles.searchButton}
+                    onClick={() => dispatch(searchPrograms([]))}
+                  >
+                    Reset
+                  </button>
                 </div>
                 <div className={styles["filters__wrapper"]}>
                   <div>
