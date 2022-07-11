@@ -2,7 +2,7 @@ import React, { SyntheticEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
-
+import MailChimPopUp from "../../components/MailChimpPopUp";
 import { getAllProgramsInformation } from "./Actions";
 import { RootReducerInterface } from "../../reducers";
 import { ProgramsStateInterface } from "./Reducer";
@@ -78,7 +78,7 @@ const Programs = ({
   const [selectedProgramIndex, setSelectedProgramIndex] = useState(0);
   const [isShowingModalOnMobile, setIsShowingModalOnMobile] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  
+  const [showPopupMail, setShowPopupMail] = useState(false);
   const handleUserSelection = (index: number) => {
     setSelectedProgramIndex(index);
     setIsShowingModalOnMobile(true);
@@ -87,6 +87,9 @@ const Programs = ({
   const handleShowPopup = (option: boolean) => {
     setShowPopup(option);
   };
+  const handleShowPopupMail = (option: boolean) => {
+       setShowPopupMail(option);}
+
   useEffect(() => {
     getAllProgramsInformationAction();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -121,7 +124,7 @@ if (searchQuery) {
           ) : (
             <div className={styles["thumbnails__wrapper"]}>
               <div className={styles["thumbnail__sticky"]}>
-                <EmptyCard />
+                <EmptyCard handleShowPopup={handleShowPopupMail}/>
                 <div className={styles["filters__wrapper"]}>
                   <div>
                     <label>Sort:</label>
@@ -151,6 +154,12 @@ if (searchQuery) {
             </div>
           )}
         </div>
+        {showPopupMail && (
+          <MailChimPopUp
+            onSuccess={() => handleShowPopupMail(false)}
+            onClose={() => handleShowPopupMail(false)}
+          />
+        )}
         {showPopup && (
           <FiltersPopUp
             information={information}
