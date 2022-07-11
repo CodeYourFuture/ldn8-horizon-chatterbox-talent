@@ -117,7 +117,6 @@ if (searchQuery) {
                 color={styles["green-main"]}
                 loading={isLoadingPrograms}
               />
-
             </div>
           ) : (
             <div className={styles["thumbnails__wrapper"]}>
@@ -133,13 +132,6 @@ if (searchQuery) {
                   </div>
                   <Button onClick={() => handleShowPopup(true)}>Filters</Button>
                 </div>
-                {showPopup && (
-                  <FiltersPopUp
-                    information={information}
-                    onSuccess={() => handleShowPopup(false)}
-                    onClose={() => handleShowPopup(false)}
-                  />
-                )}
               </div>
               {information.map((data, index) => {
                 return (
@@ -159,6 +151,13 @@ if (searchQuery) {
             </div>
           )}
         </div>
+        {showPopup && (
+          <FiltersPopUp
+            information={information}
+            onSuccess={() => handleShowPopup(false)}
+            onClose={() => handleShowPopup(false)}
+          />
+        )}
         <SpecificProgramWrapper
           isShowing={isShowingModalOnMobile}
           onClick={() => setIsShowingModalOnMobile(false)}
