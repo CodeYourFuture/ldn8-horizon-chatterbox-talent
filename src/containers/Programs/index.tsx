@@ -1,9 +1,9 @@
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import styled from "styled-components";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 
-import { getAllProgramsInformation } from "./Actions";
+import { getAllProgramsInformation, searchPrograms } from "./Actions";
 import { RootReducerInterface } from "../../reducers";
 import { ProgramsStateInterface } from "./Reducer";
 
@@ -73,29 +73,36 @@ const Programs = ({
   getAllProgramsInformationAction,
   information,
   isLoadingPrograms,
-  searchQuery
+  searchedInformation
 }: ProgramsProps) => {
+  const dispatch = useDispatch();
+
   const [selectedProgramIndex, setSelectedProgramIndex] = useState(0);
   const [isShowingModalOnMobile, setIsShowingModalOnMobile] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  
+  const [programSearchQuery, setProgramSearchQuery] = useState("");
+
   const handleUserSelection = (index: number) => {
     setSelectedProgramIndex(index);
     setIsShowingModalOnMobile(true);
   };
- 
+
   const handleShowPopup = (option: boolean) => {
     setShowPopup(option);
   };
+
+  const handleSearch = () => {
+    dispatch(searchPrograms(information.filter((programs) =>
+      programs.programName.toLowerCase().includes(programSearchQuery)
+    )))
+    setProgramSearchQuery("");
+  };
+
   useEffect(() => {
     getAllProgramsInformationAction();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-if (searchQuery) {
-        information = information.filter(programs => programs.programName.toLowerCase().includes(searchQuery))
-    }
-    
   return (
     <div className={styles.content}>
       <div className={styles["title__wrapper"]}>
@@ -117,12 +124,32 @@ if (searchQuery) {
                 color={styles["green-main"]}
                 loading={isLoadingPrograms}
               />
-
             </div>
           ) : (
             <div className={styles["thumbnails__wrapper"]}>
               <div className={styles["thumbnail__sticky"]}>
                 <EmptyCard />
+                <div className={styles.search}>
+                  <input
+                    type="text"
+                    name="search"
+                    id="search"
+                    value={programSearchQuery}
+                    onChange={(e) => setProgramSearchQuery(e.target.value)}
+                  />
+                  <button
+                    className={styles.searchButton}
+                    onClick={handleSearch}
+                  >
+                    Search
+                  </button>
+                  <button
+                    className={styles.searchButton}
+                    onClick={() => dispatch(searchPrograms([]))}
+                  >
+                    Reset
+                  </button>
+                </div>
                 <div className={styles["filters__wrapper"]}>
                   <div>
                     <label>Sort:</label>
@@ -141,7 +168,7 @@ if (searchQuery) {
                   />
                 )}
               </div>
-              {information.map((data, index) => {
+              {(searchedInformation.length > 0 ? searchedInformation : information).map((data, index) => {
                 return (
                   <Thumbnail
                     key={index}
@@ -185,12 +212,10 @@ if (searchQuery) {
 };
 
 const mapStateToProps = (state: RootReducerInterface) => ({
-
-    information: state.ProgramsReducer.programs.information,
-    isLoadingPrograms: state.ProgramsReducer.programs.isLoadingPrograms,
-    searchQuery: state.ProgramsReducer.programs.searchQuery
-})
-
+  information: state.ProgramsReducer.programs.information,
+  isLoadingPrograms: state.ProgramsReducer.programs.isLoadingPrograms,
+  searchedInformation: state.ProgramsReducer.programs.searchedInformation
+});
 
 export default connect(mapStateToProps, {
   getAllProgramsInformationAction: getAllProgramsInformation,
