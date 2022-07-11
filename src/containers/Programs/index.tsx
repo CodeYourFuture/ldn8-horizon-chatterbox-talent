@@ -3,7 +3,10 @@ import styled from "styled-components";
 import { connect, useDispatch } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 
+import MailChimPopUp from "../../components/MailChimpPopUp";
+
 import { getAllProgramsInformation, searchPrograms } from "./Actions";
+
 import { RootReducerInterface } from "../../reducers";
 import { ProgramsStateInterface } from "./Reducer";
 
@@ -80,8 +83,8 @@ const Programs = ({
   const [selectedProgramIndex, setSelectedProgramIndex] = useState(0);
   const [isShowingModalOnMobile, setIsShowingModalOnMobile] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [showPopupMail, setShowPopupMail] = useState(false);
   const [programSearchQuery, setProgramSearchQuery] = useState("");
-
   const handleUserSelection = (index: number) => {
     setSelectedProgramIndex(index);
     setIsShowingModalOnMobile(true);
@@ -90,6 +93,9 @@ const Programs = ({
   const handleShowPopup = (option: boolean) => {
     setShowPopup(option);
   };
+
+  const handleShowPopupMail = (option: boolean) => {
+       setShowPopupMail(option);}
 
   const handleSearch = () => {
     dispatch(
@@ -150,7 +156,10 @@ const Programs = ({
           ) : (
             <div className={styles["thumbnails__wrapper"]}>
               <div className={styles["thumbnail__sticky"]}>
-                <EmptyCard />
+
+                <EmptyCard handleShowPopup={handleShowPopupMail}/>
+
+               
                 <div className={styles.search}>
                   <input
                     type="text"
@@ -172,6 +181,7 @@ const Programs = ({
                     Reset
                   </button>
                 </div>
+
                 <div className={styles["filters__wrapper"]}>
                   <div>
                     <label>Sort:</label>
@@ -182,13 +192,6 @@ const Programs = ({
                   </div>
                   <Button onClick={() => handleShowPopup(true)}>Filters</Button>
                 </div>
-                {showPopup && (
-                  <FiltersPopUp
-                    information={information}
-                    onSuccess={() => handleShowPopup(false)}
-                    onClose={() => handleShowPopup(false)}
-                  />
-                )}
               </div>
               {(searchedInformation.length > 0
                 ? searchedInformation
@@ -211,6 +214,19 @@ const Programs = ({
             </div>
           )}
         </div>
+        {showPopupMail && (
+          <MailChimPopUp
+            onSuccess={() => handleShowPopupMail(false)}
+            onClose={() => handleShowPopupMail(false)}
+          />
+        )}
+        {showPopup && (
+          <FiltersPopUp
+            information={information}
+            onSuccess={() => handleShowPopup(false)}
+            onClose={() => handleShowPopup(false)}
+          />
+        )}
         <SpecificProgramWrapper
           isShowing={isShowingModalOnMobile}
           onClick={() => setIsShowingModalOnMobile(false)}
