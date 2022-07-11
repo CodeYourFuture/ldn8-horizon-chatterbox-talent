@@ -73,7 +73,7 @@ const Programs = ({
   getAllProgramsInformationAction,
   information,
   isLoadingPrograms,
-  searchedInformation
+  searchedInformation,
 }: ProgramsProps) => {
   const dispatch = useDispatch();
 
@@ -92,9 +92,31 @@ const Programs = ({
   };
 
   const handleSearch = () => {
-    dispatch(searchPrograms(information.filter((programs) =>
-      programs.programName.toLowerCase().includes(programSearchQuery)
-    )))
+    dispatch(
+      searchPrograms(
+        information.filter(
+          (programs) =>
+            programs.programName
+              .toLowerCase()
+              .includes(programSearchQuery.toLowerCase()) ||
+            programs.description
+              .toLowerCase()
+              .includes(programSearchQuery.toLowerCase()) ||
+            programs.keyFacts
+              .join(",")
+              .toLowerCase()
+              .includes(programSearchQuery.toLowerCase()) ||
+            programs.locations
+              .join(",")
+              .toLowerCase()
+              .includes(programSearchQuery.toLowerCase()) ||
+            programs.careerType
+              .join(",")
+              .toLowerCase()
+              .includes(programSearchQuery.toLowerCase())
+        )
+      )
+    );
     setProgramSearchQuery("");
   };
 
@@ -168,7 +190,10 @@ const Programs = ({
                   />
                 )}
               </div>
-              {(searchedInformation.length > 0 ? searchedInformation : information).map((data, index) => {
+              {(searchedInformation.length > 0
+                ? searchedInformation
+                : information
+              ).map((data, index) => {
                 return (
                   <Thumbnail
                     key={index}
@@ -214,7 +239,7 @@ const Programs = ({
 const mapStateToProps = (state: RootReducerInterface) => ({
   information: state.ProgramsReducer.programs.information,
   isLoadingPrograms: state.ProgramsReducer.programs.isLoadingPrograms,
-  searchedInformation: state.ProgramsReducer.programs.searchedInformation
+  searchedInformation: state.ProgramsReducer.programs.searchedInformation,
 });
 
 export default connect(mapStateToProps, {
