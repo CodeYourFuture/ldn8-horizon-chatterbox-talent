@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux'
-import { searchPrograms } from '../Actions'
 
 //import MailChimPopUp from '../../../components/MailChimpPopUp';
 
@@ -13,20 +11,10 @@ interface EmptyCardProps {
     
 }
 
+
 const EmptyCard = ({handleShowPopup}:EmptyCardProps) => {
     const dispatch = useDispatch()
-
-    //const [showPopup, setShowPopup] = useState(false);
     const [programSearchQuery, setProgramSearchQuery] = useState("")
-
-    // const handleShowPopup = (option: boolean) => {
-    //     setShowPopup(option);
-    // }
-
-    const handleSearch = () => {
-        dispatch(searchPrograms(programSearchQuery))
-        setProgramSearchQuery("")
-    }
 
     return (
         <div className={styles.emptyCardWrapper}>
@@ -35,8 +23,8 @@ const EmptyCard = ({handleShowPopup}:EmptyCardProps) => {
             <div className={styles.search}>
                 <input type="text" name="search" id="search" value={programSearchQuery} onChange={(e) => setProgramSearchQuery(e.target.value)} />
                 <button className={styles.searchButton} onClick={handleSearch}>Search</button>
-            </div>
-            {/* {showPopup && <MailChimPopUp onSuccess={() => handleShowPopup(false)} onClose={() => handleShowPopup(false)}/>} */}
+            </div>        
+            
         </div>
     )
 }
