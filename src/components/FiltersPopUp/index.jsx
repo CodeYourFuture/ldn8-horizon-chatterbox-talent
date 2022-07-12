@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import CheckBoxFilter from "./CheckBoxFilter";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import CheckBoxFilter from './CheckBoxFilter';
 
 const BackgroundWrapper = styled.div`
   position: fixed;
@@ -80,30 +80,30 @@ const ButtonsWrapper = styled.div`
 const ResetButton = styled.button`
   border: none;
   outline: none;
-  background-color: ${(props) => (props.disabled ? "lightgray" : "#3EE0AB")};
+  background-color: ${props => (props.disabled ? 'lightgray' : '#3EE0AB')};
   color: black;
   font-weight: 700;
   padding: 1em 2.5em;
   border-radius: 5px;
 
   &:hover {
-    opacity: ${(props) => (props.disabled ? "1" : "0.85")};
-    cursor: ${(props) => (props.disabled ? "inherit" : "pointer")};
+    opacity: ${props => (props.disabled ? '1' : '0.85')};
+    cursor: ${props => (props.disabled ? 'inherit' : 'pointer')};
   }
 `;
 
 const DoneButton = styled.button`
   border: none;
   outline: none;
-  background-color: ${(props) => (props.disabled ? "lightgray" : "black")};
+  background-color: ${props => (props.disabled ? 'lightgray' : 'black')};
   color: white;
   font-weight: 700;
   padding: 1em 2.5em;
   border-radius: 5px;
 
   &:hover {
-    opacity: ${(props) => (props.disabled ? "1" : "0.85")};
-    cursor: ${(props) => (props.disabled ? "inherit" : "pointer")};
+    opacity: ${props => (props.disabled ? '1' : '0.85')};
+    cursor: ${props => (props.disabled ? 'inherit' : 'pointer')};
   }
 `;
 
@@ -126,92 +126,64 @@ const CloseButton = styled.button`
 
 const FiltersPopUp = ({ onSuccess, onClose, information }) => {
   const handleSubmitFilters = () => {
-    alert("bnt working");
+    alert('bnt working');
   };
 
-  const handleUserClose = (evt) => {
-    
+  const handleUserClose = evt => {
     evt.stopPropagation();
     onClose();
   };
-const storeFilters = (data) => {
-  const setsOfFilters = data.reduce((acc, v, i) => {
-    if (i === 0) {
-      acc["Locations"] = new Set();
-      acc["CareerType"] = new Set();
-      acc["ProgramDuration"] = new Set();
-      acc["OnSite"] = new Set();
-      acc["IsActivelyHiring"] = new Set(["Actively hiring","Show all"]);
-    }
+  const storeFilters = data => {
+    const setsOfFilters = data.reduce((acc, v, i) => {
+      if (i === 0) {
+        acc['Locations'] = new Set();
+        acc['CareerType'] = new Set();
+        acc['ProgramDuration'] = new Set();
+        acc['OnSite'] = new Set();
+        acc['IsActivelyHiring'] = new Set(['Actively hiring', 'Show all']);
+      }
 
-    v.locations.forEach((location) => {
-      acc["Locations"].add(location);
-    });
-    v.careerType.forEach((careerType) => {
-      acc["CareerType"].add(careerType);
-    });
-    if (v.programDuration) acc["ProgramDuration"].add(v.programDuration);
-    acc["OnSite"].add(v.onSite); 
+      v.locations.forEach(location => {
+        acc['Locations'].add(location);
+      });
+      v.careerType.forEach(careerType => {
+        acc['CareerType'].add(careerType);
+      });
+      if (v.programDuration) acc['ProgramDuration'].add(v.programDuration);
+      acc['OnSite'].add(v.onSite);
 
-    return acc;
-  }, {});
-  return Object.keys(setsOfFilters).reduce((acc, val) => {
-    acc[val] = Array.from(setsOfFilters[val]);
-    return acc
-  }, {});
+      return acc;
+    }, {});
+    
+    return Object.keys(setsOfFilters).reduce((acc, val) => {
+      acc[val] = Array.from(setsOfFilters[val]);
+      return acc;
+    }, {});
+  };
 
-};
-
-
-  // const locationsSet = new Set();
-  // information.forEach((v) =>
-  //   v.locations.forEach((val) => locationsSet.add(val))
-  // );
-  // const locationsOptions = Array.from(locationsSet).sort();
-
-  // const careerTypeSet = new Set();
-  // information.forEach((v) =>
-  //   v.careerType.forEach((val) => careerTypeSet.add(val))
-  // );
-  // const careerTypeOptions = Array.from(careerTypeSet).sort();
-
-  // const programDurationSet = new Set();
-  // information.forEach((v) => programDurationSet.add(v.programDuration));
-  // const programDurationOptions = Array.from(programDurationSet);
-
-  // const onSiteSet = new Set();
-  // information.forEach((v) => onSiteSet.add(v.onSite));
-  // const onSiteOptions = Array.from(onSiteSet).sort();
-
-  // const isActivelyHiringSet = new Set();
-  // information.forEach((v) => isActivelyHiringSet.add(v.isActivelyHiring));
-  // const isActivelyHiringOptions = Array.from(isActivelyHiringSet).map((v) => {
-  //   if (v === true) return (v = "Actively hiring");
-  //   else return (v = "Show all");
-  // });
-  const filtersStore=storeFilters(information)
+  const filtersStore = storeFilters(information);
   const [resetState, setResetState] = useState(true);
+  //State to store the filters
   const [filters, setFilters] = useState({});
+
   return (
     <BackgroundWrapper>
       <Wrapper>
         <ContentWrapper>
           <h3>Filter programs:</h3>
           <form>
-            {Object.keys( filtersStore).map((v, i) => { 
-              return (<>
-                {<CheckBoxFilter
+            {Object.keys(filtersStore).map((v, i) => {
+              return (
+                <CheckBoxFilter
                   filterState={[filters, setFilters]}
                   key={i}
                   criteria={filtersStore[v]}
                   name={v}
-              resetState={resetState}
-              setResetState={setResetState}
-            />}
-              </>)
-
+                  resetState={resetState}
+                  setResetState={setResetState}
+                />
+              );
             })}
-           
           </form>
           <ButtonsWrapper>
             <ResetButton
