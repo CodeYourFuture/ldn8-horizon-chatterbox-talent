@@ -6,7 +6,7 @@ interface CheckBoxProps {
   option: any;
   index: number;
   handleOnChange: any;
- // checkedState: any[];
+  checkedState: any[];
 }
 
 const CheckBox = ({
@@ -14,7 +14,7 @@ const CheckBox = ({
   option,
   index,
   handleOnChange,
-  //checkedState,
+  checkedState,
 }: CheckBoxProps) => {
   return (
     <li style={{ listStyle: "none" }}>
@@ -23,7 +23,7 @@ const CheckBox = ({
         id={option}
         name={name}
         value={option}
-        //checked={checkedState[index]}
+        checked={checkedState[index]}
         onChange={() => handleOnChange(index)}
       />
       <label htmlFor={option}>{option}</label>
@@ -49,14 +49,23 @@ const CheckBoxFilter = ({
   );
 
   useEffect(() => {
-    if (resetState === false)
+    if (resetState === false) {
+      setFilters({})
       setCheckedState(new Array(criteria.length).fill(false));
+    }
     if (checkedState.includes(true)) setResetState(true);
     // eslint-disable-next-line
   }, [resetState, criteria, checkedState]);
 
-  const handleOnChange = (filter: string, v: any) => {
+  const handleOnChange = (filter: string, v: any,position:number) => {
+ const updatedCheckedState = checkedState.map((item, index) =>
+      index === position ? !item : item
+    );
+    console.log(checkedState)
     console.log(filters)
+    setCheckedState(updatedCheckedState);
+
+    
     if (filters[filter]) {
        setFilters((previousVal: any) => {
         if(previousVal[filter].includes(v)){
@@ -82,11 +91,7 @@ const CheckBoxFilter = ({
      })
     }
 
-    // const updatedCheckedState = checkedState.map((item, index) =>
-    //   index === position ? !item : item
-    // );
-    // console.log(checkedState)
-    // setCheckedState(updatedCheckedState);
+   
   };
   return (
     <fieldset>
@@ -98,8 +103,8 @@ const CheckBoxFilter = ({
             name={name}
             option={v}
             index={i}
-            handleOnChange={()=>handleOnChange(name,v)}
-            //checkedState={checkedState}
+            handleOnChange={()=>handleOnChange(name,v,i)}
+            checkedState={checkedState}
           />
         );
       })}
