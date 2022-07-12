@@ -64,28 +64,38 @@ const Caret = styled.button`
 `;
 const FiltersBtn = styled.button`
   display: flex;
+  justify-content: space-around;
   background-color: black;
   font-family: inherit;
   font-size: 16px;
-  font-weight: bold;
   color: white;
-  padding: 0.7em 1em;
   border-radius: 0.2em;
   outline: none;
   border: none;
   align-items: center;
+  font-weight: 700;
+  padding: 0.7em 1em;
+  width: 119px;
+  &:hover {
+    opacity: ${(props) => (props.disabled ? "1" : "0.85")};
+    cursor: ${(props) => (props.disabled ? "inherit" : "pointer")};
+  }
 `;
 
 const SearchBtn = styled.button`
   background-color: #3ee0ab;
   font-family: inherit;
   font-size: 16px;
-  font-weight: bold;
   color: black;
-  padding: 0.7em 1em;
   border-radius: 0.2em;
   outline: none;
   border: none;
+  font-weight: 700;
+  padding: 0.7em 1em;
+  width: 119px;
+  &:hover {
+    opacity: ${(props) => (props.disabled ? "1" : "0.85")};
+    cursor: ${(props) => (props.disabled ? "inherit" : "pointer")};
 `;
 
 type ProgramsProps = ProgramsStateInterface & {
