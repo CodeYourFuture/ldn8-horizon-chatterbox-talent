@@ -2,21 +2,16 @@ import React, { SyntheticEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import { connect, useDispatch } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
-
 import MailChimPopUp from "../../components/MailChimpPopUp";
-
 import { getAllProgramsInformation, searchPrograms } from "./Actions";
-
 import { RootReducerInterface } from "../../reducers";
 import { ProgramsStateInterface } from "./Reducer";
-
 import Card from "./Card/Card";
 import EmptyCard from "./EmptyCard/EmptyCard";
-
 import styles from "./Programs.module.scss";
 import Thumbnail from "./Thumbnail/Thumbnail";
 import FiltersPopUp from "../../components/FiltersPopUp";
-import Button from "../../components/Button/Button";
+import filterIcon from "../../assets/filter-icon.svg";
 
 const SpecificProgramWrapper = styled.div<{ isShowing: boolean }>`
   max-height: 80vh;
@@ -67,6 +62,31 @@ const Caret = styled.button`
     z-index: 1000;
   }
 `;
+const FiltersBtn = styled.button`
+  display: flex;
+  background-color: black;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  padding: 0.7em 1em;
+  border-radius: 0.2em;
+  outline: none;
+  border: none;
+  align-items: center;
+`;
+
+const SearchBtn = styled.button`
+  background-color: #3ee0ab;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  padding: 0.7em 1em;
+  border-radius: 0.2em;
+  outline: none;
+  border: none;
+`;
 
 type ProgramsProps = ProgramsStateInterface & {
   getAllProgramsInformationAction(): void;
@@ -95,7 +115,8 @@ const Programs = ({
   };
 
   const handleShowPopupMail = (option: boolean) => {
-       setShowPopupMail(option);}
+    setShowPopupMail(option);
+  };
 
   const handleSearch = () => {
     dispatch(
@@ -156,10 +177,7 @@ const Programs = ({
           ) : (
             <div className={styles["thumbnails__wrapper"]}>
               <div className={styles["thumbnail__sticky"]}>
-
-                <EmptyCard handleShowPopup={handleShowPopupMail}/>
-
-               
+                <EmptyCard handleShowPopup={handleShowPopupMail} />
                 <div className={styles.search}>
                   <input
                     type="text"
@@ -168,18 +186,7 @@ const Programs = ({
                     value={programSearchQuery}
                     onChange={(e) => setProgramSearchQuery(e.target.value)}
                   />
-                  <button
-                    className={styles.searchButton}
-                    onClick={handleSearch}
-                  >
-                    Search
-                  </button>
-                  <button
-                    className={styles.searchButton}
-                    onClick={() => dispatch(searchPrograms([]))}
-                  >
-                    Reset
-                  </button>
+                  <SearchBtn onClick={handleSearch}>Search</SearchBtn>
                 </div>
 
                 <div className={styles["filters__wrapper"]}>
@@ -190,7 +197,10 @@ const Programs = ({
                       <option>Most recent</option>
                     </select>
                   </div>
-                  <Button onClick={() => handleShowPopup(true)}>Filters</Button>
+                  <FiltersBtn onClick={() => handleShowPopup(true)}>
+                    <img src={filterIcon} alt="filters icon"></img>
+                    <span style={{paddingLeft: '5px'}}>Filters</span>
+                  </FiltersBtn>
                 </div>
               </div>
               {(searchedInformation.length > 0
