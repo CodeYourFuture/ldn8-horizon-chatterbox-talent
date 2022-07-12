@@ -77,6 +77,7 @@ const Programs = ({
   information,
   isLoadingPrograms,
   searchedInformation,
+  filteredInformation,
 }: ProgramsProps) => {
   const dispatch = useDispatch();
 
@@ -95,8 +96,10 @@ const Programs = ({
   };
 
   const handleShowPopupMail = (option: boolean) => {
-       setShowPopupMail(option);}
+    setShowPopupMail(option);
+  };
 
+  // Search function
   const handleSearch = () => {
     dispatch(
       searchPrograms(
@@ -156,10 +159,8 @@ const Programs = ({
           ) : (
             <div className={styles["thumbnails__wrapper"]}>
               <div className={styles["thumbnail__sticky"]}>
+                <EmptyCard handleShowPopup={handleShowPopupMail} />
 
-                <EmptyCard handleShowPopup={handleShowPopupMail}/>
-
-               
                 <div className={styles.search}>
                   <input
                     type="text"
@@ -256,6 +257,7 @@ const mapStateToProps = (state: RootReducerInterface) => ({
   information: state.ProgramsReducer.programs.information,
   isLoadingPrograms: state.ProgramsReducer.programs.isLoadingPrograms,
   searchedInformation: state.ProgramsReducer.programs.searchedInformation,
+  filteredInformation: state.ProgramsReducer.programs.filteredInformation,
 });
 
 export default connect(mapStateToProps, {
