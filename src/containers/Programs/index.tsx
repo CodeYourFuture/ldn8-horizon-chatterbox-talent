@@ -65,10 +65,10 @@ const Caret = styled.button`
 const FiltersBtn = styled.button`
   display: flex;
   justify-content: space-around;
-  background-color: black;
+  background-color: #3ee0ab;
   font-family: inherit;
   font-size: 16px;
-  color: white;
+  color: black;
   border-radius: 0.2em;
   outline: none;
   border: none;
@@ -83,10 +83,10 @@ const FiltersBtn = styled.button`
 `;
 
 const SearchBtn = styled.button`
-  background-color: #3ee0ab;
+  background-color: black;
   font-family: inherit;
   font-size: 16px;
-  color: black;
+  color: white;
   border-radius: 0.2em;
   outline: none;
   border: none;
@@ -209,7 +209,7 @@ const Programs = ({
                   </div>
                   <FiltersBtn onClick={() => handleShowPopup(true)}>
                     <img src={filterIcon} alt="filters icon"></img>
-                    <span style={{ paddingLeft: "5px" }}>Filters</span>
+                    <span>Filters</span>
                   </FiltersBtn>
                 </div>
               </div>
