@@ -199,7 +199,7 @@ const Programs = ({
                   </div>
                   <FiltersBtn onClick={() => handleShowPopup(true)}>
                     <img src={filterIcon} alt="filters icon"></img>
-                    <span style={{paddingLeft: '5px'}}>Filters</span>
+                    <span style={{ paddingLeft: "5px" }}>Filters</span>
                   </FiltersBtn>
                 </div>
               </div>
