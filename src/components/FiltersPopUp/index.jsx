@@ -130,77 +130,88 @@ const FiltersPopUp = ({ onSuccess, onClose, information }) => {
   };
 
   const handleUserClose = (evt) => {
+    
     evt.stopPropagation();
     onClose();
   };
+const storeFilters = (data) => {
+  const setsOfFilters = data.reduce((acc, v, i) => {
+    if (i === 0) {
+      acc["Locations"] = new Set();
+      acc["CareerType"] = new Set();
+      acc["ProgramDuration"] = new Set();
+      acc["OnSite"] = new Set();
+      acc["IsActivelyHiring"] = new Set(["Actively hiring","Show all"]);
+    }
 
-  const locationsSet = new Set();
-  information.forEach((v) =>
-    v.locations.forEach((val) => locationsSet.add(val))
-  );
-  const locationsOptions = Array.from(locationsSet).sort();
+    v.locations.forEach((location) => {
+      acc["Locations"].add(location);
+    });
+    v.careerType.forEach((careerType) => {
+      acc["CareerType"].add(careerType);
+    });
+    if (v.programDuration) acc["ProgramDuration"].add(v.programDuration);
+    acc["OnSite"].add(v.onSite); 
 
-  const careerTypeSet = new Set();
-  information.forEach((v) =>
-    v.careerType.forEach((val) => careerTypeSet.add(val))
-  );
-  const careerTypeOptions = Array.from(careerTypeSet).sort();
+    return acc;
+  }, {});
+  return Object.keys(setsOfFilters).reduce((acc, val) => {
+    acc[val] = Array.from(setsOfFilters[val]);
+    return acc
+  }, {});
 
-  const programDurationSet = new Set();
-  information.forEach((v) => programDurationSet.add(v.programDuration));
-  const programDurationOptions = Array.from(programDurationSet);
+};
 
-  const onSiteSet = new Set();
-  information.forEach((v) => onSiteSet.add(v.onSite));
-  const onSiteOptions = Array.from(onSiteSet).sort();
 
-  const isActivelyHiringSet = new Set();
-  information.forEach((v) => isActivelyHiringSet.add(v.isActivelyHiring));
-  const isActivelyHiringOptions = Array.from(isActivelyHiringSet).map((v) => {
-    if (v === true) return (v = "Actively hiring");
-    else return (v = "Show all");
-  });
-  
+  // const locationsSet = new Set();
+  // information.forEach((v) =>
+  //   v.locations.forEach((val) => locationsSet.add(val))
+  // );
+  // const locationsOptions = Array.from(locationsSet).sort();
+
+  // const careerTypeSet = new Set();
+  // information.forEach((v) =>
+  //   v.careerType.forEach((val) => careerTypeSet.add(val))
+  // );
+  // const careerTypeOptions = Array.from(careerTypeSet).sort();
+
+  // const programDurationSet = new Set();
+  // information.forEach((v) => programDurationSet.add(v.programDuration));
+  // const programDurationOptions = Array.from(programDurationSet);
+
+  // const onSiteSet = new Set();
+  // information.forEach((v) => onSiteSet.add(v.onSite));
+  // const onSiteOptions = Array.from(onSiteSet).sort();
+
+  // const isActivelyHiringSet = new Set();
+  // information.forEach((v) => isActivelyHiringSet.add(v.isActivelyHiring));
+  // const isActivelyHiringOptions = Array.from(isActivelyHiringSet).map((v) => {
+  //   if (v === true) return (v = "Actively hiring");
+  //   else return (v = "Show all");
+  // });
+  const filtersStore=storeFilters(information)
   const [resetState, setResetState] = useState(true);
+  const [filters, setFilters] = useState({});
   return (
     <BackgroundWrapper>
       <Wrapper>
         <ContentWrapper>
           <h3>Filter programs:</h3>
           <form>
-            <CheckBoxFilter
-              criteria={locationsOptions}
-              name="Locations"
+            {Object.keys( filtersStore).map((v, i) => { 
+              return (<>
+                {<CheckBoxFilter
+                  filterState={[filters, setFilters]}
+                  key={i}
+                  criteria={filtersStore[v]}
+                  name={v}
               resetState={resetState}
               setResetState={setResetState}
-            />
-            <CheckBoxFilter
-              criteria={careerTypeOptions}
-              name="Career Type"
-              resetState={resetState}
-              setResetState={setResetState}
-            />
-            <CheckBoxFilter
-              criteria={programDurationOptions}
-              name="Program Duration"
-              resetState={resetState}
-              setResetState={setResetState}
-            />
-            <div>
-              <CheckBoxFilter
-                criteria={onSiteOptions}
-                name="Remote/On-Site"
-                resetState={resetState}
-                setResetState={setResetState}
-              />
-              <div style={{ height: "20px" }}></div>
-              <CheckBoxFilter
-                criteria={isActivelyHiringOptions}
-                name="Only show"
-                resetState={resetState}
-                setResetState={setResetState}
-              />
-            </div>
+            />}
+              </>)
+
+            })}
+           
           </form>
           <ButtonsWrapper>
             <ResetButton
