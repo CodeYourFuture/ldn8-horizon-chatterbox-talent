@@ -26,11 +26,11 @@ const CheckBox = ({ name, option, index, handleOnChange, checkedState }: CheckBo
 };
 interface CheckBoxFilterProps {
   criteria: any[];
-  name: string;
+  name: string; // to make labels and display for end user
   resetState: boolean;
   setResetState: any;
   filterState: any[];
-  objKey: string;
+  objKey: string; //to store original key names in filters matching keys in our data
 }
 const CheckBoxFilter = ({ criteria, filterState, name, resetState, setResetState, objKey }: CheckBoxFilterProps) => {
   const [filters, setFilters] = filterState;
@@ -71,7 +71,6 @@ const CheckBoxFilter = ({ criteria, filterState, name, resetState, setResetState
       });
     }
   };
-  console.log(filters)
   return (
     <fieldset>
       <legend>{name}:</legend>

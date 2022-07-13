@@ -16,7 +16,7 @@ import EmptyCard from './EmptyCard/EmptyCard';
 import styles from './Programs.module.scss';
 import Thumbnail from './Thumbnail/Thumbnail';
 import FiltersPopUp from '../../components/FiltersPopUp';
-import Button from '../../components/Button/Button';
+import filterIcon from '../../assets/icon-filters.svg';
 
 const SpecificProgramWrapper = styled.div<{ isShowing: boolean }>`
   max-height: 80vh;
@@ -65,6 +65,41 @@ const Caret = styled.button`
     right: 5%;
     top: 2%;
     z-index: 1000;
+  }
+`;
+const FiltersBtn = styled.button`
+  display: flex;
+  justify-content: space-around;
+  background-color: #3ee0ab;
+  font-family: inherit;
+  font-size: 16px;
+  color: black;
+  border-radius: 0.2em;
+  outline: none;
+  border: none;
+  font-weight: 700;
+  padding: 0.7em 1em;
+  width: 119px;
+  &:hover {
+    opacity: ${props => (props.disabled ? '1' : '0.85')};
+    cursor: ${props => (props.disabled ? 'inherit' : 'pointer')};
+  }
+`;
+
+const SearchBtn = styled.button`
+  background-color: black;
+  font-family: inherit;
+  font-size: 16px;
+  color: white;
+  border-radius: 0.2em;
+  outline: none;
+  border: none;
+  font-weight: 700;
+  padding: 0.7em 1em;
+  width: 119px;
+  &:hover {
+    opacity: ${props => (props.disabled ? '1' : '0.85')};
+    cursor: ${props => (props.disabled ? 'inherit' : 'pointer')};
   }
 `;
 
@@ -151,12 +186,9 @@ const Programs = ({
                     value={programSearchQuery}
                     onChange={e => setProgramSearchQuery(e.target.value)}
                   />
-                  <button className={styles.searchButton} onClick={handleSearch}>
+                  <SearchBtn onClick={handleSearch}>
                     Search
-                  </button>
-                  <button className={styles.searchButton} onClick={() => dispatch(searchPrograms([]))}>
-                    Reset
-                  </button>
+                  </SearchBtn>
                 </div>
 
                 <div className={styles['filters__wrapper']}>
@@ -167,7 +199,11 @@ const Programs = ({
                       <option>Most recent</option>
                     </select>
                   </div>
-                  <Button onClick={() => handleShowPopup(true)}>Filters</Button>
+                  <FiltersBtn onClick={() => handleShowPopup(true)}>
+                    <img src={filterIcon} alt="filters icon"></img>
+                    <span>Filters</span>
+                  </FiltersBtn>
+                  
                 </div>
               </div>
               {(searchedInformation.length > 0 ? searchedInformation : information).map((data, index) => {
