@@ -136,25 +136,24 @@ const FiltersPopUp = ({ onSuccess, onClose, information }) => {
   const storeFilters = data => {
     const setsOfFilters = data.reduce((acc, v, i) => {
       if (i === 0) {
-        acc['Locations'] = new Set();
-        acc['CareerType'] = new Set();
-        acc['ProgramDuration'] = new Set();
-        acc['OnSite'] = new Set();
-        acc['IsActivelyHiring'] = new Set(['Actively hiring', 'Show all']);
+        acc['locations'] = new Set();
+        acc['careerType'] = new Set();
+        acc['programDuration'] = new Set();
+        acc['onSite'] = new Set();
+        acc['isActivelyHiring'] = new Set(['Actively hiring', 'Show all']);
       }
 
       v.locations.forEach(location => {
-        acc['Locations'].add(location);
+        acc['locations'].add(location);
       });
       v.careerType.forEach(careerType => {
-        acc['CareerType'].add(careerType);
+        acc['careerType'].add(careerType);
       });
-      if (v.programDuration) acc['ProgramDuration'].add(v.programDuration);
-      acc['OnSite'].add(v.onSite);
-
+      if (v.programDuration) acc['programDuration'].add(v.programDuration);
+      acc['onSite'].add(v.onSite);
       return acc;
     }, {});
-    
+
     return Object.keys(setsOfFilters).reduce((acc, val) => {
       acc[val] = Array.from(setsOfFilters[val]);
       return acc;
@@ -162,28 +161,70 @@ const FiltersPopUp = ({ onSuccess, onClose, information }) => {
   };
 
   const filtersStore = storeFilters(information);
+  //State for Reset button
   const [resetState, setResetState] = useState(true);
   //State to store the filters
   const [filters, setFilters] = useState({});
-
+  console.log(filtersStore.Locations);
   return (
     <BackgroundWrapper>
       <Wrapper>
         <ContentWrapper>
           <h3>Filter programs:</h3>
           <form>
-            {Object.keys(filtersStore).map((v, i) => {
+            <CheckBoxFilter
+              filterState={[filters, setFilters]}
+              criteria={filtersStore.locations}
+              name={'Locations'}
+              objKey={'locations'}
+              resetState={resetState}
+              setResetState={setResetState}
+            />
+            <CheckBoxFilter
+              filterState={[filters, setFilters]}
+              criteria={filtersStore.careerType}
+              name={'Career Type'}
+              objKey={'careerType'}
+              resetState={resetState}
+              setResetState={setResetState}
+            />
+            <CheckBoxFilter
+              filterState={[filters, setFilters]}
+              criteria={filtersStore.programDuration}
+              name={'Program Duration'}
+              objKey={'programDuration'}
+              resetState={resetState}
+              setResetState={setResetState}
+            />
+            <CheckBoxFilter
+              filterState={[filters, setFilters]}
+              criteria={filtersStore.onSite}
+              name={'OnSite/Remote'}
+              objKey={'onSite'}
+              resetState={resetState}
+              setResetState={setResetState}
+            />
+            <CheckBoxFilter
+              filterState={[filters, setFilters]}
+              criteria={filtersStore.isActivelyHiring}
+              name={'Show only'}
+              objKey={'isActivelyHiring'}
+              resetState={resetState}
+              setResetState={setResetState}
+            />
+            {/* {Object.keys(filtersStore).map((v, i) => {
               return (
                 <CheckBoxFilter
                   filterState={[filters, setFilters]}
                   key={i}
                   criteria={filtersStore[v]}
                   name={v}
+                  objKey={v}
                   resetState={resetState}
                   setResetState={setResetState}
                 />
               );
-            })}
+            })} */}
           </form>
           <ButtonsWrapper>
             <ResetButton

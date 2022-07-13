@@ -26,12 +26,13 @@ const CheckBox = ({ name, option, index, handleOnChange, checkedState }: CheckBo
 };
 interface CheckBoxFilterProps {
   criteria: any[];
-  name: string;
+  name: string; // to make labels and display for end user
   resetState: boolean;
   setResetState: any;
   filterState: any[];
+  objKey: string; //to store original key names in filters matching keys in our data
 }
-const CheckBoxFilter = ({ criteria, filterState, name, resetState, setResetState }: CheckBoxFilterProps) => {
+const CheckBoxFilter = ({ criteria, filterState, name, resetState, setResetState, objKey }: CheckBoxFilterProps) => {
   const [filters, setFilters] = filterState;
   const [checkedState, setCheckedState] = useState(new Array(criteria.length).fill(false));
 
@@ -46,12 +47,9 @@ const CheckBoxFilter = ({ criteria, filterState, name, resetState, setResetState
 
   const handleOnChange = (filter: string, value: string, position: number) => {
     const updatedCheckedState = checkedState.map((item, index) => (index === position ? !item : item));
-    console.log(checkedState);
-    console.log(filters);
     setCheckedState(updatedCheckedState);
-
     if (filters[filter]) {
-      setFilters((previousVal: {[key:string]:string[]}) => {
+      setFilters((previousVal: { [key: string]: string[] }) => {
         if (previousVal[filter].includes(value)) {
           return {
             ...previousVal,
@@ -83,7 +81,7 @@ const CheckBoxFilter = ({ criteria, filterState, name, resetState, setResetState
             name={name}
             option={v}
             index={i}
-            handleOnChange={() => handleOnChange(name, v, i)}
+            handleOnChange={() => handleOnChange(objKey, v, i)}
             checkedState={checkedState}
           />
         );
