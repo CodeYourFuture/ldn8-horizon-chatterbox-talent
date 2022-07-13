@@ -2,77 +2,75 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const Content = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    h2 {
-        font-size: 1.2em;
-        font-weight: 700;
-    }
+  h2 {
+    font-size: 1.2em;
+    font-weight: 700;
+  }
 
-    &:hover {
-        cursor: pointer;
-    }
-`
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
-const Caret = styled.div<{isExpanded: boolean}>`
-    width: 10px;
-    height: 10px;
-    border-right: 2px solid black;
-    border-bottom: 2px solid black;
-    transform: ${props => props.isExpanded? 'rotate(-135deg)' : 'rotate(45deg)'};
-    transition: transform 0.2s ease-in-out;
-`
+const Caret = styled.div<{ isExpanded: boolean }>`
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  transform: ${props => (props.isExpanded ? 'rotate(-135deg)' : 'rotate(45deg)')};
+  transition: transform 0.2s ease-in-out;
+`;
 
 const ExpandedContent = styled.div`
-    margin-top: 2vw;
-    
-    p {
-        font-size: 1.1em;
-        line-height: 1.4em;
-    }
+  margin-top: 2vw;
 
-    a {
-        color: #6AE7BE;
-        text-decoration: underline;
+  p {
+    font-size: 1.1em;
+    line-height: 1.4em;
+  }
 
-        &:hover {
-            color: #2eb48e;
-        }
+  a {
+    color: #6ae7be;
+    text-decoration: underline;
+
+    &:hover {
+      color: #2eb48e;
     }
-`
+  }
+`;
 
 const CardWrapper = styled.div`
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    background: #fff;
-    padding: 1em 1.4em;
-    border-radius: 5px;
-`
-
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  background: #fff;
+  padding: 1em 1.4em;
+  border-radius: 5px;
+`;
 
 interface ExpandableCardProps {
-    headerText: string;
-    response: React.ReactNode;
+  headerText: string;
+  response: React.ReactNode;
 }
 
 const ExpandableCard = ({ headerText, response }: ExpandableCardProps) => {
-    const [isCardExpanded, setIsCardExpanded] = useState(false);
+  const [isCardExpanded, setIsCardExpanded] = useState(false);
 
-    return (
-        <CardWrapper onClick={() => setIsCardExpanded(prevState => !prevState)}>
-            <Content>
-                <h2>{headerText}</h2>
-                <Caret isExpanded={isCardExpanded}/>
-            </Content>
-            {isCardExpanded && (
-                <ExpandedContent>
-                    <p>{response}</p>
-                </ExpandedContent>
-            )}
-        </CardWrapper>
-
-    );
+  return (
+    <CardWrapper onClick={() => setIsCardExpanded(prevState => !prevState)}>
+      <Content>
+        <h2>{headerText}</h2>
+        <Caret isExpanded={isCardExpanded} />
+      </Content>
+      {isCardExpanded && (
+        <ExpandedContent>
+          <p>{response}</p>
+        </ExpandedContent>
+      )}
+    </CardWrapper>
+  );
 };
 
 export default ExpandableCard;

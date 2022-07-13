@@ -1,5 +1,5 @@
 import validator from 'validator';
 
 export const validateEmail = (str: string) => {
-    return validator.isEmail(str);
-}
+  return validator.isEmail(str);
+};
