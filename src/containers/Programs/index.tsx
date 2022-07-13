@@ -102,7 +102,32 @@ const SearchBtn = styled.button`
     cursor: ${props => (props.disabled ? 'inherit' : 'pointer')};
   }
 `;
+const FiltersSearchWrapper = styled.div`
+  padding: 0.5vw 1.5vw 1.8vw 1.5vw;
+  background-color: white;
+`;
 
+const InputAndButtonWrapper = styled.div`
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  padding-top: 10px;
+`;
+
+const FieldWrapper = styled.div`
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  width: 225px;
+`;
+const Select = styled.select`
+  font-family: inherit;
+  padding: 9.5px 10px;
+`;
+const Input = styled.input`
+  padding: 9.5px 10px;
+  font-family: inherit;
+`;
 type ProgramsProps = ProgramsStateInterface & {
   getAllProgramsInformationAction(): void;
 };
@@ -177,31 +202,36 @@ const Programs = ({
             <div className={styles['thumbnails__wrapper']}>
               <div className={styles['thumbnail__sticky']}>
                 <EmptyCard handleShowPopup={handleShowPopupMail} />
-
-                <div className={styles.search}>
-                  <input
-                    type="text"
-                    name="search"
-                    id="search"
-                    value={programSearchQuery}
-                    onChange={e => setProgramSearchQuery(e.target.value)}
-                  />
-                  <SearchBtn onClick={handleSearch}>Search</SearchBtn>
-                </div>
-
-                <div className={styles['filters__wrapper']}>
-                  <div>
-                    <label>Sort:</label>
-                    <select className={styles['select__wrapper']}>
-                      <option>Top rating</option>
-                      <option>Most recent</option>
-                    </select>
-                  </div>
-                  <FiltersBtn onClick={() => handleShowPopup(true)}>
-                    <img src={filterIcon} alt="filters icon"></img>
-                    <span>Filters</span>
-                  </FiltersBtn>
-                </div>
+                <FiltersSearchWrapper>
+                  <InputAndButtonWrapper>
+                    <FieldWrapper>
+                      <label htmlFor="search">Search:</label>
+                      <Input
+                        placeholder="Enter search term..."
+                        type="text"
+                        name="search"
+                        id="search"
+                        value={programSearchQuery}
+                        onChange={e => setProgramSearchQuery(e.target.value)}
+                      />
+                    </FieldWrapper>
+                    <SearchBtn onClick={handleSearch}>Search</SearchBtn>
+                  </InputAndButtonWrapper>
+                  <InputAndButtonWrapper>
+                    <FieldWrapper>
+                      <label>Sort:</label>
+                      <Select>
+                        <option>Top rating</option>
+                        <option>Most recent</option>
+                        <option>Favorites</option>
+                      </Select>
+                    </FieldWrapper>
+                    <FiltersBtn onClick={() => handleShowPopup(true)}>
+                      <img src={filterIcon} alt="filters icon"></img>
+                      <span>Filters</span>
+                    </FiltersBtn>
+                  </InputAndButtonWrapper>
+                </FiltersSearchWrapper>
               </div>
               {(searchedInformation.length > 0 ? searchedInformation : information).map((data, index) => {
                 return (
