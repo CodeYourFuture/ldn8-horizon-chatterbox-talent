@@ -186,9 +186,7 @@ const Programs = ({
                     value={programSearchQuery}
                     onChange={e => setProgramSearchQuery(e.target.value)}
                   />
-                  <SearchBtn onClick={handleSearch}>
-                    Search
-                  </SearchBtn>
+                  <SearchBtn onClick={handleSearch}>Search</SearchBtn>
                 </div>
 
                 <div className={styles['filters__wrapper']}>
@@ -203,7 +201,6 @@ const Programs = ({
                     <img src={filterIcon} alt="filters icon"></img>
                     <span>Filters</span>
                   </FiltersBtn>
-                  
                 </div>
               </div>
               {(searchedInformation.length > 0 ? searchedInformation : information).map((data, index) => {
