@@ -165,7 +165,6 @@ const FiltersPopUp = ({ onSuccess, onClose, information }) => {
   const [resetState, setResetState] = useState(true);
   //State to store the filters
   const [filters, setFilters] = useState({});
-  console.log(filtersStore.Locations);
   return (
     <BackgroundWrapper>
       <Wrapper>

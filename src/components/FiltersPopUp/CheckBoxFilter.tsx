@@ -43,7 +43,7 @@ const CheckBoxFilter = ({ criteria, filterState, name, resetState, setResetState
     }
     if (checkedState.includes(true)) setResetState(true);
     // eslint-disable-next-line
-  }, [resetState, criteria, checkedState]);
+  }, [resetState, criteria, checkedState, filters]);
 
   const handleOnChange = (filter: string, value: string, position: number) => {
     const updatedCheckedState = checkedState.map((item, index) => (index === position ? !item : item));
