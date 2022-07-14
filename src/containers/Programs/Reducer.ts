@@ -7,7 +7,7 @@ import {
   GET_PROGRAM_REVIEWS_SUCCESS,
   SEARCH_PROGRAMS,
   FILTERED_PROGRAMS,
-  SET_USER_QUERY
+  SET_RENDER_QUERY
 } from './ActionTypes';
 import { ImageInterface } from './adapter';
 import { calculateAverage } from './utils';
@@ -41,7 +41,7 @@ const programsInitialState = {
   information: [],
   searchedInformation: [],
   filteredInformation: [],
-  userQuery: ""
+  programsToRenderQuery: ""
 };
 
 export interface ProgramsStateInterface {
@@ -49,7 +49,7 @@ export interface ProgramsStateInterface {
   information: ProgramInterface[];
   searchedInformation: ProgramInterface[];
   filteredInformation: ProgramInterface[];
-  userQuery: string;
+  programsToRenderQuery: string;
 }
 
 function programsReducer(
@@ -65,8 +65,8 @@ function programsReducer(
       return { ...state, searchedInformation: action.payload };
     case FILTERED_PROGRAMS:
       return { ...state, filteredInformation: action.payload };
-    case SET_USER_QUERY:
-      return { ...state, userQuery: action.payload }
+    case SET_RENDER_QUERY:
+      return { ...state, programsToRenderQuery: action.payload }
     default:
       return state;
   }

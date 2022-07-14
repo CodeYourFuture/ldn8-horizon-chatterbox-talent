@@ -10,7 +10,7 @@ import {
   GET_PROGRAM_REVIEWS_SUCCESS,
   SEARCH_PROGRAMS,
   FILTERED_PROGRAMS,
-  SET_USER_QUERY
+  SET_RENDER_QUERY
 } from './ActionTypes';
 import { ProgramInterface, ReviewInterface } from './Reducer';
 
@@ -34,8 +34,8 @@ export const filteredPrograms = (option: ProgramInterface[]) => ({
   payload: option,
 });
 
-export const setUserQuery = (renderType: string) => ({
-  type: SET_USER_QUERY,
+export const setProgramToRenderQuery = (renderType: string) => ({
+  type: SET_RENDER_QUERY,
   payload: renderType
 })
 

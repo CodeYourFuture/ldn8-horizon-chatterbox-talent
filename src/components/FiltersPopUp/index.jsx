@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+
+import { setProgramToRenderQuery } from '../../containers/Programs/Actions';
+
 import CheckBoxFilter from './CheckBoxFilter';
 
 const BackgroundWrapper = styled.div`
@@ -125,13 +129,17 @@ const CloseButton = styled.button`
 `;
 
 const FiltersPopUp = ({ onSuccess, onClose, information }) => {
+  const dispatch = useDispatch();
+
   const handleSubmitFilters = () => {
     alert('bnt working');
+    dispatch(setProgramToRenderQuery('filter'));
   };
 
   const handleUserClose = evt => {
     evt.stopPropagation();
     onClose();
+    dispatch(setProgramToRenderQuery(''));
   };
   const storeFilters = data => {
     const setsOfFilters = data.reduce((acc, v, i) => {
@@ -166,6 +174,7 @@ const FiltersPopUp = ({ onSuccess, onClose, information }) => {
   //State to store the filters
   const [filters, setFilters] = useState({});
   console.log(filtersStore.Locations);
+
   return (
     <BackgroundWrapper>
       <Wrapper>
