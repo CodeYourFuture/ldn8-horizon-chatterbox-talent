@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+.c-multi-select-dropdown{
+    font-family: inherit;
+    position:relative;
+    width:200px;
+
+    &:hover{
+        .c-multi-select-dropdown__options{
+            background-color: white;
+            padding: 10px;
+            height: 300px;
+            display:block;
+            overflow-y: auto;
+        }
+    }
+
+    .c-multi-select-dropdown__selected{
+        border:solid 1px #eee;
+        font-size:14px;
+        padding:10px;
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+
+        > img {
+            height:18px;
+        }
+    }
+
+    .c-multi-select-dropdown__options{
+        display:none;
+        position: absolute;
+        z-index: 5000;
+        box-sizing: border-box;
+        left:0;
+        width:100%;
+        list-style: none;
+        padding-left:0px;
+        border:solid 1px #eee;
+        padding:5px 0px;
+    }
+
+    .c-multi-select-dropdown__option{
+        display:flex;
+        align-items: center;
+        padding:6px 10px;
+        cursor:pointer;
+
+        &:hover{
+            background-color: #eee;
+        }
+        
+        &-checkbox{
+            margin-right:6px;
+        }
+    }
+}
