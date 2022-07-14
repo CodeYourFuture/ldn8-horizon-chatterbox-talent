@@ -140,12 +140,13 @@ const Programs = ({
   filteredInformation,
 }: ProgramsProps) => {
   const dispatch = useDispatch();
-
   const [selectedProgramIndex, setSelectedProgramIndex] = useState(0);
   const [isShowingModalOnMobile, setIsShowingModalOnMobile] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [showPopupMail, setShowPopupMail] = useState(false);
   const [programSearchQuery, setProgramSearchQuery] = useState('');
+  const [stateToRender, setStateToRender] = useState<any[]>([]);
+  
   const handleUserSelection = (index: number) => {
     setSelectedProgramIndex(index);
     setIsShowingModalOnMobile(true);
@@ -175,6 +176,10 @@ const Programs = ({
     );
     setProgramSearchQuery('');
   };
+  
+  useEffect(() => {
+    if (information) setStateToRender(information);
+  }, [information]);
 
   useEffect(() => {
     getAllProgramsInformationAction();
@@ -233,7 +238,7 @@ const Programs = ({
                   </InputAndButtonWrapper>
                 </FiltersSearchWrapper>
               </div>
-              {(searchedInformation.length > 0 ? searchedInformation : information).map((data, index) => {
+              {(searchedInformation.length > 0 ? searchedInformation : stateToRender).map((data, index) => {
                 return (
                   <Thumbnail
                     key={index}
@@ -256,7 +261,7 @@ const Programs = ({
         )}
         {showPopup && (
           <FiltersPopUp
-            information={information}
+            information={stateToRender}
             onSuccess={() => handleShowPopup(false)}
             onClose={() => handleShowPopup(false)}
           />
@@ -268,7 +273,7 @@ const Programs = ({
             </div>
           ) : (
             <CardWrapper onClick={(evt: SyntheticEvent) => evt.stopPropagation()}>
-              <Card {...information[selectedProgramIndex]} />
+              <Card {...stateToRender[selectedProgramIndex]} />
               <Caret onClick={() => setIsShowingModalOnMobile(false)}>X</Caret>
             </CardWrapper>
           )}
