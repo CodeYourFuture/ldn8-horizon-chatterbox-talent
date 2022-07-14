@@ -184,6 +184,10 @@ const Programs = ({
     setProgramSearchQuery('');
   };
 
+  const handleSort = (e: any) => {
+    dispatch(setProgramToRenderQuery('sort'));
+  };
+
   console.log(programsToRenderQuery);
 
   useEffect(() => {
@@ -230,7 +234,7 @@ const Programs = ({
                   <InputAndButtonWrapper>
                     <FieldWrapper>
                       <label>Sort:</label>
-                      <Select>
+                      <Select onChange={handleSort}>
                         <option>Top rating</option>
                         <option>Most recent</option>
                         <option>Favorites</option>
