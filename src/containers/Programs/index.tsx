@@ -5,7 +5,7 @@ import ClipLoader from 'react-spinners/ClipLoader';
 
 import MailChimPopUp from '../../components/MailChimpPopUp';
 
-import { getAllProgramsInformation, searchPrograms } from './Actions';
+import { getAllProgramsInformation, searchPrograms, setUserQuery } from './Actions';
 
 import { RootReducerInterface } from '../../reducers';
 import { ProgramsStateInterface } from './Reducer';
@@ -138,6 +138,7 @@ const Programs = ({
   isLoadingPrograms,
   searchedInformation,
   filteredInformation,
+  userQuery,
 }: ProgramsProps) => {
   const dispatch = useDispatch();
 
@@ -173,8 +174,15 @@ const Programs = ({
         ),
       ),
     );
+
+    if (programSearchQuery) {
+      dispatch(setUserQuery('search'));
+    }
+
     setProgramSearchQuery('');
   };
+
+  console.log(userQuery);
 
   useEffect(() => {
     getAllProgramsInformationAction();
@@ -283,6 +291,7 @@ const mapStateToProps = (state: RootReducerInterface) => ({
   isLoadingPrograms: state.ProgramsReducer.programs.isLoadingPrograms,
   searchedInformation: state.ProgramsReducer.programs.searchedInformation,
   filteredInformation: state.ProgramsReducer.programs.filteredInformation,
+  userQuery: state.ProgramsReducer.programs.userQuery,
 });
 
 export default connect(mapStateToProps, {
