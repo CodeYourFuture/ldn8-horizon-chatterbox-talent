@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 .c-multi-select-dropdown{
     font-family: inherit;
     position:relative;
@@ -8,7 +7,7 @@
         .c-multi-select-dropdown__options{
             background-color: white;
             padding: 10px;
-            height: 300px;
+            height: 150px;
             display:block;
             overflow-y: auto;
         }
@@ -40,18 +39,4 @@
         padding:5px 0px;
     }
 
-    .c-multi-select-dropdown__option{
-        display:flex;
-        align-items: center;
-        padding:6px 10px;
-        cursor:pointer;
-
-        &:hover{
-            background-color: #eee;
-        }
-        
-        &-checkbox{
-            margin-right:6px;
-        }
-    }
 }

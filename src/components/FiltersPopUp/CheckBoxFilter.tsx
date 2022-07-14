@@ -33,7 +33,14 @@ interface CheckBoxFilterProps {
   filterState: any[];
   objKey: string; //to store original key names in filters matching keys in our data
 }
-export const CheckBoxFilter = ({ criteria, filterState, name, resetState, setResetState, objKey }: CheckBoxFilterProps) => {
+export const CheckBoxFilter = ({
+  criteria,
+  filterState,
+  name,
+  resetState,
+  setResetState,
+  objKey,
+}: CheckBoxFilterProps) => {
   const [filters, setFilters] = filterState;
   const [checkedState, setCheckedState] = useState(new Array(criteria.length).fill(false));
 
@@ -98,14 +105,13 @@ export const MultiSelectDropDown = ({
   setResetState,
   objKey,
 }: CheckBoxFilterProps) => {
-  //const [selected, setSelected] = useState([]);
   const [filters, setFilters] = filterState;
   const [checkedState, setCheckedState] = useState(new Array(criteria.length).fill(false));
   const [selected, setSelected] = useState<string[]>([]);
   useEffect(() => {
     if (resetState === false) {
       setFilters({});
-      setSelected([])
+      setSelected([]);
       setCheckedState(new Array(criteria.length).fill(false));
     }
     if (checkedState.includes(true)) setResetState(true);
@@ -177,4 +183,3 @@ export const MultiSelectDropDown = ({
     </>
   );
 };
-
