@@ -1,11 +1,11 @@
 import React, { SyntheticEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 import MailChimPopUp from '../../components/MailChimpPopUp';
 
-import { getAllProgramsInformation, searchPrograms } from './Actions';
+import { getAllProgramsInformation } from './Actions';
 
 import { RootReducerInterface } from '../../reducers';
 import { ProgramsStateInterface } from './Reducer';
@@ -139,7 +139,6 @@ const Programs = ({
   searchedInformation,
   filteredInformation,
 }: ProgramsProps) => {
-  const dispatch = useDispatch();
   const [selectedProgramIndex, setSelectedProgramIndex] = useState(0);
   const [isShowingModalOnMobile, setIsShowingModalOnMobile] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -259,7 +258,7 @@ const Programs = ({
         )}
         {showPopup && (
           <FiltersPopUp
-            information={stateToRender}
+            information={information}
             onSuccess={() => handleShowPopup(false)}
             onClose={() => handleShowPopup(false)}
             //@ts-ignore

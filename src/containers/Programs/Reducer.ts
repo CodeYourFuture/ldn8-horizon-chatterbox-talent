@@ -18,7 +18,7 @@ export enum CareersEnum {
   IT = '#addfad',
   '-' = '#66ddaa',
 }
-
+ 
 export interface ProgramInterface {
   id: string;
   isActivelyHiring: boolean;
