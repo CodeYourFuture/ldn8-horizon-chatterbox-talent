@@ -235,6 +235,23 @@ const Programs = ({
                   </InputAndButtonWrapper>
                 </FiltersSearchWrapper>
               </div>
+              <div>
+                  {stateToRender.map((data, index) => {
+                  return (
+                    <Thumbnail
+                      key={index}
+                      careerTypes={data.careerType}
+                      index={index}
+                      locations={data.locations}
+                      title={data.programName}
+                      onThumbnailSelection={handleUserSelection}
+                      isSelected={index === selectedProgramIndex}
+                      numberOfReviews={data.reviews.length}
+                      programId={data.id}
+                    />
+                  );
+                })} 
+              </div>
               {stateToRender.map((data, index) => {
                 return (
                   <Thumbnail

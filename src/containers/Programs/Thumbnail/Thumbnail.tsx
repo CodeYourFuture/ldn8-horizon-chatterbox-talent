@@ -2,7 +2,7 @@ import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import { ClipLoader } from 'react-spinners';
 import styled from 'styled-components';
-
+import starIcon from '../../../assets/star-unfilled.svg';
 import Rating from '../../../components/Rating/Rating';
 import { RootReducerInterface } from '../../../reducers';
 import { selectProgramScore } from '../Reducer';
@@ -97,6 +97,9 @@ const Thumbnail = ({
   return (
     <Wrapper onClick={() => onThumbnailSelection(index)}>
       <Title isSelected={isSelected}>{title}</Title>
+      <div ><img  style={{backgroundColor: "white"}} src={starIcon} alt="star icon"></img> </div>
+
+     
       {isLoadingReviews ? (
         <ClipLoader size="20px" />
       ) : (
