@@ -130,7 +130,6 @@ const CloseButton = styled.button`
 `;
 
 const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
-  
   const [, setStateToRender] = statusToRender;
 
   //State for Reset button
@@ -138,17 +137,22 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
   //State to store the filters
   const [filters, setFilters] = useState({});
 
-  const handleSubmitFilters = () => {
+  const handleSubmitFilters = evt => {
     //alert('bnt working');
     //console.log(locations, careerTypes)
     filtersHandle(information, filters);
     //Filter to render
     setStateToRender(filtersHandle(information, filters));
+    handleUserClose(evt);
   };
 
   const handleUserClose = evt => {
     evt.stopPropagation();
     onClose();
+  };
+  const handleReset = () => {
+    setResetState(false);
+    setStateToRender(information);
   };
   const storeFilters = data => {
     const setsOfFilters = data.reduce((acc, v, i) => {
@@ -177,7 +181,7 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
     }, {});
   };
   const filtersStore = storeFilters(information);
-  
+
   return (
     <BackgroundWrapper>
       <Wrapper>
@@ -226,28 +230,9 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
               resetState={resetState}
               setResetState={setResetState}
             />
-            {/* {Object.keys(filtersStore).map((v, i) => {
-              return (
-                <CheckBoxFilter
-                  filterState={[filters, setFilters]}
-                  key={i}
-                  criteria={filtersStore[v]}
-                  name={v}
-                  objKey={v}
-                  resetState={resetState}
-                  setResetState={setResetState}
-                />
-              );
-            })} */}
           </form>
           <ButtonsWrapper>
-            <ResetButton
-              onClick={() => {
-                setResetState(false);
-              }}
-            >
-              Reset
-            </ResetButton>
+            <ResetButton onClick={handleReset}>Reset</ResetButton>
             <DoneButton onClick={handleSubmitFilters}>Done</DoneButton>
           </ButtonsWrapper>
         </ContentWrapper>
