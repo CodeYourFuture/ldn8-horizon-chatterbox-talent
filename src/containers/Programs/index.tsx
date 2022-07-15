@@ -5,7 +5,7 @@ import ClipLoader from 'react-spinners/ClipLoader';
 
 import MailChimPopUp from '../../components/MailChimpPopUp';
 
-import { getAllProgramsInformation, searchPrograms, setProgramToRenderQuery } from './Actions';
+import { getAllProgramsInformation, searchPrograms, setCustomInformation } from './Actions';
 
 import { RootReducerInterface } from '../../reducers';
 import { ProgramsStateInterface } from './Reducer';
@@ -136,9 +136,8 @@ const Programs = ({
   getAllProgramsInformationAction,
   information,
   isLoadingPrograms,
-  searchedInformation,
-  filteredInformation,
-  programsToRenderQuery,
+  customInformation,
+  isCustomInformation,
 }: ProgramsProps) => {
   const dispatch = useDispatch();
 
@@ -176,19 +175,17 @@ const Programs = ({
     );
 
     if (programSearchQuery) {
-      dispatch(setProgramToRenderQuery('search'));
+      dispatch(setCustomInformation(true));
     } else {
-      dispatch(setProgramToRenderQuery(''));
+      dispatch(setCustomInformation(false));
     }
 
     setProgramSearchQuery('');
   };
 
   const handleSort = (e: any) => {
-    dispatch(setProgramToRenderQuery('sort'));
+    dispatch(setCustomInformation(true));
   };
-
-  console.log(programsToRenderQuery);
 
   useEffect(() => {
     getAllProgramsInformationAction();
@@ -247,7 +244,7 @@ const Programs = ({
                   </InputAndButtonWrapper>
                 </FiltersSearchWrapper>
               </div>
-              {(searchedInformation.length > 0 ? searchedInformation : information).map((data, index) => {
+              {(isCustomInformation ? customInformation : information).map((data, index) => {
                 return (
                   <Thumbnail
                     key={index}
@@ -295,9 +292,8 @@ const Programs = ({
 const mapStateToProps = (state: RootReducerInterface) => ({
   information: state.ProgramsReducer.programs.information,
   isLoadingPrograms: state.ProgramsReducer.programs.isLoadingPrograms,
-  searchedInformation: state.ProgramsReducer.programs.searchedInformation,
-  filteredInformation: state.ProgramsReducer.programs.filteredInformation,
-  programsToRenderQuery: state.ProgramsReducer.programs.programsToRenderQuery,
+  customInformation: state.ProgramsReducer.programs.customInformation,
+  isCustomInformation: state.ProgramsReducer.programs.isCustomInformation,
 });
 
 export default connect(mapStateToProps, {

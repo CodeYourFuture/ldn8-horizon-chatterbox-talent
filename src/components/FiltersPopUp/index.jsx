@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
-import { setProgramToRenderQuery } from '../../containers/Programs/Actions';
+import { setCustomInformation } from '../../containers/Programs/Actions';
 
 import CheckBoxFilter from './CheckBoxFilter';
 
@@ -133,13 +133,13 @@ const FiltersPopUp = ({ onSuccess, onClose, information }) => {
 
   const handleSubmitFilters = () => {
     alert('bnt working');
-    dispatch(setProgramToRenderQuery('filter'));
+    dispatch(setCustomInformation(true));
   };
 
   const handleUserClose = evt => {
     evt.stopPropagation();
     onClose();
-    dispatch(setProgramToRenderQuery(''));
+    dispatch(setCustomInformation(false));
   };
   const storeFilters = data => {
     const setsOfFilters = data.reduce((acc, v, i) => {

@@ -9,8 +9,7 @@ import {
   GET_PROGRAM_REVIEWS_LOADING,
   GET_PROGRAM_REVIEWS_SUCCESS,
   SEARCH_PROGRAMS,
-  FILTERED_PROGRAMS,
-  SET_RENDER_QUERY
+  SET_CUSTOM_PROGRAMS
 } from './ActionTypes';
 import { ProgramInterface, ReviewInterface } from './Reducer';
 
@@ -29,14 +28,9 @@ export const searchPrograms = (query: ProgramInterface[]) => ({
   payload: query,
 });
 
-export const filteredPrograms = (option: ProgramInterface[]) => ({
-  type: FILTERED_PROGRAMS,
-  payload: option,
-});
-
-export const setProgramToRenderQuery = (renderType: string) => ({
-  type: SET_RENDER_QUERY,
-  payload: renderType
+export const setCustomInformation = (option: boolean) => ({
+  type: SET_CUSTOM_PROGRAMS,
+  payload: option
 })
 
 const getAllProgramsInformationFail = () => ({
