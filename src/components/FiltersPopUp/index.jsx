@@ -124,7 +124,8 @@ const CloseButton = styled.button`
   }
 `;
 
-const FiltersPopUp = ({ onSuccess, onClose, information }) => {
+const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
+  const [stateToRender, setStateToRender] = statusToRender;
   const handleSubmitFilters = () => {
     alert('bnt working');
   };
@@ -165,6 +166,7 @@ const FiltersPopUp = ({ onSuccess, onClose, information }) => {
   const [resetState, setResetState] = useState(true);
   //State to store the filters
   const [filters, setFilters] = useState({});
+  console.log(filters, 'filters');
   return (
     <BackgroundWrapper>
       <Wrapper>

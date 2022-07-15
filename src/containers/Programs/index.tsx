@@ -146,7 +146,7 @@ const Programs = ({
   const [showPopupMail, setShowPopupMail] = useState(false);
   const [programSearchQuery, setProgramSearchQuery] = useState('');
   const [stateToRender, setStateToRender] = useState<any[]>([]);
-  
+
   const handleUserSelection = (index: number) => {
     setSelectedProgramIndex(index);
     setIsShowingModalOnMobile(true);
@@ -162,21 +162,19 @@ const Programs = ({
 
   // Search function
   const handleSearch = () => {
-    dispatch(
-      searchPrograms(
-        information.filter(
-          programs =>
-            programs.programName.toLowerCase().includes(programSearchQuery.toLowerCase()) ||
-            programs.description.toLowerCase().includes(programSearchQuery.toLowerCase()) ||
-            programs.keyFacts.join(',').toLowerCase().includes(programSearchQuery.toLowerCase()) ||
-            programs.locations.join(',').toLowerCase().includes(programSearchQuery.toLowerCase()) ||
-            programs.careerType.join(',').toLowerCase().includes(programSearchQuery.toLowerCase()),
-        ),
+    setStateToRender(
+      information.filter(
+        programs =>
+          programs.programName.toLowerCase().includes(programSearchQuery.toLowerCase()) ||
+          programs.description.toLowerCase().includes(programSearchQuery.toLowerCase()) ||
+          programs.keyFacts.join(',').toLowerCase().includes(programSearchQuery.toLowerCase()) ||
+          programs.locations.join(',').toLowerCase().includes(programSearchQuery.toLowerCase()) ||
+          programs.careerType.join(',').toLowerCase().includes(programSearchQuery.toLowerCase()),
       ),
     );
     setProgramSearchQuery('');
   };
-  
+
   useEffect(() => {
     if (information) setStateToRender(information);
   }, [information]);
@@ -238,7 +236,7 @@ const Programs = ({
                   </InputAndButtonWrapper>
                 </FiltersSearchWrapper>
               </div>
-              {(searchedInformation.length > 0 ? searchedInformation : stateToRender).map((data, index) => {
+              {stateToRender.map((data, index) => {
                 return (
                   <Thumbnail
                     key={index}
@@ -264,6 +262,8 @@ const Programs = ({
             information={stateToRender}
             onSuccess={() => handleShowPopup(false)}
             onClose={() => handleShowPopup(false)}
+            //@ts-ignore
+            statusToRender={[stateToRender, setStateToRender]}
           />
         )}
         <SpecificProgramWrapper isShowing={isShowingModalOnMobile} onClick={() => setIsShowingModalOnMobile(false)}>
