@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MultiSelectDropDown, CheckBoxFilter } from './CheckBoxFilter';
+
+import filtersHandle from './Filters/filtersHandle';
+
 const BackgroundWrapper = styled.div`
   position: fixed;
   top: 0;
@@ -126,9 +129,21 @@ const CloseButton = styled.button`
   }
 `;
 
-const FiltersPopUp = ({ onSuccess, onClose, information }) => {
+const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
+  
+  const [, setStateToRender] = statusToRender;
+
+  //State for Reset button
+  const [resetState, setResetState] = useState(true);
+  //State to store the filters
+  const [filters, setFilters] = useState({});
+
   const handleSubmitFilters = () => {
-    alert('bnt working');
+    //alert('bnt working');
+    //console.log(locations, careerTypes)
+    filtersHandle(information, filters);
+    //Filter to render
+    setStateToRender(filtersHandle(information, filters));
   };
 
   const handleUserClose = evt => {
@@ -142,7 +157,7 @@ const FiltersPopUp = ({ onSuccess, onClose, information }) => {
         acc['careerType'] = new Set();
         acc['programDuration'] = new Set();
         acc['onSite'] = new Set();
-        acc['isActivelyHiring'] = new Set(['Actively hiring', 'Show all']);
+        acc['isActivelyHiring'] = new Set(['Actively hiring']);
       }
 
       v.locations.forEach(location => {
@@ -161,12 +176,8 @@ const FiltersPopUp = ({ onSuccess, onClose, information }) => {
       return acc;
     }, {});
   };
-
   const filtersStore = storeFilters(information);
-  //State for Reset button
-  const [resetState, setResetState] = useState(true);
-  //State to store the filters
-  const [filters, setFilters] = useState({});
+  
   return (
     <BackgroundWrapper>
       <Wrapper>
