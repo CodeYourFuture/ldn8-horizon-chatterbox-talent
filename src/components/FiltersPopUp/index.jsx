@@ -125,7 +125,8 @@ const CloseButton = styled.button`
 `;
 
 const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
-  const [ setStateToRender] = statusToRender;
+  
+  const [, setStateToRender] = statusToRender;
 
   //State for Reset button
   const [resetState, setResetState] = useState(true);
@@ -133,6 +134,8 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
   const [filters, setFilters] = useState({});
 
   const handleSubmitFilters = () => {
+    //alert('bnt working');
+    //console.log(locations, careerTypes)
     filtersHandle(information, filters);
     //Filter to render
     setStateToRender(filtersHandle(information, filters));
