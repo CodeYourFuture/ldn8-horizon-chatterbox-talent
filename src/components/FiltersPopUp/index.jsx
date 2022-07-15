@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import CheckBoxFilter from './CheckBoxFilter';
+import { MultiSelectDropDown, CheckBoxFilter } from './CheckBoxFilter';
+
 import filtersHandle from './Filters/filtersHandle';
+
 const BackgroundWrapper = styled.div`
   position: fixed;
   top: 0;
@@ -70,7 +72,10 @@ const ContentWrapper = styled.div`
     padding: 0.2em 0;
   }
 `;
-
+const MultiSelectWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const ButtonsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -179,22 +184,24 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
         <ContentWrapper>
           <h3>Filter programs:</h3>
           <form>
-            <CheckBoxFilter
-              filterState={[filters, setFilters]}
-              criteria={filtersStore.locations}
-              name={'Locations'}
-              objKey={'locations'}
-              resetState={resetState}
-              setResetState={setResetState}
-            />
-            <CheckBoxFilter
-              filterState={[filters, setFilters]}
-              criteria={filtersStore.careerType}
-              name={'Career Type'}
-              objKey={'careerType'}
-              resetState={resetState}
-              setResetState={setResetState}
-            />
+            <MultiSelectWrapper>
+              <MultiSelectDropDown
+                filterState={[filters, setFilters]}
+                criteria={filtersStore.locations}
+                name={'Locations'}
+                objKey={'locations'}
+                resetState={resetState}
+                setResetState={setResetState}
+              />
+              <MultiSelectDropDown
+                filterState={[filters, setFilters]}
+                criteria={filtersStore.careerType}
+                name={'Career Type'}
+                objKey={'careerType'}
+                resetState={resetState}
+                setResetState={setResetState}
+              />
+            </MultiSelectWrapper>
             <CheckBoxFilter
               filterState={[filters, setFilters]}
               criteria={filtersStore.programDuration}
