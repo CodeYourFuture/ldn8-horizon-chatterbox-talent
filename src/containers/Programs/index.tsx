@@ -1,11 +1,11 @@
 import React, { SyntheticEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 import MailChimPopUp from '../../components/MailChimpPopUp';
 
-import { getAllProgramsInformation, searchPrograms } from './Actions';
+import { getAllProgramsInformation } from './Actions';
 
 import { RootReducerInterface } from '../../reducers';
 import { ProgramsStateInterface } from './Reducer';
@@ -139,13 +139,13 @@ const Programs = ({
   searchedInformation,
   filteredInformation,
 }: ProgramsProps) => {
-  const dispatch = useDispatch();
-
   const [selectedProgramIndex, setSelectedProgramIndex] = useState(0);
   const [isShowingModalOnMobile, setIsShowingModalOnMobile] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [showPopupMail, setShowPopupMail] = useState(false);
   const [programSearchQuery, setProgramSearchQuery] = useState('');
+  const [stateToRender, setStateToRender] = useState<any[]>([]);
+
   const handleUserSelection = (index: number) => {
     setSelectedProgramIndex(index);
     setIsShowingModalOnMobile(true);
@@ -161,20 +161,22 @@ const Programs = ({
 
   // Search function
   const handleSearch = () => {
-    dispatch(
-      searchPrograms(
-        information.filter(
-          programs =>
-            programs.programName.toLowerCase().includes(programSearchQuery.toLowerCase()) ||
-            programs.description.toLowerCase().includes(programSearchQuery.toLowerCase()) ||
-            programs.keyFacts.join(',').toLowerCase().includes(programSearchQuery.toLowerCase()) ||
-            programs.locations.join(',').toLowerCase().includes(programSearchQuery.toLowerCase()) ||
-            programs.careerType.join(',').toLowerCase().includes(programSearchQuery.toLowerCase()),
-        ),
+    setStateToRender(
+      information.filter(
+        programs =>
+          programs.programName.toLowerCase().includes(programSearchQuery.toLowerCase()) ||
+          programs.description.toLowerCase().includes(programSearchQuery.toLowerCase()) ||
+          programs.keyFacts.join(',').toLowerCase().includes(programSearchQuery.toLowerCase()) ||
+          programs.locations.join(',').toLowerCase().includes(programSearchQuery.toLowerCase()) ||
+          programs.careerType.join(',').toLowerCase().includes(programSearchQuery.toLowerCase()),
       ),
     );
     setProgramSearchQuery('');
   };
+
+  useEffect(() => {
+    if (information) setStateToRender(information);
+  }, [information]);
 
   useEffect(() => {
     getAllProgramsInformationAction();
@@ -233,7 +235,7 @@ const Programs = ({
                   </InputAndButtonWrapper>
                 </FiltersSearchWrapper>
               </div>
-              {(searchedInformation.length > 0 ? searchedInformation : information).map((data, index) => {
+              {stateToRender.map((data, index) => {
                 return (
                   <Thumbnail
                     key={index}
@@ -259,6 +261,8 @@ const Programs = ({
             information={information}
             onSuccess={() => handleShowPopup(false)}
             onClose={() => handleShowPopup(false)}
+            //@ts-ignore
+            statusToRender={[stateToRender, setStateToRender]}
           />
         )}
         <SpecificProgramWrapper isShowing={isShowingModalOnMobile} onClick={() => setIsShowingModalOnMobile(false)}>
@@ -268,7 +272,7 @@ const Programs = ({
             </div>
           ) : (
             <CardWrapper onClick={(evt: SyntheticEvent) => evt.stopPropagation()}>
-              <Card {...information[selectedProgramIndex]} />
+              <Card {...stateToRender[selectedProgramIndex]} />
               <Caret onClick={() => setIsShowingModalOnMobile(false)}>X</Caret>
             </CardWrapper>
           )}

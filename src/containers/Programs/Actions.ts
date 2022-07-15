@@ -95,7 +95,6 @@ export const getProgramReviews = (programId: string, reviewsIds: string[]) => {
 
       dispatch(getProgramReviewsSuccess(programId, onlyLiveReviews));
     } catch (err) {
-      console.log(err);
       dispatch(getProgramReviewsFail());
       dispatch(getProgramReviewsLoading(false));
     }
