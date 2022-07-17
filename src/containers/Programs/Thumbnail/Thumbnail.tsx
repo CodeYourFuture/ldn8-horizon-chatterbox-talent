@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect, useSelector } from 'react-redux';
 import { ClipLoader } from 'react-spinners';
 import styled from 'styled-components';
 import starIcon from '../../../assets/star-unfilled.svg';
+import { ReactComponent as Pin1 } from '../../../assets/icon-pin.svg';
+
 import Rating from '../../../components/Rating/Rating';
 import { RootReducerInterface } from '../../../reducers';
 import { selectProgramScore } from '../Reducer';
@@ -79,6 +81,8 @@ interface ThumbnailProps {
   numberOfReviews: number;
   programId: string;
   isLoadingReviews: boolean;
+  setStateToRender: any;
+  stateToRender: any;
 }
 
 const Thumbnail = ({
@@ -91,15 +95,40 @@ const Thumbnail = ({
   numberOfReviews,
   programId,
   isLoadingReviews,
+  stateToRender,
+  setStateToRender,
 }: ThumbnailProps) => {
   const programScore = useSelector(selectProgramScore(programId));
+  const [favourite, setFavourite] = useState<boolean>(false);
+  const handleFavouriteUserSelection = (index: number) => {
+    //if(!favourite)
+    setFavourite(!favourite);
+    console.log(favourite);
+    if (favourite) {
+      console.log(index);
+      // // remove `from` item and store it
+      var f = stateToRender.splice(index, 1)[0];
+      console.log(stateToRender);
+      console.log(f);
+      // // insert stored item into position `to`
+      setStateToRender([...stateToRender, stateToRender.splice(0, 0, f)]);
+      console.log(stateToRender);
+      setFavourite(!favourite);
+      // console.log(f);
+    }
+  };
 
   return (
     <Wrapper onClick={() => onThumbnailSelection(index)}>
       <Title isSelected={isSelected}>{title}</Title>
-      <div ><img  style={{backgroundColor: "white"}} src={starIcon} alt="star icon"></img> </div>
+      <div>
+        {favourite ? (
+          <Pin1 onClick={() => handleFavouriteUserSelection(index)} fill="black" />
+        ) : (
+          <Pin1 onClick={() => handleFavouriteUserSelection(index)} fill="none" stroke="black" />
+        )}
+      </div>
 
-     
       {isLoadingReviews ? (
         <ClipLoader size="20px" />
       ) : (
