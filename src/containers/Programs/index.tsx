@@ -120,14 +120,19 @@ const FieldWrapper = styled.div`
   flex-direction: column;
   width: 225px;
 `;
+const Input = styled.input`
+  padding: 10.5px 10px;
+  font-family: inherit;
+  border: 1px solid black;
+
+`;
 const Select = styled.select`
   font-family: inherit;
-  padding: 9.5px 10px;
+  padding: 10.5px 10px;
+  background-color: white;
+  border: 1px solid black;
 `;
-const Input = styled.input`
-  padding: 9.5px 10px;
-  font-family: inherit;
-`;
+
 type ProgramsProps = ProgramsStateInterface & {
   getAllProgramsInformationAction(): void;
 };

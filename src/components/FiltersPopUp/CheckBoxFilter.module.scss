@@ -1,7 +1,7 @@
 .c-multi-select-dropdown{
     font-family: inherit;
     position:relative;
-    width:200px;
+    width:150px;
 
     &:hover{
         .c-multi-select-dropdown__options{
@@ -39,4 +39,8 @@
         padding:5px 0px;
     }
 
+}
+
+.check-box-filters {
+    padding: 0 8px;
 }
