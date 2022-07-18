@@ -64,8 +64,13 @@ const ContentWrapper = styled.div`
   }
   form {
     display: flex;
-    gap: 1.5em;
-    width: 100%;
+    justify-content: space-between;
+    padding: 0 10px;
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      padding: 10px 0;
+    }
   }
   legend {
     font-weight: 400;
@@ -198,7 +203,6 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
         <ContentWrapper>
           <h3>Filter programs:</h3>
           <form>
-            <FilterWrapper>
               <MultiSelectWrapper>
                 <MultiSelectDropDown
                   filterState={[filters, setFilters]}
@@ -243,7 +247,6 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
                   setResetState={setResetState}
                 />
               </FilterWrapper>
-            </FilterWrapper>
           </form>
           <ButtonsWrapper>
             <ResetButton onClick={handleReset}>Reset</ResetButton>

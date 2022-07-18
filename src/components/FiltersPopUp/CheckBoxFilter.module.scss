@@ -49,4 +49,7 @@
 
 .check-box-filters {
     padding: 0 8px;
+     @include breakpoint-max(md) {
+                padding: 5px 0;            
+            }
 }

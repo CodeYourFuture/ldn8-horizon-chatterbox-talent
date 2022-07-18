@@ -131,6 +131,8 @@ const Select = styled.select`
   padding: 10.5px 10px;
   background-color: white;
   border: 1px solid black;
+  border-radius: 0
+    -webkit-appearance: none;
 `;
 
 type ProgramsProps = ProgramsStateInterface & {
