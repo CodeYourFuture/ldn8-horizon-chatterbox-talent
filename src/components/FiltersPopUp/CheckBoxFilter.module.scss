@@ -12,7 +12,7 @@
             display:block;
             overflow-y: auto;
        @include breakpoint-max(md) {
-                height: 40vh;                
+                height: 50vh;                
             }
 }
 @include breakpoint-max(md) {
