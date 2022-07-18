@@ -29,7 +29,7 @@ const Wrapper = styled.div`
   @media screen and (max-width: 768px) {
     width: 90vw;
     flex-direction: column;
-    height: 85vh;
+    height: 90vh;
   }
 `;
 
