@@ -76,6 +76,17 @@ const MultiSelectWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+const FilterWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    padding: 10px 0;
+  }
+`;
 const ButtonsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -184,48 +195,52 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
         <ContentWrapper>
           <h3>Filter programs:</h3>
           <form>
-            <MultiSelectWrapper>
-              <MultiSelectDropDown
-                filterState={[filters, setFilters]}
-                criteria={filtersStore.locations}
-                name={'Locations'}
-                objKey={'locations'}
-                resetState={resetState}
-                setResetState={setResetState}
-              />
-              <MultiSelectDropDown
-                filterState={[filters, setFilters]}
-                criteria={filtersStore.careerType}
-                name={'Career Type'}
-                objKey={'careerType'}
-                resetState={resetState}
-                setResetState={setResetState}
-              />
-            </MultiSelectWrapper>
-            <CheckBoxFilter
-              filterState={[filters, setFilters]}
-              criteria={filtersStore.programDuration}
-              name={'Program Duration'}
-              objKey={'programDuration'}
-              resetState={resetState}
-              setResetState={setResetState}
-            />
-            <CheckBoxFilter
-              filterState={[filters, setFilters]}
-              criteria={filtersStore.onSite}
-              name={'OnSite/Remote'}
-              objKey={'onSite'}
-              resetState={resetState}
-              setResetState={setResetState}
-            />
-            <CheckBoxFilter
-              filterState={[filters, setFilters]}
-              criteria={filtersStore.isActivelyHiring}
-              name={'Show only'}
-              objKey={'isActivelyHiring'}
-              resetState={resetState}
-              setResetState={setResetState}
-            />
+            <FilterWrapper>
+              <MultiSelectWrapper>
+                <MultiSelectDropDown
+                  filterState={[filters, setFilters]}
+                  criteria={filtersStore.locations}
+                  name={'Locations'}
+                  objKey={'locations'}
+                  resetState={resetState}
+                  setResetState={setResetState}
+                />
+                <MultiSelectDropDown
+                  filterState={[filters, setFilters]}
+                  criteria={filtersStore.careerType}
+                  name={'Career Type'}
+                  objKey={'careerType'}
+                  resetState={resetState}
+                  setResetState={setResetState}
+                />
+              </MultiSelectWrapper>
+              <FilterWrapper>
+                <CheckBoxFilter
+                  filterState={[filters, setFilters]}
+                  criteria={filtersStore.programDuration}
+                  name={'Program Duration'}
+                  objKey={'programDuration'}
+                  resetState={resetState}
+                  setResetState={setResetState}
+                />
+                <CheckBoxFilter
+                  filterState={[filters, setFilters]}
+                  criteria={filtersStore.onSite}
+                  name={'OnSite/Remote'}
+                  objKey={'onSite'}
+                  resetState={resetState}
+                  setResetState={setResetState}
+                />
+                <CheckBoxFilter
+                  filterState={[filters, setFilters]}
+                  criteria={filtersStore.isActivelyHiring}
+                  name={'Show only'}
+                  objKey={'isActivelyHiring'}
+                  resetState={resetState}
+                  setResetState={setResetState}
+                />
+              </FilterWrapper>
+            </FilterWrapper>
             {/* {Object.keys(filtersStore).map((v, i) => {
               return (
                 <CheckBoxFilter
