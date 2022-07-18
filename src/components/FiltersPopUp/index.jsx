@@ -45,11 +45,11 @@ const ContentWrapper = styled.div`
 
   @media screen and (max-width: 768px) {
     width: 90%;
-
     padding: 10vw 5vw;
-    gap: 5vw;
   }
-
+  @media screen and (orientation: landscape) {
+    height: 110vh;
+  }
   h3 {
     font-weight: 200;
     font-size: 2.2em;
@@ -90,10 +90,13 @@ const FilterWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 10px;
-  
+
   @media screen and (max-width: 768px) {
     flex-direction: column;
     padding: 10px 0;
+  }
+  @media screen and (orientation: landscape) {
+    flex-direction: row;
   }
 `;
 const ButtonsWrapper = styled.div`
