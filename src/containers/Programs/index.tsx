@@ -17,7 +17,6 @@ import styles from './Programs.module.scss';
 import Thumbnail from './Thumbnail/Thumbnail';
 import FiltersPopUp from '../../components/FiltersPopUp';
 import filterIcon from '../../assets/icon-filters.svg';
-import { AnyMap } from 'immer/dist/internal';
 
 const SpecificProgramWrapper = styled.div<{ isShowing: boolean }>`
   max-height: 80vh;
