@@ -80,7 +80,7 @@ export const CheckBoxFilter = ({
     }
   };
   return (
-    <fieldset>
+    <fieldset className={styles['check-box-filters']}>
       <legend>{name}:</legend>
       {criteria.map((v, i) => {
         return (
