@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MultiSelectDropDown, CheckBoxFilter } from './CheckBoxFilter';
-
 import filtersHandle from './Filters/filtersHandle';
 
 const BackgroundWrapper = styled.div`
@@ -30,6 +29,7 @@ const Wrapper = styled.div`
   @media screen and (max-width: 768px) {
     width: 90vw;
     flex-direction: column;
+    height: 85vh;
   }
 `;
 
@@ -142,7 +142,6 @@ const CloseButton = styled.button`
 
 const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
   const [, setStateToRender] = statusToRender;
-
   //State for Reset button
   const [resetState, setResetState] = useState(true);
   //State to store the filters

@@ -268,6 +268,7 @@ html input[disabled] {
 
 input[type="checkbox"],
 input[type="radio"] {
+    margin: 2px;
     box-sizing: border-box; /* 1 */
     padding: 0; /* 2 */
     *height: 13px; /* 3 */
