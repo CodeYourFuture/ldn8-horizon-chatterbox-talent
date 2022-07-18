@@ -27,9 +27,9 @@ const Wrapper = styled.div`
   z-index: 4000;
 
   @media screen and (max-width: 768px) {
-    width: 90vw;
+    width: 100vw;
     flex-direction: column;
-    height: 80vh;
+    height: 100vh;
   }
 `;
 
