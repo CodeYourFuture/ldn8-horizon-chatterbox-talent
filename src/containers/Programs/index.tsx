@@ -247,13 +247,12 @@ const Programs = ({
                         index={index}
                         locations={data.locations}
                         title={data.programName}
-                        stateToRender = {stateToRender}
-                        setStateToRender = {setStateToRender}
+                        stateToRender={stateToRender}
+                        setStateToRender={setStateToRender}
                         onThumbnailSelection={handleUserSelection}
                         isSelected={index === selectedProgramIndex}
                         numberOfReviews={data.reviews}
                         programId={data.id}
-                     
                       />
                     );
                   })}
