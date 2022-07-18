@@ -242,7 +242,7 @@ const Programs = ({
                   .map((data, index) => {
                     return (
                       <Thumbnail
-                        key={index}
+                        key={data.id}
                         careerTypes={data.careerType}
                         index={index}
                         locations={data.locations}
