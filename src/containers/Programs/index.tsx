@@ -139,7 +139,6 @@ const Programs = ({
   isLoadingPrograms,
   searchedInformation,
   filteredInformation,
-  favouriteInformation,
 }: ProgramsProps) => {
   const [selectedProgramIndex, setSelectedProgramIndex] = useState(0);
   const [isShowingModalOnMobile, setIsShowingModalOnMobile] = useState(false);
@@ -255,23 +254,6 @@ const Programs = ({
                     />
                   );
                 })}
-                {stateToRender.map((data, index) => {
-                  return (
-                    <Thumbnail
-                      key={index}
-                      careerTypes={data.careerType}
-                      index={index}
-                      locations={data.locations}
-                      title={data.programName}
-                      stateToRender={stateToRender}
-                      setStateToRender={setStateToRender}
-                      onThumbnailSelection={handleUserSelection}
-                      isSelected={index === selectedProgramIndex}
-                      numberOfReviews={data.reviews}
-                      programId={data.id}
-                    />
-                  );
-                })}
               </div>
             </div>
           )}
@@ -310,7 +292,6 @@ const mapStateToProps = (state: RootReducerInterface) => ({
   isLoadingPrograms: state.ProgramsReducer.programs.isLoadingPrograms,
   searchedInformation: state.ProgramsReducer.programs.searchedInformation,
   filteredInformation: state.ProgramsReducer.programs.filteredInformation,
-  favouriteInformation: state.ProgramsReducer.programs.filteredInformation,
 });
 
 export default connect(mapStateToProps, {
