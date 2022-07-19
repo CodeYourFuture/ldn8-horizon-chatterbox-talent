@@ -51,7 +51,7 @@ export const CheckBoxFilter = ({
     }
     if (checkedState.includes(true)) setResetState(true);
     // eslint-disable-next-line
-  }, [resetState, criteria, checkedState, filters]);
+  }, [resetState]);
 
   const handleOnChange = (filter: string, value: string, position: number) => {
     const updatedCheckedState = checkedState.map((item, index) => (index === position ? !item : item));
@@ -116,7 +116,7 @@ export const MultiSelectDropDown = ({
     }
     if (checkedState.includes(true)) setResetState(true);
     // eslint-disable-next-line
-  }, [resetState, criteria, checkedState, filters, selected]);
+  }, [resetState]);
 
   const handleOnChange = (filter: string, value: string, position: number) => {
     const updatedCheckedState = checkedState.map((item, index) => (index === position ? !item : item));
