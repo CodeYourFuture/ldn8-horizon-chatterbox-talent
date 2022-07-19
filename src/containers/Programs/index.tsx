@@ -17,7 +17,7 @@ import styles from './Programs.module.scss';
 import Thumbnail from './Thumbnail/Thumbnail';
 import FiltersPopUp from '../../components/FiltersPopUp';
 import filterIcon from '../../assets/icon-filters.svg';
-import { AnyMap } from 'immer/dist/internal';
+//import { AnyMap } from 'immer/dist/internal';
 
 const SpecificProgramWrapper = styled.div<{ isShowing: boolean }>`
   max-height: 80vh;
@@ -147,7 +147,7 @@ const Programs = ({
   const [showPopupMail, setShowPopupMail] = useState(false);
   const [programSearchQuery, setProgramSearchQuery] = useState('');
   const [stateToRender, setStateToRender] = useState<any[]>([]);
-  
+
   const handleUserSelection = (index: number) => {
     setSelectedProgramIndex(index);
     setIsShowingModalOnMobile(true);
