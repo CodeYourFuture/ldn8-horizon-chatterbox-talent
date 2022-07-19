@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { ClipLoader } from 'react-spinners';
 import styled from 'styled-components';
 import { ReactComponent as Pin1 } from '../../../assets/icon-pin.svg';
