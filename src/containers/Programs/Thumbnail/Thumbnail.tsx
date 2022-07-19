@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { connect, useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { ClipLoader } from 'react-spinners';
 import styled from 'styled-components';
-import starIcon from '../../../assets/star-unfilled.svg';
 import { ReactComponent as Pin1 } from '../../../assets/icon-pin.svg';
-
+import { Dispatch } from '@reduxjs/toolkit';
 import Rating from '../../../components/Rating/Rating';
 import { RootReducerInterface } from '../../../reducers';
+
 import { selectProgramScore } from '../Reducer';
 
 const Title = styled.h3<{ isSelected: boolean }>`
@@ -100,32 +100,38 @@ const Thumbnail = ({
 }: ThumbnailProps) => {
   const programScore = useSelector(selectProgramScore(programId));
   const [favourite, setFavourite] = useState<boolean>(false);
-  const handleFavouriteUserSelection = (index: number) => {
-    //if(!favourite)
+
+  const handlesFavouriteChange = () => {
     setFavourite(!favourite);
-    console.log(favourite);
+  };
+
+  const handlesRemoveFavouriteChange = () => {
     if (favourite) {
-      console.log(index);
-      // // remove `from` item and store it
-      var f = stateToRender.splice(index, 1)[0];
-      console.log(stateToRender);
-      console.log(f);
-      // // insert stored item into position `to`
-      setStateToRender([...stateToRender, stateToRender.splice(0, 0, f)]);
-      console.log(stateToRender);
-      setFavourite(!favourite);
-      // console.log(f);
+      setStateToRender([
+        ...stateToRender,
+        stateToRender.splice(programId.length, 0, stateToRender.splice(index, 1)[0]),
+      ]);
+      setFavourite(false);
     }
   };
+
+  //useEffect
+  useEffect(() => {
+    if (favourite) {
+      setStateToRender([...stateToRender, stateToRender.splice(0, 0, stateToRender.splice(index, 1)[0])]);
+      console.log(stateToRender);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }
+  }, [favourite]);
 
   return (
     <Wrapper onClick={() => onThumbnailSelection(index)}>
       <Title isSelected={isSelected}>{title}</Title>
       <div>
-        {favourite ? (
-          <Pin1 onClick={() => handleFavouriteUserSelection(index)} fill="black" />
+        {!favourite ? (
+          <Pin1 onClick={() => handlesFavouriteChange()} fill="none" stroke="black" />
         ) : (
-          <Pin1 onClick={() => handleFavouriteUserSelection(index)} fill="none" stroke="black" />
+          <Pin1 onClick={() => handlesRemoveFavouriteChange()} fill="black" />
         )}
       </div>
 

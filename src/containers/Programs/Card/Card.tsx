@@ -107,4 +107,7 @@ const mapStateToProps = (state: RootReducerInterface) => ({
   isLoadingReviews: state.ProgramsReducer.reviews.isLoadingReviews,
 });
 
+
+
+
 export default connect(mapStateToProps)(Card);

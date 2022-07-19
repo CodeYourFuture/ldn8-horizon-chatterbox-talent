@@ -33,6 +33,8 @@ export const filteredPrograms = (option: ProgramInterface[]) => ({
   payload: option,
 });
 
+
+
 const getAllProgramsInformationFail = () => ({
   type: GET_ALL_PROGRAMS_FAIL,
 });
