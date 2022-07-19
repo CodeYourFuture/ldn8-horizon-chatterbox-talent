@@ -147,7 +147,7 @@ const Programs = ({
   const [showPopupMail, setShowPopupMail] = useState(false);
   const [programSearchQuery, setProgramSearchQuery] = useState('');
   const [stateToRender, setStateToRender] = useState<any[]>([]);
-  const [favouriteArray, setFavouriteArray] = useState([]);
+  
   const handleUserSelection = (index: number) => {
     setSelectedProgramIndex(index);
     setIsShowingModalOnMobile(true);

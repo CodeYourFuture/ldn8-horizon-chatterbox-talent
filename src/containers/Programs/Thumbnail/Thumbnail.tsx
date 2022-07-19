@@ -3,7 +3,7 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 import { ClipLoader } from 'react-spinners';
 import styled from 'styled-components';
 import { ReactComponent as Pin1 } from '../../../assets/icon-pin.svg';
-import { Dispatch } from '@reduxjs/toolkit';
+
 import Rating from '../../../components/Rating/Rating';
 import { RootReducerInterface } from '../../../reducers';
 
@@ -119,10 +119,9 @@ const Thumbnail = ({
   useEffect(() => {
     if (favourite) {
       setStateToRender([...stateToRender, stateToRender.splice(0, 0, stateToRender.splice(index, 1)[0])]);
-      console.log(stateToRender);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }
-  }, [favourite]);
+  }, [favourite]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Wrapper onClick={() => onThumbnailSelection(index)}>
