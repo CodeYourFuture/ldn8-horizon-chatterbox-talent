@@ -7,6 +7,7 @@ import {
   GET_PROGRAM_REVIEWS_SUCCESS,
   SEARCH_PROGRAMS,
   FILTERED_PROGRAMS,
+
 } from './ActionTypes';
 import { ImageInterface } from './adapter';
 import { calculateAverage } from './utils';
@@ -18,7 +19,7 @@ export enum CareersEnum {
   IT = '#addfad',
   '-' = '#66ddaa',
 }
- 
+
 export interface ProgramInterface {
   id: string;
   isActivelyHiring: boolean;
@@ -40,6 +41,7 @@ const programsInitialState = {
   information: [],
   searchedInformation: [],
   filteredInformation: [],
+
 };
 
 export interface ProgramsStateInterface {

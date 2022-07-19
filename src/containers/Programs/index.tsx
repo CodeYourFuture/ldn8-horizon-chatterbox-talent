@@ -17,6 +17,7 @@ import styles from './Programs.module.scss';
 import Thumbnail from './Thumbnail/Thumbnail';
 import FiltersPopUp from '../../components/FiltersPopUp';
 import filterIcon from '../../assets/icon-filters.svg';
+//import { AnyMap } from 'immer/dist/internal';
 
 const SpecificProgramWrapper = styled.div<{ isShowing: boolean }>`
   max-height: 80vh;
@@ -181,7 +182,7 @@ const Programs = ({
 
   useEffect(() => {
     if (information) setStateToRender(information);
-  }, [information]);
+  }, [information, stateToRender]);
 
   useEffect(() => {
     getAllProgramsInformationAction();
@@ -240,21 +241,25 @@ const Programs = ({
                   </InputAndButtonWrapper>
                 </FiltersSearchWrapper>
               </div>
-              {stateToRender.map((data, index) => {
-                return (
-                  <Thumbnail
-                    key={index}
-                    careerTypes={data.careerType}
-                    index={index}
-                    locations={data.locations}
-                    title={data.programName}
-                    onThumbnailSelection={handleUserSelection}
-                    isSelected={index === selectedProgramIndex}
-                    numberOfReviews={data.reviews.length}
-                    programId={data.id}
-                  />
-                );
-              })}
+              <div>
+                {stateToRender.map((data, index) => {
+                  return (
+                    <Thumbnail
+                      key={data.id}
+                      careerTypes={data.careerType}
+                      index={index}
+                      locations={data.locations}
+                      title={data.programName}
+                      stateToRender={stateToRender}
+                      setStateToRender={setStateToRender}
+                      onThumbnailSelection={handleUserSelection}
+                      isSelected={index === selectedProgramIndex}
+                      numberOfReviews={data.reviews}
+                      programId={data.id}
+                    />
+                  );
+                })}
+              </div>
             </div>
           )}
         </div>
