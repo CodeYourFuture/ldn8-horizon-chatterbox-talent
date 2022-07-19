@@ -180,7 +180,7 @@ const Programs = ({
 
   useEffect(() => {
     if (information) setStateToRender(information);
-  }, [information, stateToRender]);
+  }, [information]);
 
   useEffect(() => {
     getAllProgramsInformationAction();
