@@ -72,6 +72,7 @@ const Wrapper = styled.button`
 `;
 
 interface ThumbnailProps {
+  setFavourites:any
   careerTypes: string[];
   index: number;
   isSelected: boolean;
@@ -86,6 +87,7 @@ interface ThumbnailProps {
 }
 
 const Thumbnail = ({
+  setFavourites,
   index,
   isSelected,
   careerTypes,
@@ -99,39 +101,37 @@ const Thumbnail = ({
   setStateToRender,
 }: ThumbnailProps) => {
   const programScore = useSelector(selectProgramScore(programId));
-  const [favourite, setFavourite] = useState<boolean>(false);
+  //const [favouriteItem, setFavouriteItem] = useState<boolean>(false);
 
+  //add
   const handlesFavouriteChange = () => {
-    setFavourite(!favourite);
-  };
+    //setFavouriteItem(true);
+    const indexProgram = stateToRender.findIndex((v: any) => v.id === programId)
+    const x = stateToRender.splice(indexProgram, 1)
+    
+    setFavourites((val:any)=>( [...x,...val]))
+   // setFavourites([...favlourites, stateToRender.splice(0, 0, stateToRender.splice(index, 1)[0])]);
+    }
 
+//remove
   const handlesRemoveFavouriteChange = () => {
-    if (favourite) {
-      setStateToRender([
-        ...stateToRender,
-        stateToRender.splice(programId.length, 0, stateToRender.splice(index, 1)[0]),
-      ]);
-      setFavourite(false);
-    }
+    //setFavouriteItem(false);
+    setFavourites((val: any) => val.filter((v: any) => {
+      console.log(v.id, programId)
+    return v.id !== programId}));
+
+    // if (favouriteItem) {
+    //   const selectedProgram = stateToRender.splice(index, 1)[0];
+    //   setStateToRender([...stateToRender, stateToRender.splice(stateToRender.length, 0, selectedProgram)]);
+    //   setFavouriteItem(false);
+    // }
   };
-
-  //useEffect
-  useEffect(() => {
-    if (favourite) {
-      setStateToRender([...stateToRender, stateToRender.splice(0, 0, stateToRender.splice(index, 1)[0])]);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }
-  }, [favourite]); // eslint-disable-line react-hooks/exhaustive-deps
-
   return (
     <Wrapper onClick={() => onThumbnailSelection(index)}>
       <Title isSelected={isSelected}>{title}</Title>
       <div>
-        {!favourite ? (
           <Pin1 onClick={() => handlesFavouriteChange()} fill="none" stroke="black" />
-        ) : (
           <Pin1 onClick={() => handlesRemoveFavouriteChange()} fill="black" />
-        )}
       </div>
 
       {isLoadingReviews ? (

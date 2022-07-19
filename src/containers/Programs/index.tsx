@@ -149,6 +149,7 @@ const Programs = ({
   const [showPopupMail, setShowPopupMail] = useState(false);
   const [programSearchQuery, setProgramSearchQuery] = useState('');
   const [stateToRender, setStateToRender] = useState<any[]>([]);
+  const [favourites, setFavourites] = useState<any[]>([]);
 
   const handleUserSelection = (index: number) => {
     setSelectedProgramIndex(index);
@@ -187,6 +188,9 @@ const Programs = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+const statusFavourites=favourites.length?[...favourites,...stateToRender.filter((valRend)=>!favourites.some((valFav)=>valFav.id ===valRend.id))]:stateToRender
+console.log(favourites,'favourites')
+console.log(statusFavourites,'statusFavorites')
   return (
     <div className={styles.content}>
       <div className={styles['title__wrapper']}>
@@ -240,10 +244,11 @@ const Programs = ({
                 </FiltersSearchWrapper>
               </div>
               <div>
-                {stateToRender.map((data, index) => {
+                {statusFavourites.map((data, index) => {
                   return (
                     <Thumbnail
-                      key={data.id}
+                      key={data.it}
+                      setFavourites={setFavourites}
                       careerTypes={data.careerType}
                       index={index}
                       locations={data.locations}
