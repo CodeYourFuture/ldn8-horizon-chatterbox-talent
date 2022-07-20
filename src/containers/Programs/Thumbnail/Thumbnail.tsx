@@ -106,9 +106,11 @@ const Thumbnail = ({
   };
 
   return (
-    <Wrapper onClick={() => onThumbnailSelection(programId)}>
-      <div style={{display:'flex', justifyContent:'space-between', width:'100%'}}>
-        <Title isSelected={isSelected}>{title}</Title>
+    <Wrapper>
+      <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+        <Title isSelected={isSelected} onClick={() => onThumbnailSelection(programId)}>
+          {title}
+        </Title>
         {!favourite ? (
           <Pin1
             onClick={() => {

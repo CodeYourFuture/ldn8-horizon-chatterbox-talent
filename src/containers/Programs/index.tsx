@@ -208,7 +208,7 @@ if (typeof stateToRender[0] == 'undefined'){
     return !isSelectedAsFave;
   });
   useEffect(() => {
-    setStateToRender([...favorites, ...filteredByFavData.reverse()]);
+    setStateToRender([...favorites.reverse(), ...filteredByFavData.reverse()]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favorites]);
   return (
