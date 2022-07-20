@@ -140,30 +140,24 @@ const Programs = ({
   getAllProgramsInformationAction,
   information,
   isLoadingPrograms,
-  searchedInformation,
-  filteredInformation,
 }: ProgramsProps) => {
-  const [selectedProgramId, setSelectedProgramId] = useState('0');
+  
   const [isShowingModalOnMobile, setIsShowingModalOnMobile] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [showPopupMail, setShowPopupMail] = useState(false);
   const [programSearchQuery, setProgramSearchQuery] = useState('');
   const [stateToRender, setStateToRender] = useState<any[]>([]);
   const [favorites, setFavorites] = useState<any[]>([]);
-
+const [selectedProgramId, setSelectedProgramId] = useState('rec7bgu9RLfNrQjuX');
   const handleUserSelection = (id: string) => {
     setSelectedProgramId(id);
     setIsShowingModalOnMobile(true);
   };
-  console.log(selectedProgramId);
   const handleFavouriteSelection = (programId: string) => {
     if (!favorites.some(v => v.id.includes(programId))) {
       const y = stateToRender.filter(v => v.id === programId)[0];
-      console.log(y);
       setFavorites([...favorites, y]);
     } else {
-      const x = favorites.filter(v => v.id === programId)[0];
-      console.log(x, 'mister x');
       setFavorites(val => val.filter(v => v.id !== programId));
     }
   };
@@ -204,14 +198,10 @@ const Programs = ({
     const isSelectedAsFave = favoritesIds.includes(object.id);
     return !isSelectedAsFave;
   });
-console.log(filteredByFavData, 'filteredByFavData');
-
   useEffect(() => {
     setStateToRender([...favorites, ...filteredByFavData]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favorites]);
-
-  console.log(stateToRender);
   return (
     <div className={styles.content}>
       <div className={styles['title__wrapper']}>
@@ -303,7 +293,7 @@ console.log(filteredByFavData, 'filteredByFavData');
             </div>
           ) : (
             <CardWrapper onClick={(evt: SyntheticEvent) => evt.stopPropagation()}>
-              <Card {...stateToRender.filter(v => v.id === selectedProgramId)[0]}/>
+              <Card {...[...stateToRender].filter(v => v.id === selectedProgramId)[0]} />
               <Caret onClick={() => setIsShowingModalOnMobile(false)}>X</Caret>
             </CardWrapper>
           )}
