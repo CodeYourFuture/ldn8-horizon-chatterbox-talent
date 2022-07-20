@@ -148,7 +148,16 @@ const Programs = ({
   const [programSearchQuery, setProgramSearchQuery] = useState('');
   const [stateToRender, setStateToRender] = useState<any[]>([]);
   const [favorites, setFavorites] = useState<any[]>([]);
-const [selectedProgramId, setSelectedProgramId] = useState('rec7bgu9RLfNrQjuX');
+const [selectedProgramId, setSelectedProgramId] = useState("loading");
+
+useEffect(()=> {
+if (typeof stateToRender[0] == 'undefined'){
+  setSelectedProgramId('loading')
+} else {
+  setSelectedProgramId(stateToRender[0].id)
+}}, [stateToRender])
+
+
   const handleUserSelection = (id: string) => {
     setSelectedProgramId(id);
     setIsShowingModalOnMobile(true);
@@ -293,7 +302,8 @@ const [selectedProgramId, setSelectedProgramId] = useState('rec7bgu9RLfNrQjuX');
             </div>
           ) : (
             <CardWrapper onClick={(evt: SyntheticEvent) => evt.stopPropagation()}>
-              <Card {...[...stateToRender].filter(v => v.id === selectedProgramId)[0]} />
+              {selectedProgramId === 'loading' ? ( <Card/>) : <Card {...[...stateToRender].filter(v => v.id === selectedProgramId)[0]} />}
+              
               <Caret onClick={() => setIsShowingModalOnMobile(false)}>X</Caret>
             </CardWrapper>
           )}

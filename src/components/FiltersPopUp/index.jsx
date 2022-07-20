@@ -163,6 +163,7 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
   const handleReset = () => {
     setResetState(false);
     setStateToRender(information);
+    console.log("hello")
   };
   const storeFilters = data => {
     const setsOfFilters = data.reduce((acc, v, i) => {
