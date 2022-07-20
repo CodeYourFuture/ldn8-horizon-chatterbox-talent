@@ -76,7 +76,7 @@ interface ThumbnailProps {
   index: number;
   isSelected: boolean;
   locations: string[];
-  onThumbnailSelection(index: number): void;
+  onThumbnailSelection(programId: string): void;
   title: string;
   numberOfReviews: number;
   programId: string;
@@ -109,7 +109,7 @@ const Thumbnail = ({
     if (favourite) {
       setStateToRender([
         ...stateToRender,
-        stateToRender.splice(programId.length, 0, stateToRender.splice(index, 1)[0]),
+        stateToRender.splice(stateToRender.length, 0, stateToRender.splice(index, 1)[0]),
       ]);
       setFavourite(false);
     }
@@ -124,7 +124,7 @@ const Thumbnail = ({
   }, [favourite]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Wrapper onClick={() => onThumbnailSelection(index)}>
+    <Wrapper onClick={() => onThumbnailSelection(programId)}>
       <Title isSelected={isSelected}>{title}</Title>
       <div>
         {!favourite ? (

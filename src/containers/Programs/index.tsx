@@ -143,18 +143,18 @@ const Programs = ({
   searchedInformation,
   filteredInformation,
 }: ProgramsProps) => {
-  const [selectedProgramIndex, setSelectedProgramIndex] = useState(0);
+  const [selectedProgramId, setSelectedProgramId] = useState('rech8EW3zAYwiC91F');
   const [isShowingModalOnMobile, setIsShowingModalOnMobile] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [showPopupMail, setShowPopupMail] = useState(false);
   const [programSearchQuery, setProgramSearchQuery] = useState('');
   const [stateToRender, setStateToRender] = useState<any[]>([]);
 
-  const handleUserSelection = (index: number) => {
-    setSelectedProgramIndex(index);
+  const handleUserSelection = (id: string) => {
+    setSelectedProgramId(id);
     setIsShowingModalOnMobile(true);
   };
-
+console.log(selectedProgramId)
   const handleShowPopup = (option: boolean) => {
     setShowPopup(option);
   };
@@ -180,13 +180,15 @@ const Programs = ({
 
   useEffect(() => {
     if (information) setStateToRender(information);
-  }, [information]);
+  }, [information, stateToRender]);
 
   useEffect(() => {
     getAllProgramsInformationAction();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+ 
+   console.log(stateToRender);
+ 
   return (
     <div className={styles.content}>
       <div className={styles['title__wrapper']}>
@@ -251,7 +253,7 @@ const Programs = ({
                       stateToRender={stateToRender}
                       setStateToRender={setStateToRender}
                       onThumbnailSelection={handleUserSelection}
-                      isSelected={index === selectedProgramIndex}
+                      isSelected={data.id === selectedProgramId}
                       numberOfReviews={data.reviews}
                       programId={data.id}
                     />
@@ -280,7 +282,7 @@ const Programs = ({
             </div>
           ) : (
             <CardWrapper onClick={(evt: SyntheticEvent) => evt.stopPropagation()}>
-              <Card {...stateToRender[selectedProgramIndex]} />
+              <Card {...stateToRender.filter(v=> v.id === selectedProgramId)[0]} />
               <Caret onClick={() => setIsShowingModalOnMobile(false)}>X</Caret>
             </CardWrapper>
           )}
