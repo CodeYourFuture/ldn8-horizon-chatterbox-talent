@@ -199,7 +199,7 @@ const [selectedProgramId, setSelectedProgramId] = useState('rec7bgu9RLfNrQjuX');
     return !isSelectedAsFave;
   });
   useEffect(() => {
-    setStateToRender([...favorites, ...filteredByFavData]);
+    setStateToRender([...favorites, ...filteredByFavData.reverse()]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favorites]);
   return (
