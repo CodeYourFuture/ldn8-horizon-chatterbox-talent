@@ -77,6 +77,7 @@ interface ThumbnailProps {
   isSelected: boolean;
   locations: string[];
   onThumbnailSelection(programId: string): void;
+  onFavouriteSelection(programId: string): void;
   title: string;
   numberOfReviews: number;
   programId: string;
@@ -92,6 +93,7 @@ const Thumbnail = ({
   locations,
   title,
   onThumbnailSelection,
+  onFavouriteSelection,
   numberOfReviews,
   programId,
   isLoadingReviews,
@@ -102,35 +104,43 @@ const Thumbnail = ({
   const [favourite, setFavourite] = useState<boolean>(false);
 
   const handlesFavouriteChange = () => {
-    setFavourite(!favourite);
+    setFavourite(true);
   };
 
   const handlesRemoveFavouriteChange = () => {
-    if (favourite) {
-      setStateToRender([
-        ...stateToRender,
-        stateToRender.splice(stateToRender.length, 0, stateToRender.splice(index, 1)[0]),
-      ]);
-      setFavourite(false);
-    }
+    setFavourite(false);
   };
+  // };
 
-  //useEffect
-  useEffect(() => {
-    if (favourite) {
-      setStateToRender([...stateToRender, stateToRender.splice(0, 0, stateToRender.splice(index, 1)[0])]);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }
-  }, [favourite]); // eslint-disable-line react-hooks/exhaustive-deps
+  // //useEffect
+  // useEffect(() => {
+  //   if (favourite) {
+  //     setStateToRender([...stateToRender, stateToRender.splice(0, 0, stateToRender.splice(index, 1)[0])]);
+  //     // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   }
+  // }, [favourite]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Wrapper onClick={() => onThumbnailSelection(programId)}>
       <Title isSelected={isSelected}>{title}</Title>
       <div>
         {!favourite ? (
-          <Pin1 onClick={() => handlesFavouriteChange()} fill="none" stroke="black" />
+          <Pin1
+            onClick={() => {
+              onFavouriteSelection(programId);
+              handlesFavouriteChange();
+            }}
+            fill="none"
+            stroke="black"
+          />
         ) : (
-          <Pin1 onClick={() => handlesRemoveFavouriteChange()} fill="black" />
+          <Pin1
+            onClick={() => {
+              onFavouriteSelection(programId);
+              handlesRemoveFavouriteChange();
+            }}
+            fill="black"
+          />
         )}
       </div>
 
