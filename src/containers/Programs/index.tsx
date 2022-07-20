@@ -143,7 +143,7 @@ const Programs = ({
   searchedInformation,
   filteredInformation,
 }: ProgramsProps) => {
-  const [selectedProgramId, setSelectedProgramId] = useState('rech8EW3zAYwiC91F');
+  const [selectedProgramId, setSelectedProgramId] = useState('0');
   const [isShowingModalOnMobile, setIsShowingModalOnMobile] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [showPopupMail, setShowPopupMail] = useState(false);
@@ -199,15 +199,15 @@ const Programs = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const favFiltData:any[] = stateToRender.filter(nameObject => {
-    const favoritesIds = favorites.map(nameObjectFave => nameObjectFave.id);
-    const isSelectedAsFave = favoritesIds.includes(nameObject.id);
+  const filteredByFavData:any[] = stateToRender.filter(object => {
+    const favoritesIds = favorites.map(objectFave => objectFave.id);
+    const isSelectedAsFave = favoritesIds.includes(object.id);
     return !isSelectedAsFave;
   });
-console.log(favFiltData, 'favFiltData');
+console.log(filteredByFavData, 'filteredByFavData');
 
   useEffect(() => {
-    setStateToRender([...favorites, ...favFiltData]);
+    setStateToRender([...favorites, ...filteredByFavData]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favorites]);
 
@@ -270,11 +270,8 @@ console.log(favFiltData, 'favFiltData');
                     <Thumbnail
                       key={data.id}
                       careerTypes={data.careerType}
-                      index={index}
                       locations={data.locations}
                       title={data.programName}
-                      stateToRender={stateToRender}
-                      setStateToRender={setStateToRender}
                       onThumbnailSelection={handleUserSelection}
                       onFavouriteSelection={handleFavouriteSelection}
                       isSelected={data.id === selectedProgramId}
@@ -306,7 +303,7 @@ console.log(favFiltData, 'favFiltData');
             </div>
           ) : (
             <CardWrapper onClick={(evt: SyntheticEvent) => evt.stopPropagation()}>
-              <Card {...stateToRender.filter(v => v.id === selectedProgramId)[0]} />
+              <Card {...stateToRender.filter(v => v.id === selectedProgramId)[0]}/>
               <Caret onClick={() => setIsShowingModalOnMobile(false)}>X</Caret>
             </CardWrapper>
           )}

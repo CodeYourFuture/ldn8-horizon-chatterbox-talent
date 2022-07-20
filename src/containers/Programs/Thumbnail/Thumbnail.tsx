@@ -73,7 +73,6 @@ const Wrapper = styled.button`
 
 interface ThumbnailProps {
   careerTypes: string[];
-  index: number;
   isSelected: boolean;
   locations: string[];
   onThumbnailSelection(programId: string): void;
@@ -82,12 +81,9 @@ interface ThumbnailProps {
   numberOfReviews: number;
   programId: string;
   isLoadingReviews: boolean;
-  setStateToRender: any;
-  stateToRender: any;
 }
 
 const Thumbnail = ({
-  index,
   isSelected,
   careerTypes,
   locations,
@@ -97,8 +93,6 @@ const Thumbnail = ({
   numberOfReviews,
   programId,
   isLoadingReviews,
-  stateToRender,
-  setStateToRender,
 }: ThumbnailProps) => {
   const programScore = useSelector(selectProgramScore(programId));
   const [favourite, setFavourite] = useState<boolean>(false);
@@ -110,20 +104,11 @@ const Thumbnail = ({
   const handlesRemoveFavouriteChange = () => {
     setFavourite(false);
   };
-  // };
-
-  // //useEffect
-  // useEffect(() => {
-  //   if (favourite) {
-  //     setStateToRender([...stateToRender, stateToRender.splice(0, 0, stateToRender.splice(index, 1)[0])]);
-  //     // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   }
-  // }, [favourite]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Wrapper onClick={() => onThumbnailSelection(programId)}>
-      <Title isSelected={isSelected}>{title}</Title>
-      <div>
+      <div style={{display:'flex', justifyContent:'space-between', width:'100%'}}>
+        <Title isSelected={isSelected}>{title}</Title>
         {!favourite ? (
           <Pin1
             onClick={() => {
