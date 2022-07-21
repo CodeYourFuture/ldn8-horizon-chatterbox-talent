@@ -12,7 +12,7 @@
             display:block;
             overflow-y: auto;
        @include breakpoint-max(md) {
-                height: 40vh;                
+                height: 60vh;                
             }
 }
 @include breakpoint-max(md) {
@@ -49,4 +49,7 @@
 
 .check-box-filters {
     padding: 0 8px;
+     @include breakpoint-max(md) {
+                padding: 5px 0;            
+            }
 }

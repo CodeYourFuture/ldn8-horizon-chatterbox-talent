@@ -25,11 +25,12 @@ const Wrapper = styled.div`
   justify-content: space-between;
   position: relative;
   z-index: 4000;
+  overflow-y: auto;
 
   @media screen and (max-width: 768px) {
-    width: 90vw;
+    width: 100vw;
     flex-direction: column;
-    height: 90vh;
+    height: 100vh;
   }
 `;
 
@@ -39,11 +40,15 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-around;
+  margin-left: auto;
+  margin-right: auto;
 
   @media screen and (max-width: 768px) {
     width: 90%;
     padding: 10vw 5vw;
-    gap: 5vw;
+    @media screen and (orientation: landscape) {
+      height: 110vh;
+    }
   }
 
   h3 {
@@ -64,8 +69,13 @@ const ContentWrapper = styled.div`
   }
   form {
     display: flex;
-    gap: 1.5em;
-    width: 100%;
+    justify-content: space-between;
+    padding: 0 10px;
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      padding: 10px 0;
+    }
   }
   legend {
     font-weight: 400;
@@ -85,12 +95,18 @@ const FilterWrapper = styled.div`
   @media screen and (max-width: 768px) {
     flex-direction: column;
     padding: 10px 0;
+    @media screen and (orientation: landscape) {
+      flex-direction: row;
+    }
   }
 `;
 const ButtonsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  @media screen and (max-width: 768px) {
+    padding-bottom: 20px;
+  }
 `;
 
 const ResetButton = styled.button`
@@ -199,7 +215,6 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
         <ContentWrapper>
           <h3>Filter programs:</h3>
           <form>
-            <FilterWrapper>
               <MultiSelectWrapper>
                 <MultiSelectDropDown
                   filterState={[filters, setFilters]}
@@ -244,7 +259,6 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
                   setResetState={setResetState}
                 />
               </FilterWrapper>
-            </FilterWrapper>
           </form>
           <ButtonsWrapper>
             <ResetButton onClick={handleReset}>Reset</ResetButton>
