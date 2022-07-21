@@ -222,7 +222,7 @@ if (typeof stateToRender[0] == 'undefined'){
     const sortBy = evt.target.value;
     const render = stateToRender.sort((a: any, b: any) => a.dateAdd - b.dateAdd)
     console.log(render)
-    if (sortBy === 'Most recent') setStateToRender(render);
+    if (sortBy === 'Most recent') setStateToRender([...render]);
   };
 
   return (
