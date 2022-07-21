@@ -146,7 +146,6 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
   const [resetState, setResetState] = useState(true);
   //State to store the filters
   const [filters, setFilters] = useState({});
-
   const handleSubmitFilters = evt => {
     //alert('bnt working');
     //console.log(locations, careerTypes)
@@ -247,7 +246,12 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
           </form>
           <ButtonsWrapper>
             <ResetButton onClick={handleReset}>Reset</ResetButton>
-            <DoneButton disabled={Object.keys(filters).every(v=> v===null)} onClick={handleSubmitFilters}>
+            <DoneButton
+              disabled={
+                Object.keys(filters).every(v => v === null) || Object.values(filters).every(v => v.length === 0)
+              } //disabled on all empty checkboxes
+              onClick={handleSubmitFilters}
+            >
               Done
             </DoneButton>
           </ButtonsWrapper>
