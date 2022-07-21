@@ -217,6 +217,14 @@ if (typeof stateToRender[0] == 'undefined'){
     setStateToRender([...favorites.reverse(), ...filteredByFavData.reverse()]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favorites]);
+
+  const handleSort = (evt: any) => {
+    const sortBy = evt.target.value;
+    const render = stateToRender.sort((a: any, b: any) => a.dateAdd - b.dateAdd)
+    console.log(render)
+    if (sortBy === 'Most recent') setStateToRender(render);
+  };
+
   return (
     <div className={styles.content}>
       <div className={styles['title__wrapper']}>
@@ -256,7 +264,7 @@ if (typeof stateToRender[0] == 'undefined'){
                   <InputAndButtonWrapper>
                     <FieldWrapper>
                       <label>Sort:</label>
-                      <Select>
+                      <Select onChange={handleSort}>
                         <option>Top rating</option>
                         <option>Most recent</option>
                         <option>Favorites</option>
