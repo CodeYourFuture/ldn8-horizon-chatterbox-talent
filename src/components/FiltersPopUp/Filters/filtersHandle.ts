@@ -2,6 +2,7 @@ import { filtersArray } from './Filters/index';
 
 const [locations, onSite, isActivelyHiring, programDuration, careerTypes] = filtersArray;
 const filtersHandle = (information: any, filters: any) => {
+  if (Object.keys(filters).every(v => v===null)) return information;
   const keysFilter = Object.keys(filters);
 
   // eslint-disable-next-line array-callback-return
