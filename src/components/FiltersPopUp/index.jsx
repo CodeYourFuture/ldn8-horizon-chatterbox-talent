@@ -179,7 +179,6 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
   const handleReset = () => {
     setResetState(false);
     setStateToRender(information);
-    console.log("hello")
   };
   const storeFilters = data => {
     const setsOfFilters = data.reduce((acc, v, i) => {
@@ -262,7 +261,9 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
           </form>
           <ButtonsWrapper>
             <ResetButton onClick={handleReset}>Reset</ResetButton>
-            <DoneButton onClick={handleSubmitFilters}>Done</DoneButton>
+            <DoneButton disabled={Object.keys(filters).every(v=> v===null)} onClick={handleSubmitFilters}>
+              Done
+            </DoneButton>
           </ButtonsWrapper>
         </ContentWrapper>
         <CloseButton onClick={handleUserClose}>X</CloseButton>
