@@ -140,21 +140,38 @@ const Programs = ({
   getAllProgramsInformationAction,
   information,
   isLoadingPrograms,
-  searchedInformation,
-  filteredInformation,
 }: ProgramsProps) => {
-  const [selectedProgramIndex, setSelectedProgramIndex] = useState(0);
+  
   const [isShowingModalOnMobile, setIsShowingModalOnMobile] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [showPopupMail, setShowPopupMail] = useState(false);
   const [programSearchQuery, setProgramSearchQuery] = useState('');
   const [stateToRender, setStateToRender] = useState<any[]>([]);
+  const [favorites, setFavorites] = useState<any[]>([]);
+const [selectedProgramId, setSelectedProgramId] = useState("loading");
 
-  const handleUserSelection = (index: number) => {
-    setSelectedProgramIndex(index);
+useEffect(()=> {
+if (typeof stateToRender[0] == 'undefined'){
+  setSelectedProgramId('loading')
+} else {
+  setSelectedProgramId(stateToRender[0].id)
+}}, [stateToRender])
+
+ const handleUserSelection = (id: string) => {
+    setSelectedProgramId(id);
     setIsShowingModalOnMobile(true);
   };
-
+  
+// add or remove programs from array of favourites
+  const handleFavouriteSelection = (programId: string) => {
+    if (!favorites.some(v => v.id.includes(programId))) {
+      const y = stateToRender.filter(v => v.id === programId)[0];
+      setFavorites([...favorites, y]);
+    } else {
+      setFavorites(val => val.filter(v => v.id !== programId));
+    }
+  };
+  
   const handleShowPopup = (option: boolean) => {
     setShowPopup(option);
   };
@@ -186,6 +203,20 @@ const Programs = ({
     getAllProgramsInformationAction();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+// filter data data to remove items that are in array of favourites & assign to a new var.
+  const filteredByFavData:any[] = stateToRender.filter(object => {
+    const favoritesIds = favorites.map(objectFave => objectFave.id);
+    const isSelectedAsFave = favoritesIds.includes(object.id);
+    return !isSelectedAsFave;
+  });
+
+// pass array of favourites and everything that is left into a stateToRender
+//Reverse to push selected to the top and unseleced to the bottom
+  useEffect(() => {
+    setStateToRender([...favorites.reverse(), ...filteredByFavData.reverse()]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [favorites]);
 
   const handleSort = (evt: any) => {
     const sortBy = evt.target.value;
@@ -252,13 +283,11 @@ const Programs = ({
                     <Thumbnail
                       key={data.id}
                       careerTypes={data.careerType}
-                      index={index}
                       locations={data.locations}
                       title={data.programName}
-                      stateToRender={stateToRender}
-                      setStateToRender={setStateToRender}
                       onThumbnailSelection={handleUserSelection}
-                      isSelected={index === selectedProgramIndex}
+                      onFavouriteSelection={handleFavouriteSelection}
+                      isSelected={data.id === selectedProgramId}
                       numberOfReviews={data.reviews}
                       programId={data.id}
                     />
@@ -287,7 +316,8 @@ const Programs = ({
             </div>
           ) : (
             <CardWrapper onClick={(evt: SyntheticEvent) => evt.stopPropagation()}>
-              <Card {...stateToRender[selectedProgramIndex]} />
+              {selectedProgramId === 'loading' ? ( <Card/>) : <Card {...[...stateToRender].filter(v => v.id === selectedProgramId)[0]} />}
+              
               <Caret onClick={() => setIsShowingModalOnMobile(false)}>X</Caret>
             </CardWrapper>
           )}

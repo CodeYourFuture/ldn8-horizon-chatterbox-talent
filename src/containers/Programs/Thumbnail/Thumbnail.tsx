@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState,} from 'react';
 import { connect, useSelector } from 'react-redux';
 import { ClipLoader } from 'react-spinners';
 import styled from 'styled-components';
@@ -73,64 +73,63 @@ const Wrapper = styled.button`
 
 interface ThumbnailProps {
   careerTypes: string[];
-  index: number;
   isSelected: boolean;
   locations: string[];
-  onThumbnailSelection(index: number): void;
+  onThumbnailSelection(programId: string): void;
+  onFavouriteSelection(programId: string): void;
   title: string;
   numberOfReviews: number;
   programId: string;
   isLoadingReviews: boolean;
-  setStateToRender: any;
-  stateToRender: any;
 }
 
 const Thumbnail = ({
-  index,
   isSelected,
   careerTypes,
   locations,
   title,
   onThumbnailSelection,
+  onFavouriteSelection,
   numberOfReviews,
   programId,
   isLoadingReviews,
-  stateToRender,
-  setStateToRender,
 }: ThumbnailProps) => {
   const programScore = useSelector(selectProgramScore(programId));
+
+  // responsible for changing colour of pins
   const [favourite, setFavourite] = useState<boolean>(false);
 
   const handlesFavouriteChange = () => {
-    setFavourite(!favourite);
+    setFavourite(true);
   };
 
   const handlesRemoveFavouriteChange = () => {
-    if (favourite) {
-      setStateToRender([
-        ...stateToRender,
-        stateToRender.splice(programId.length, 0, stateToRender.splice(index, 1)[0]),
-      ]);
-      setFavourite(false);
-    }
+    setFavourite(false);
   };
 
-  //useEffect
-  useEffect(() => {
-    if (favourite) {
-      setStateToRender([...stateToRender, stateToRender.splice(0, 0, stateToRender.splice(index, 1)[0])]);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }
-  }, [favourite]); // eslint-disable-line react-hooks/exhaustive-deps
-
   return (
-    <Wrapper onClick={() => onThumbnailSelection(index)}>
-      <Title isSelected={isSelected}>{title}</Title>
-      <div>
+    <Wrapper>
+      <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+        <Title isSelected={isSelected} onClick={() => onThumbnailSelection(programId)}>
+          {title}
+        </Title>
         {!favourite ? (
-          <Pin1 onClick={() => handlesFavouriteChange()} fill="none" stroke="black" />
+          <Pin1
+            onClick={() => {
+              onFavouriteSelection(programId);
+              handlesFavouriteChange();
+            }}
+            fill="none"
+            stroke="black"
+          />
         ) : (
-          <Pin1 onClick={() => handlesRemoveFavouriteChange()} fill="black" />
+          <Pin1
+            onClick={() => {
+              onFavouriteSelection(programId);
+              handlesRemoveFavouriteChange();
+            }}
+            fill="black"
+          />
         )}
       </div>
 
