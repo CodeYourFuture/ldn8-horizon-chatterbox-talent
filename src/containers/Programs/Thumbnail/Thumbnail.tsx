@@ -95,6 +95,8 @@ const Thumbnail = ({
   isLoadingReviews,
 }: ThumbnailProps) => {
   const programScore = useSelector(selectProgramScore(programId));
+
+  // responsible for changing colour of pins
   const [favourite, setFavourite] = useState<boolean>(false);
 
   const handlesFavouriteChange = () => {

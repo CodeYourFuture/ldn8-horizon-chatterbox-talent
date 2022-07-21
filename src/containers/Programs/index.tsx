@@ -157,11 +157,12 @@ if (typeof stateToRender[0] == 'undefined'){
   setSelectedProgramId(stateToRender[0].id)
 }}, [stateToRender])
 
-
-  const handleUserSelection = (id: string) => {
+ const handleUserSelection = (id: string) => {
     setSelectedProgramId(id);
     setIsShowingModalOnMobile(true);
   };
+  
+// add or remove programs from array of favourites
   const handleFavouriteSelection = (programId: string) => {
     if (!favorites.some(v => v.id.includes(programId))) {
       const y = stateToRender.filter(v => v.id === programId)[0];
@@ -170,6 +171,7 @@ if (typeof stateToRender[0] == 'undefined'){
       setFavorites(val => val.filter(v => v.id !== programId));
     }
   };
+  
   const handleShowPopup = (option: boolean) => {
     setShowPopup(option);
   };
@@ -202,11 +204,15 @@ if (typeof stateToRender[0] == 'undefined'){
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+// filter data data to remove items that are in array of favourites & assign to a new var.
   const filteredByFavData:any[] = stateToRender.filter(object => {
     const favoritesIds = favorites.map(objectFave => objectFave.id);
     const isSelectedAsFave = favoritesIds.includes(object.id);
     return !isSelectedAsFave;
   });
+
+// pass array of favourites and everything that is left into a stateToRender
+//Reverse to push selected to the top and unseleced to the bottom
   useEffect(() => {
     setStateToRender([...favorites.reverse(), ...filteredByFavData.reverse()]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
