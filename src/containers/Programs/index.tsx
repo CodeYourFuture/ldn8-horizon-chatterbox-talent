@@ -17,7 +17,6 @@ import styles from './Programs.module.scss';
 import Thumbnail from './Thumbnail/Thumbnail';
 import FiltersPopUp from '../../components/FiltersPopUp';
 import filterIcon from '../../assets/icon-filters.svg';
-//import { AnyMap } from 'immer/dist/internal';
 
 const SpecificProgramWrapper = styled.div<{ isShowing: boolean }>`
   max-height: 80vh;
@@ -150,6 +149,7 @@ const Programs = ({
   const [showPopupMail, setShowPopupMail] = useState(false);
   const [programSearchQuery, setProgramSearchQuery] = useState('');
   const [stateToRender, setStateToRender] = useState<any[]>([]);
+  const [sortedInfo, setSortedInfo] = useState<any[]>([]);
 
   const handleUserSelection = (index: number) => {
     setSelectedProgramIndex(index);
@@ -180,8 +180,8 @@ const Programs = ({
   };
 
   useEffect(() => {
-    if (information) setStateToRender(information);
-  }, [information, stateToRender]);
+    setStateToRender(information);
+  }, [information]);
 
   useEffect(() => {
     getAllProgramsInformationAction();
@@ -190,9 +190,9 @@ const Programs = ({
 
   const handleSort = (evt: any) => {
     const sortBy = evt.target.value;
-    const render = stateToRender.sort((a: any, b: any) => a.dateAdd - b.dateAdd)
-    console.log(render)
-    if (sortBy === 'Most recent') setStateToRender(render);
+    const render = stateToRender.sort((a: any, b: any) => a.dateAdd - b.dateAdd);
+    console.log(render);
+    if (sortBy === 'Most recent') setSortedInfo(render);
   };
 
   return (
@@ -248,7 +248,7 @@ const Programs = ({
                 </FiltersSearchWrapper>
               </div>
               <div>
-                {stateToRender.map((data, index) => {
+                {(!sortedInfo.length ? stateToRender : sortedInfo).map((data, index) => {
                   return (
                     <Thumbnail
                       key={data.id}
