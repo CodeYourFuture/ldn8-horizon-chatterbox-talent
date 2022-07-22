@@ -47,7 +47,7 @@ const ContentWrapper = styled.div`
     width: 90%;
     padding: 10vw 5vw;
     @media screen and (orientation: landscape) {
-      height: 110vh;
+      height: 130vh;
     }
   }
 
@@ -56,25 +56,23 @@ const ContentWrapper = styled.div`
     font-size: 2.2em;
     line-height: 1.2em;
   }
-  input {
-    padding: 0.5em 0.8em;
-    border: 1px solid gray;
-  }
+
   label {
     font-weight: 300;
     letter-spacing: 0.2px;
-    font-size: 0.8em;
-    line-height: 1.2em;
-    padding-left: 0.2em;
+    padding-bottom: 0.15em;
   }
+
   form {
     display: flex;
     justify-content: space-between;
     padding: 0 10px;
+    gap: 2rem;
 
     @media screen and (max-width: 768px) {
       flex-direction: column;
       padding: 10px 0;
+      gap: 0.5rem;
     }
   }
   legend {
@@ -89,9 +87,6 @@ const MultiSelectWrapper = styled.div`
 
 const FilterWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
-  padding: 0 10px;
-
   @media screen and (max-width: 768px) {
     flex-direction: column;
     padding: 10px 0;
@@ -214,33 +209,34 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
         <ContentWrapper>
           <h3>Filter programs:</h3>
           <form>
-              <MultiSelectWrapper>
-                <MultiSelectDropDown
-                  filterState={[filters, setFilters]}
-                  criteria={filtersStore.locations}
-                  name={'Locations'}
-                  objKey={'locations'}
-                  resetState={resetState}
-                  setResetState={setResetState}
-                />
-                <MultiSelectDropDown
-                  filterState={[filters, setFilters]}
-                  criteria={filtersStore.careerType}
-                  name={'Career Type'}
-                  objKey={'careerType'}
-                  resetState={resetState}
-                  setResetState={setResetState}
-                />
-              </MultiSelectWrapper>
-              <FilterWrapper>
-                <CheckBoxFilter
-                  filterState={[filters, setFilters]}
-                  criteria={filtersStore.programDuration}
-                  name={'Program Duration'}
-                  objKey={'programDuration'}
-                  resetState={resetState}
-                  setResetState={setResetState}
-                />
+            <MultiSelectWrapper>
+              <MultiSelectDropDown
+                filterState={[filters, setFilters]}
+                criteria={filtersStore.locations}
+                name={'Locations'}
+                objKey={'locations'}
+                resetState={resetState}
+                setResetState={setResetState}
+              />
+              <MultiSelectDropDown
+                filterState={[filters, setFilters]}
+                criteria={filtersStore.careerType}
+                name={'Career Type'}
+                objKey={'careerType'}
+                resetState={resetState}
+                setResetState={setResetState}
+              />
+            </MultiSelectWrapper>
+            <FilterWrapper>
+              <CheckBoxFilter
+                filterState={[filters, setFilters]}
+                criteria={filtersStore.programDuration}
+                name={'Program Duration'}
+                objKey={'programDuration'}
+                resetState={resetState}
+                setResetState={setResetState}
+              />
+              <div>
                 <CheckBoxFilter
                   filterState={[filters, setFilters]}
                   criteria={filtersStore.onSite}
@@ -257,11 +253,12 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
                   resetState={resetState}
                   setResetState={setResetState}
                 />
-              </FilterWrapper>
+              </div>
+            </FilterWrapper>
           </form>
           <ButtonsWrapper>
             <ResetButton onClick={handleReset}>Reset</ResetButton>
-            <DoneButton disabled={Object.keys(filters).every(v=> v===null)} onClick={handleSubmitFilters}>
+            <DoneButton disabled={Object.keys(filters).every(v => v === null)} onClick={handleSubmitFilters}>
               Done
             </DoneButton>
           </ButtonsWrapper>

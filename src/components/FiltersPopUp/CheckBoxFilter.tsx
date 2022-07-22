@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './CheckBoxFilter.module.scss';
+import Dropdown from '../../assets/icon-dropdown.svg';
 //import styled from "styled-components";
 
 interface CheckBoxProps {
@@ -13,15 +14,17 @@ interface CheckBoxProps {
 export const CheckBox = ({ name, option, index, handleOnChange, checkedState }: CheckBoxProps) => {
   return (
     <li style={{ listStyle: 'none' }}>
-      <input
-        type="checkbox"
-        id={option}
-        name={name}
-        value={option}
-        checked={checkedState[index]}
-        onChange={() => handleOnChange(index)}
-      />
-      <label htmlFor={option}>{option}</label>
+      <label htmlFor={option} className={styles['checkbox']}>
+        <input
+          type="checkbox"
+          id={option}
+          name={name}
+          value={option}
+          checked={checkedState[index]}
+          onChange={() => handleOnChange(index)}
+        />
+        <span>{option}</span>
+      </label>
     </li>
   );
 };
@@ -162,8 +165,8 @@ export const MultiSelectDropDown = ({
       <legend>{name}:</legend>
       <div className={styles['c-multi-select-dropdown']}>
         <div className={styles['c-multi-select-dropdown__selected']}>
-          <div>{selected.join(' ')}</div>
-          {/* <img src={Dropdown} /> */}
+          <div>{selected.join(', ')}</div>
+          <img src={Dropdown} alt='dropdown icon' />
         </div>
         <ul className={styles['c-multi-select-dropdown__options']}>
           {criteria.map((v, i) => {

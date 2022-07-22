@@ -1,8 +1,8 @@
-import React, { useState,} from 'react';
+import React, { useState } from 'react';
 import { connect, useSelector } from 'react-redux';
 import { ClipLoader } from 'react-spinners';
 import styled from 'styled-components';
-import { ReactComponent as Pin1 } from '../../../assets/icon-pin.svg';
+import { ReactComponent as Pin } from '../../../assets/icon-pin.svg';
 
 import Rating from '../../../components/Rating/Rating';
 import { RootReducerInterface } from '../../../reducers';
@@ -15,6 +15,7 @@ const Title = styled.h3<{ isSelected: boolean }>`
   text-align: left;
   color: ${props => (props.isSelected ? '#6AE7BE' : 'inherit')};
   text-decoration: ${props => (props.isSelected ? 'underline' : 'none')};
+  width:90%
 `;
 
 const TextContent = styled.p`
@@ -114,7 +115,7 @@ const Thumbnail = ({
           {title}
         </Title>
         {!favourite ? (
-          <Pin1
+          <Pin
             onClick={() => {
               onFavouriteSelection(programId);
               handlesFavouriteChange();
@@ -123,7 +124,7 @@ const Thumbnail = ({
             stroke="black"
           />
         ) : (
-          <Pin1
+          <Pin
             onClick={() => {
               onFavouriteSelection(programId);
               handlesRemoveFavouriteChange();
