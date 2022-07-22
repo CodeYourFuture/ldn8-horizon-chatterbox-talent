@@ -47,7 +47,7 @@ const ContentWrapper = styled.div`
     width: 90%;
     padding: 10vw 5vw;
     @media screen and (orientation: landscape) {
-      height: 125vh;
+      height: 130vh;
     }
   }
 
@@ -60,17 +60,19 @@ const ContentWrapper = styled.div`
   label {
     font-weight: 300;
     letter-spacing: 0.2px;
-    padding-bottom: 0.15em
+    padding-bottom: 0.15em;
   }
 
   form {
     display: flex;
     justify-content: space-between;
     padding: 0 10px;
+    gap: 2rem;
 
     @media screen and (max-width: 768px) {
       flex-direction: column;
       padding: 10px 0;
+      gap: 0.5rem;
     }
   }
   legend {
@@ -84,9 +86,8 @@ const MultiSelectWrapper = styled.div`
 `;
 
 const FilterWrapper = styled.div`
-
+  display: flex;
   @media screen and (max-width: 768px) {
-    display:flex;
     flex-direction: column;
     padding: 10px 0;
     @media screen and (orientation: landscape) {
@@ -235,22 +236,24 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
                 resetState={resetState}
                 setResetState={setResetState}
               />
-              <CheckBoxFilter
-                filterState={[filters, setFilters]}
-                criteria={filtersStore.onSite}
-                name={'OnSite/Remote'}
-                objKey={'onSite'}
-                resetState={resetState}
-                setResetState={setResetState}
-              />
-              <CheckBoxFilter
-                filterState={[filters, setFilters]}
-                criteria={filtersStore.isActivelyHiring}
-                name={'Show only'}
-                objKey={'isActivelyHiring'}
-                resetState={resetState}
-                setResetState={setResetState}
-              />
+              <div>
+                <CheckBoxFilter
+                  filterState={[filters, setFilters]}
+                  criteria={filtersStore.onSite}
+                  name={'OnSite/Remote'}
+                  objKey={'onSite'}
+                  resetState={resetState}
+                  setResetState={setResetState}
+                />
+                <CheckBoxFilter
+                  filterState={[filters, setFilters]}
+                  criteria={filtersStore.isActivelyHiring}
+                  name={'Show only'}
+                  objKey={'isActivelyHiring'}
+                  resetState={resetState}
+                  setResetState={setResetState}
+                />
+              </div>
             </FilterWrapper>
           </form>
           <ButtonsWrapper>

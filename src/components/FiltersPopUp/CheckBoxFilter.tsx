@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './CheckBoxFilter.module.scss';
+import Dropdown from '../../assets/icon-dropdown.svg';
 //import styled from "styled-components";
 
 interface CheckBoxProps {
@@ -165,7 +166,7 @@ export const MultiSelectDropDown = ({
       <div className={styles['c-multi-select-dropdown']}>
         <div className={styles['c-multi-select-dropdown__selected']}>
           <div>{selected.join(', ')}</div>
-          {/* <img src={Dropdown} /> */}
+          <img src={Dropdown} alt='dropdown icon' />
         </div>
         <ul className={styles['c-multi-select-dropdown__options']}>
           {criteria.map((v, i) => {
