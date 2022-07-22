@@ -1,9 +1,49 @@
 @import '../../common/styles/colors.module.scss';
 @import '../../common/styles/breakpoints.module.scss';
+ .checkbox {
+    display: inline-flex;
+    cursor: pointer;
+    position: relative;
+}
+
+.checkbox > span {
+    color: $black-font;
+    padding: 0.2rem;
+    font-family: inherit;
+}
+
+.checkbox > input {
+    width: 18px;
+    height: 18px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    outline: none;
+    transition-duration: 0.3s;
+    cursor: pointer;
+  }
+
+.checkbox > input:checked {
+    background-color: $black;
+}
+
+.checkbox > input:checked + span::before {
+    content: '\2713';
+    font-weight: 500;
+    font-size: 18px;
+    font-family: "BlinkMacSystemFont";
+    display: block;
+    color: white;
+    position: absolute;
+    left: 0.2rem;
+    top: 0.1rem;
+}
+
 .c-multi-select-dropdown{
     font-family: inherit;
     position:relative;
-    width:150px;
+    width: 200px;
     &:hover{
         .c-multi-select-dropdown__options{
             background-color: white;
@@ -12,22 +52,18 @@
             display:block;
             overflow-y: auto;
        @include breakpoint-max(md) {
-                height: 40vh;                
+                height: 60vh;                
             }
 }
 @include breakpoint-max(md) {
                 width: 60vw;}
     }
     .c-multi-select-dropdown__selected{
-        border:solid 1px #eee;
-        font-size:14px;
+        border: solid 1px #282936;
         padding:10px;
         display:flex;
         justify-content: space-between;
         align-items: center;
-        > img {
-            height:18px;
-        }
          @include breakpoint-max(md) {
                 width: 60vw;               
             }
@@ -48,5 +84,11 @@
 }
 
 .check-box-filters {
-    padding: 0 8px;
+    padding: 0 8px 10px 8px;
+     @include breakpoint-max(md) {
+                 padding: 5px 0;           
+        @media (orientation: landscape) {
+        padding: 0 10px 8px 0;  
+            }
+        }
 }
