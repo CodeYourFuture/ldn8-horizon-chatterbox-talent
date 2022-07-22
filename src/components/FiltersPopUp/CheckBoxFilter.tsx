@@ -13,15 +13,17 @@ interface CheckBoxProps {
 export const CheckBox = ({ name, option, index, handleOnChange, checkedState }: CheckBoxProps) => {
   return (
     <li style={{ listStyle: 'none' }}>
-      <input
-        type="checkbox"
-        id={option}
-        name={name}
-        value={option}
-        checked={checkedState[index]}
-        onChange={() => handleOnChange(index)}
-      />
-      <label htmlFor={option}>{option}</label>
+      <label htmlFor={option} className={styles['checkbox']}>
+        <input
+          type="checkbox"
+          id={option}
+          name={name}
+          value={option}
+          checked={checkedState[index]}
+          onChange={() => handleOnChange(index)}
+        />
+        <span>{option}</span>
+      </label>
     </li>
   );
 };
@@ -162,7 +164,7 @@ export const MultiSelectDropDown = ({
       <legend>{name}:</legend>
       <div className={styles['c-multi-select-dropdown']}>
         <div className={styles['c-multi-select-dropdown__selected']}>
-          <div>{selected.join(' ')}</div>
+          <div>{selected.join(', ')}</div>
           {/* <img src={Dropdown} /> */}
         </div>
         <ul className={styles['c-multi-select-dropdown__options']}>
