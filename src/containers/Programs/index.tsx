@@ -212,13 +212,6 @@ const Programs = ({ getAllProgramsInformationAction, information, isLoadingProgr
     return !isSelectedAsFave;
   });
 
-  // pass array of favourites and everything that is left into a stateToRender
-  //Reverse to push selected to the top and unseleced to the bottom
-  useEffect(() => {
-    setStateToRender([...favorites.reverse(), ...filteredByFavData.reverse()]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [favorites]);
-
   const handleSort = (evt: any) => {
     const sortBy = evt.target.value;
     const render = stateToRender.sort((a: any, b: any) => a.dateAdd - b.dateAdd);
@@ -279,7 +272,7 @@ const Programs = ({ getAllProgramsInformationAction, information, isLoadingProgr
                 </FiltersSearchWrapper>
               </div>
               <div>
-                {stateToRender.map((data, index) => {
+                {[...favorites, ...filteredByFavData].map((data, index) => {
                   return (
                     <Thumbnail
                       key={data.id}
