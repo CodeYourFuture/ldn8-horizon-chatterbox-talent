@@ -55,7 +55,6 @@ export const CheckBoxFilter = ({
     if (checkedState.includes(true)) setResetState(true);
     // eslint-disable-next-line
   }, [resetState]);
-
   const handleOnChange = (filter: string, value: string, position: number) => {
     const updatedCheckedState = checkedState.map((item, index) => (index === position ? !item : item));
     setCheckedState(updatedCheckedState);
