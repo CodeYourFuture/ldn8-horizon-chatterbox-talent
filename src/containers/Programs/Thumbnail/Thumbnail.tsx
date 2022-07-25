@@ -15,7 +15,7 @@ const Title = styled.h3<{ isSelected: boolean }>`
   text-align: left;
   color: ${props => (props.isSelected ? '#6AE7BE' : 'inherit')};
   text-decoration: ${props => (props.isSelected ? 'underline' : 'none')};
-  width:90%
+  width: 90%;
 `;
 
 const TextContent = styled.p`

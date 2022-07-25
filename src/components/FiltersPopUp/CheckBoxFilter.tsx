@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './CheckBoxFilter.module.scss';
 import Dropdown from '../../assets/icon-dropdown.svg';
-//import styled from "styled-components";
 
 interface CheckBoxProps {
   name: string;
@@ -55,32 +54,7 @@ export const CheckBoxFilter = ({
     if (checkedState.includes(true)) setResetState(true);
     // eslint-disable-next-line
   }, [resetState]);
-  const handleOnChange = (filter: string, value: string, position: number) => {
-    const updatedCheckedState = checkedState.map((item, index) => (index === position ? !item : item));
-    setCheckedState(updatedCheckedState);
-    if (filters[filter]) {
-      setFilters((previousVal: { [key: string]: string[] }) => {
-        if (previousVal[filter].includes(value)) {
-          return {
-            ...previousVal,
-            [filter]: previousVal[filter].filter((item: string) => item !== value),
-          };
-        } else {
-          return {
-            ...previousVal,
-            [filter]: [...previousVal[filter], value],
-          };
-        }
-      });
-    } else {
-      setFilters((val: string[]) => {
-        return {
-          ...val,
-          [filter]: [value],
-        };
-      });
-    }
-  };
+
   return (
     <fieldset className={styles['check-box-filters']}>
       <legend>{name}:</legend>
@@ -91,7 +65,7 @@ export const CheckBoxFilter = ({
             name={name}
             option={v}
             index={i}
-            handleOnChange={() => handleOnChange(objKey, v, i)}
+            handleOnChange={() => handleOnChange(objKey, v, i, checkedState, setCheckedState, filters, setFilters)}
             checkedState={checkedState}
           />
         );
@@ -120,10 +94,48 @@ export const MultiSelectDropDown = ({
     // eslint-disable-next-line
   }, [resetState]);
 
-  const handleOnChange = (filter: string, value: string, position: number) => {
-    const updatedCheckedState = checkedState.map((item, index) => (index === position ? !item : item));
-    setCheckedState(updatedCheckedState);
+  return (
+    <>
+      <legend>{name}:</legend>
+      <div className={styles['c-multi-select-dropdown']}>
+        <div className={styles['c-multi-select-dropdown__selected']}>
+          <div>{selected.join(', ')}</div>
+          <img src={Dropdown} alt="dropdown icon" />
+        </div>
+        <ul className={styles['c-multi-select-dropdown__options']}>
+          {criteria.map((v, i) => {
+            return (
+              <CheckBox
+                key={i}
+                name={name}
+                option={v}
+                index={i}
+                handleOnChange={() =>
+                  handleOnChange(objKey, v, i, checkedState, setCheckedState, filters, setFilters, setSelected)
+                }
+                checkedState={checkedState}
+              />
+            );
+          })}
+        </ul>
+      </div>
+    </>
+  );
+};
 
+const handleOnChange = (
+  filter: string,
+  value: string,
+  position: number,
+  checkedState: boolean[],
+  setCheckedState: (value: React.SetStateAction<any[]>) => void,
+  filters: any,
+  setFilters: any,
+  setSelected?: (value: React.SetStateAction<any[]>) => void,
+) => {
+  const updatedCheckedState = checkedState.map((item, index) => (index === position ? !item : item));
+  setCheckedState(updatedCheckedState);
+  if (typeof setSelected !== 'undefined') {
     setSelected(prevSelected => {
       // if it's in, remove
       const newArray = [...prevSelected];
@@ -135,53 +147,27 @@ export const MultiSelectDropDown = ({
         return newArray;
       }
     });
-
-    if (filters[filter]) {
-      setFilters((previousVal: { [key: string]: string[] }) => {
-        if (previousVal[filter].includes(value)) {
-          return {
-            ...previousVal,
-            [filter]: previousVal[filter].filter((item: string) => item !== value),
-          };
-        } else {
-          return {
-            ...previousVal,
-            [filter]: [...previousVal[filter], value],
-          };
-        }
-      });
-    } else {
-      setFilters((val: string[]) => {
+  }
+  if (filters[filter]) {
+    setFilters((previousVal: { [key: string]: string[] }) => {
+      if (previousVal[filter].includes(value)) {
         return {
-          ...val,
-          [filter]: [value],
+          ...previousVal,
+          [filter]: previousVal[filter].filter((item: string) => item !== value),
         };
-      });
-    }
-  };
-  return (
-    <>
-      <legend>{name}:</legend>
-      <div className={styles['c-multi-select-dropdown']}>
-        <div className={styles['c-multi-select-dropdown__selected']}>
-          <div>{selected.join(', ')}</div>
-          <img src={Dropdown} alt='dropdown icon' />
-        </div>
-        <ul className={styles['c-multi-select-dropdown__options']}>
-          {criteria.map((v, i) => {
-            return (
-              <CheckBox
-                key={i}
-                name={name}
-                option={v}
-                index={i}
-                handleOnChange={() => handleOnChange(objKey, v, i)}
-                checkedState={checkedState}
-              />
-            );
-          })}
-        </ul>
-      </div>
-    </>
-  );
+      } else {
+        return {
+          ...previousVal,
+          [filter]: [...previousVal[filter], value],
+        };
+      }
+    });
+  } else {
+    setFilters((val: string[]) => {
+      return {
+        ...val,
+        [filter]: [value],
+      };
+    });
+  }
 };
