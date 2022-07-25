@@ -15,7 +15,7 @@ const Title = styled.h3<{ isSelected: boolean }>`
   text-align: left;
   color: ${props => (props.isSelected ? '#6AE7BE' : 'inherit')};
   text-decoration: ${props => (props.isSelected ? 'underline' : 'none')};
-  width:90%
+  width: 90%;
 `;
 
 const TextContent = styled.p`
@@ -98,14 +98,16 @@ const Thumbnail = ({
   const programScore = useSelector(selectProgramScore(programId));
 
   // responsible for changing colour of pins
-  const [favourite, setFavourite] = useState<boolean>(false);
+  const [favourite, setFavourite] = useState<boolean>(JSON.parse(localStorage.getItem(`${programId}`) || 'false'));
 
   const handlesFavouriteChange = () => {
     setFavourite(true);
+    localStorage.setItem(`${programId}`, JSON.stringify(true));
   };
 
   const handlesRemoveFavouriteChange = () => {
     setFavourite(false);
+    localStorage.setItem(`${programId}`, JSON.stringify(false));
   };
 
   return (
