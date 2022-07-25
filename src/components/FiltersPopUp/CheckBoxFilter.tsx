@@ -44,7 +44,9 @@ export const CheckBoxFilter = ({
   objKey,
 }: CheckBoxFilterProps) => {
   const [filters, setFilters] = filterState;
-  const [checkedState, setCheckedState] = useState(new Array(criteria.length).fill(false));
+  const [checkedState, setCheckedState] = useState(
+    JSON.parse(localStorage.getItem(`${name}`) || JSON.stringify(new Array(criteria.length).fill(false))),
+  );
 
   useEffect(() => {
     if (resetState === false) {
@@ -54,6 +56,11 @@ export const CheckBoxFilter = ({
     if (checkedState.includes(true)) setResetState(true);
     // eslint-disable-next-line
   }, [resetState]);
+
+  React.useEffect(() => {
+    localStorage.setItem(`${name}`, JSON.stringify(checkedState));
+    // eslint-disable-next-line
+  }, [checkedState]);
 
   return (
     <fieldset className={styles['check-box-filters']}>
@@ -82,8 +89,10 @@ export const MultiSelectDropDown = ({
   objKey,
 }: CheckBoxFilterProps) => {
   const [filters, setFilters] = filterState;
-  const [checkedState, setCheckedState] = useState(new Array(criteria.length).fill(false));
-  const [selected, setSelected] = useState<string[]>([]);
+  const [checkedState, setCheckedState] = useState(
+    JSON.parse(localStorage.getItem(`${name}`) || JSON.stringify(new Array(criteria.length).fill(false))),
+  );
+  const [selected, setSelected] = useState<string[]>(JSON.parse(localStorage.getItem(`selected ${name}`) || '[]'));
   useEffect(() => {
     if (resetState === false) {
       setFilters({});
@@ -93,7 +102,14 @@ export const MultiSelectDropDown = ({
     if (checkedState.includes(true)) setResetState(true);
     // eslint-disable-next-line
   }, [resetState]);
-
+  React.useEffect(() => {
+    localStorage.setItem(`${name}`, JSON.stringify(checkedState));
+    // eslint-disable-next-line
+  }, [checkedState]);
+  React.useEffect(() => {
+    localStorage.setItem(`selected ${name}`, JSON.stringify(selected));
+    // eslint-disable-next-line
+  }, [selected]);
   return (
     <>
       <legend>{name}:</legend>
