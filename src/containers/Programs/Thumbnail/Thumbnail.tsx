@@ -98,13 +98,15 @@ const Thumbnail = ({
   const programScore = useSelector(selectProgramScore(programId));
 
   // responsible for changing colour of pins
-  const [favourite, setFavourite] = useState<boolean>(false);
+  const [favourite, setFavourite] = useState<boolean>(JSON.parse(localStorage.getItem(`${programId}`) || 'false'));
 
   const handlesFavouriteChange = () => {
+    localStorage.setItem(`${programId}`, JSON.stringify(true));
     setFavourite(true);
   };
 
   const handlesRemoveFavouriteChange = () => {
+    localStorage.setItem(`${programId}`, JSON.stringify(false));
     setFavourite(false);
   };
 

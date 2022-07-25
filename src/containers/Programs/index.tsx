@@ -147,7 +147,7 @@ const Programs = ({ getAllProgramsInformationAction, information, isLoadingProgr
   const [showPopupMail, setShowPopupMail] = useState(false);
   const [programSearchQuery, setProgramSearchQuery] = useState('');
   const [stateToRender, setStateToRender] = useState<any[]>([]);
-  const [favorites, setFavorites] = useState<any[]>([]);
+  const [favorites, setFavorites] = useState<any[]>(JSON.parse(localStorage.getItem("favorites") || "[]"));
   const [selectedProgramId, setSelectedProgramId] = useState('loading');
 
   useEffect(() => {
@@ -172,6 +172,10 @@ const Programs = ({ getAllProgramsInformationAction, information, isLoadingProgr
       setFavorites(val => val.filter(v => v.id !== programId));
     }
   };
+
+React.useEffect(() => {
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+}, [favorites]);
 
   const handleShowPopup = (option: boolean) => {
     setShowPopup(option);
