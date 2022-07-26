@@ -80,6 +80,7 @@ const ContentWrapper = styled.div`
     padding: 0.2em 0;
   }
 `;
+
 const MultiSelectWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -95,6 +96,7 @@ const FilterWrapper = styled.div`
     }
   }
 `;
+
 const ButtonsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -264,7 +266,6 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
               } //disabled on all empty checkboxes
               onClick={handleSubmitFilters}
             >
-
               Done
             </DoneButton>
           </ButtonsWrapper>
