@@ -10,7 +10,7 @@ interface CheckBoxProps {
   checkedState: boolean[];
 }
 
-export const CheckBox = ({ name, option, index, handleOnChange, checkedState }: CheckBoxProps) => {
+const CheckBox = ({ name, option, index, handleOnChange, checkedState }: CheckBoxProps) => {
   return (
     <li style={{ listStyle: 'none' }}>
       <label htmlFor={option} className={styles['checkbox']}>
@@ -44,7 +44,9 @@ export const CheckBoxFilter = ({
   objKey,
 }: CheckBoxFilterProps) => {
   const [filters, setFilters] = filterState;
-  const [checkedState, setCheckedState] = useState(new Array(criteria.length).fill(false));
+  const [checkedState, setCheckedState] = useState(
+    JSON.parse(sessionStorage.getItem(`${name}`) || JSON.stringify(new Array(criteria.length).fill(false))),
+  );
 
   useEffect(() => {
     if (resetState === false) {
@@ -54,6 +56,11 @@ export const CheckBoxFilter = ({
     if (checkedState.includes(true)) setResetState(true);
     // eslint-disable-next-line
   }, [resetState]);
+
+  useEffect(() => {
+    sessionStorage.setItem(`${name}`, JSON.stringify(checkedState));
+    // eslint-disable-next-line
+  }, [checkedState]);
 
   return (
     <fieldset className={styles['check-box-filters']}>
@@ -82,8 +89,11 @@ export const MultiSelectDropDown = ({
   objKey,
 }: CheckBoxFilterProps) => {
   const [filters, setFilters] = filterState;
-  const [checkedState, setCheckedState] = useState(new Array(criteria.length).fill(false));
-  const [selected, setSelected] = useState<string[]>([]);
+  const [checkedState, setCheckedState] = useState(
+    JSON.parse(sessionStorage.getItem(`${name}`) || JSON.stringify(new Array(criteria.length).fill(false))),
+  );
+  const [selected, setSelected] = useState<string[]>(JSON.parse(sessionStorage.getItem(`selected ${name}`) || '[]'));
+
   useEffect(() => {
     if (resetState === false) {
       setFilters({});
@@ -94,6 +104,12 @@ export const MultiSelectDropDown = ({
     // eslint-disable-next-line
   }, [resetState]);
 
+  useEffect(() => {
+    sessionStorage.setItem(`${name}`, JSON.stringify(checkedState));
+    sessionStorage.setItem(`selected ${name}`, JSON.stringify(selected));
+    // eslint-disable-next-line
+  }, [checkedState, selected]);
+  
   return (
     <>
       <legend>{name}:</legend>
