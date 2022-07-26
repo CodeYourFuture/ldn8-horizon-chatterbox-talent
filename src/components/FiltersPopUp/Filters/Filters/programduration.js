@@ -3,7 +3,7 @@ import { parseDuration } from './parseDuration';
 export const programDuration = (data, programDuration) => {
   if (programDuration.length === 0 && data.length > 0) return data;
   return data.reduce((acc, item) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    // eslint-disable-next-line array-callback-return
     programDuration.map(carrier => {
       if (
         parseDuration(item.programDuration) > 0 &&
