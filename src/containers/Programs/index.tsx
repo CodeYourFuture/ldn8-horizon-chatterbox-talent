@@ -223,6 +223,10 @@ const Programs = ({ getAllProgramsInformationAction, information, isLoadingProgr
       const render = stateToRender.sort((a: any, b: any) => b.dateAdded.localeCompare(a.dateAdded));
       setStateToRender([...render]);
     }
+    
+    if (sortBy === 'Favorites') {
+      setStateToRender([...favorites, ...filteredByFavData])
+    }
   };
 
   return (
@@ -278,7 +282,7 @@ const Programs = ({ getAllProgramsInformationAction, information, isLoadingProgr
                 </FiltersSearchWrapper>
               </div>
               <div>
-                {[...favorites, ...filteredByFavData].map((data, index) => {
+                {stateToRender.map((data, index) => {
                   return (
                     <Thumbnail
                       key={data.id}
