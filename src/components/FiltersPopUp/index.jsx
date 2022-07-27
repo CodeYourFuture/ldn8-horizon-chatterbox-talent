@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { MultiSelectDropDown, CheckBoxFilter } from './CheckBoxFilter';
 import filtersHandle from './Filters/filtersHandle';
@@ -158,12 +158,9 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
   //State for Reset button
   const [resetState, setResetState] = useState(true);
   //State to store the filters
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState(JSON.parse(sessionStorage.getItem(`Filters`) || '{}'));
+
   const handleSubmitFilters = evt => {
-    //alert('bnt working');
-    //console.log(locations, careerTypes)
-    filtersHandle(information, filters);
-    //Filter to render
     setStateToRender(filtersHandle(information, filters));
     handleUserClose(evt);
   };
@@ -203,6 +200,10 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
     }, {});
   };
   const filtersStore = storeFilters(information);
+  useEffect(() => {
+    sessionStorage.setItem('Filters', JSON.stringify(filters));
+    // eslint-disable-next-line
+  }, [filters]);
 
   return (
     <BackgroundWrapper>
