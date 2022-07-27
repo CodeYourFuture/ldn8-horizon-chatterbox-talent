@@ -33,7 +33,7 @@ export interface ProgramInterface {
   reviews: string[];
   stepsToApply: string[];
   website: string;
-  dateAdd: Date;
+  dateAdded: '';
 }
 
 const programsInitialState = {

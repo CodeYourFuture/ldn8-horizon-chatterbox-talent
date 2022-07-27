@@ -218,9 +218,11 @@ const Programs = ({ getAllProgramsInformationAction, information, isLoadingProgr
 
   const handleSort = (evt: any) => {
     const sortBy = evt.target.value;
-    const render = stateToRender.sort((a: any, b: any) => a.dateAdd - b.dateAdd);
-    console.log(render);
-    if (sortBy === 'Most recent') setStateToRender([...render]);
+
+    if (sortBy === 'Most recent') {
+      const render = stateToRender.sort((a: any, b: any) => b.dateAdded.localeCompare(a.dateAdded));
+      setStateToRender([...render]);
+    }
   };
 
   return (

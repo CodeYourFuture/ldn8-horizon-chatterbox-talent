@@ -17,6 +17,7 @@ export interface RawProgramInterface {
   Reviews?: string[];
   'Steps to apply'?: string;
   'Website link - more information'?: string;
+  dateAdded: '';
 }
 
 export interface ImageInterface {
@@ -57,7 +58,7 @@ export const adaptPrograms = (rawData: RawProgramInterface): ProgramInterface =>
     reviews: rawData['Reviews'] || [],
     stepsToApply: splitStringIntoSeparatedPhrases(rawData['Steps to apply'], /\n/),
     website: rawData['Website link - more information'] || '',
-    dateAdd: new Date(`2022-${Math.round(Math.random() * 12)}-${Math.round(Math.random() * 28)}`),
+    dateAdded: rawData['dateAdded'] || '',
   };
 };
 
