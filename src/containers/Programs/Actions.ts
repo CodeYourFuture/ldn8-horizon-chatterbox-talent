@@ -46,8 +46,9 @@ export const getAllProgramsInformation = () => {
       const rawPrograms = await base('Programs').select({ view: 'Live Opportunities' }).all();
 
       const adaptedPrograms = rawPrograms.map(program => {
-        const { id, fields } = program;
-        return adaptPrograms({ id, ...fields });
+        const { id, fields, _rawJson } = program;
+        const dateAdded = _rawJson.createdTime
+        return adaptPrograms({ id, ...fields, dateAdded });
       });
 
       await Promise.all(

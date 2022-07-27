@@ -201,7 +201,7 @@ const Programs = ({ getAllProgramsInformationAction, information, isLoadingProgr
   };
 
   useEffect(() => {
-    if (information) setStateToRender(information);
+    setStateToRender(information);
   }, [information]);
 
   useEffect(() => {
@@ -218,9 +218,11 @@ const Programs = ({ getAllProgramsInformationAction, information, isLoadingProgr
 
   const handleSort = (evt: any) => {
     const sortBy = evt.target.value;
-    const render = stateToRender.sort((a: any, b: any) => a.dateAdd - b.dateAdd);
-    console.log(render);
-    if (sortBy === 'Most recent') setStateToRender([...render]);
+
+    if (sortBy === 'Most recent') {
+      const render = stateToRender.sort((a: any, b: any) => b.dateAdded.localeCompare(a.dateAdded));
+      setStateToRender([...render]);
+    }
   };
 
   return (
@@ -265,7 +267,6 @@ const Programs = ({ getAllProgramsInformationAction, information, isLoadingProgr
                       <Select onChange={handleSort}>
                         <option>Top rating</option>
                         <option>Most recent</option>
-                        <option>Favorites</option>
                       </Select>
                     </FieldWrapper>
                     <FiltersBtn onClick={() => handleShowPopup(true)}>
