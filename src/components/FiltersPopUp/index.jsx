@@ -31,6 +31,7 @@ const Wrapper = styled.div`
     width: 100vw;
     flex-direction: column;
     height: 100vh;
+    padding-top: 20px;
   }
 `;
 
