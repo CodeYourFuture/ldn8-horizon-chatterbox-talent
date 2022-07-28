@@ -153,7 +153,7 @@ const CloseButton = styled.button`
   }
 `;
 
-const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
+const FiltersPopUp = ({ onClose, information, statusToRender }) => {
   const [, setStateToRender] = statusToRender;
   //State for Reset button
   const [resetState, setResetState] = useState(true);
@@ -178,7 +178,7 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
       if (i === 0) {
         acc['locations'] = new Set();
         acc['careerType'] = new Set();
-        acc['programDuration'] = ["0 - 3 months", "3 - 6 months", "6 - 12 months", "1 - 3 years", "3 years +", "Other"];
+        acc['programDuration'] = ['0 - 3 months', '3 - 6 months', '6 - 12 months', '1 - 3 years', '3 years +', 'Other'];
         acc['onSite'] = new Set();
         acc['isActivelyHiring'] = new Set(['Actively hiring']);
       }
@@ -189,7 +189,7 @@ const FiltersPopUp = ({ onSuccess, onClose, information, statusToRender }) => {
       v.careerType.forEach(careerType => {
         acc['careerType'].add(careerType);
       });
-      //if (v.programDuration) acc['programDuration'].add(v.programDuration);
+
       acc['onSite'].add(v.onSite);
       return acc;
     }, {});

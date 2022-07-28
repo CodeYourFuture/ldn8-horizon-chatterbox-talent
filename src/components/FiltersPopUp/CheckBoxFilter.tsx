@@ -109,7 +109,7 @@ export const MultiSelectDropDown = ({
     sessionStorage.setItem(`selected ${name}`, JSON.stringify(selected));
     // eslint-disable-next-line
   }, [checkedState, selected]);
-  
+
   return (
     <>
       <legend>{name}:</legend>
