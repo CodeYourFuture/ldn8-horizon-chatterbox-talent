@@ -166,6 +166,7 @@ const Programs = ({ getAllProgramsInformationAction, information, isLoadingProgr
     setSelectedProgramId(id);
     setIsShowingModalOnMobile(true);
   };
+ 
 
   // add or remove programs from array of favourites
   const handleFavouriteSelection = (programId: string) => {
@@ -197,6 +198,7 @@ const Programs = ({ getAllProgramsInformationAction, information, isLoadingProgr
           programs.careerType.join(',').toLowerCase().includes(programSearchQuery.toLowerCase()),
       ),
     );
+    sessionStorage.clear();
     setProgramSearchQuery('');
   };
 

@@ -13,5 +13,7 @@ function App() {
     </div>
   );
 }
-
+window.onload = function () {
+  sessionStorage.clear();
+};
 export default App;
