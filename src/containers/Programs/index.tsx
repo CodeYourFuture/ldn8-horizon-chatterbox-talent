@@ -30,13 +30,13 @@ const SpecificProgramWrapper = styled.div<{ isShowing: boolean }>`
   @media screen and (max-width: 768px) {
     display: ${props => !props.isShowing && 'none'};
     position: fixed;
-    top: 1hv;
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     width: 100%;
     z-index: 1200;
-    max-height: 99vh;
+    max-height: 90vh;
     overflow-y: auto;
 
     &:before {
