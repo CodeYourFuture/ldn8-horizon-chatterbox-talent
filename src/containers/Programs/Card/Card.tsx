@@ -81,8 +81,6 @@ const Card = ({
     );
   };
 
-  // if (!programName) return null;
-
   return (
     <div className={styles.cardWrapper}>
       <div className={styles.imageWrapper}>

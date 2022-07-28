@@ -8,8 +8,6 @@ import {
   GET_PROGRAM_REVIEWS_FAIL,
   GET_PROGRAM_REVIEWS_LOADING,
   GET_PROGRAM_REVIEWS_SUCCESS,
-  SEARCH_PROGRAMS,
-  FILTERED_PROGRAMS,
 } from './ActionTypes';
 import { ProgramInterface, ReviewInterface } from './Reducer';
 
@@ -21,16 +19,6 @@ const getAllProgramsInformationLoading = (status: boolean) => ({
 const getAllProgramsInformationSuccess = (programs: ProgramInterface[]) => ({
   type: GET_ALL_PROGRAMS_SUCCESS,
   payload: programs,
-});
-
-export const searchPrograms = (query: ProgramInterface[]) => ({
-  type: SEARCH_PROGRAMS,
-  payload: query,
-});
-
-export const filteredPrograms = (option: ProgramInterface[]) => ({
-  type: FILTERED_PROGRAMS,
-  payload: option,
 });
 
 const getAllProgramsInformationFail = () => ({
@@ -47,7 +35,7 @@ export const getAllProgramsInformation = () => {
 
       const adaptedPrograms = rawPrograms.map(program => {
         const { id, fields, _rawJson } = program;
-        const dateAdded = _rawJson.createdTime
+        const dateAdded = _rawJson.createdTime;
         return adaptPrograms({ id, ...fields, dateAdded });
       });
 

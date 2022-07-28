@@ -302,9 +302,7 @@ const Programs = ({ getAllProgramsInformationAction, information, isLoadingProgr
         {showPopup && (
           <FiltersPopUp
             information={information}
-            onSuccess={() => handleShowPopup(false)}
             onClose={() => handleShowPopup(false)}
-            //@ts-ignore
             statusToRender={[stateToRender, setStateToRender]}
           />
         )}
@@ -333,8 +331,6 @@ const Programs = ({ getAllProgramsInformationAction, information, isLoadingProgr
 const mapStateToProps = (state: RootReducerInterface) => ({
   information: state.ProgramsReducer.programs.information,
   isLoadingPrograms: state.ProgramsReducer.programs.isLoadingPrograms,
-  searchedInformation: state.ProgramsReducer.programs.searchedInformation,
-  filteredInformation: state.ProgramsReducer.programs.filteredInformation,
 });
 
 export default connect(mapStateToProps, {

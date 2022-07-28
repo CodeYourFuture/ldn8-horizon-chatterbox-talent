@@ -5,8 +5,6 @@ import {
   GET_ALL_PROGRAMS_SUCCESS,
   GET_PROGRAM_REVIEWS_LOADING,
   GET_PROGRAM_REVIEWS_SUCCESS,
-  SEARCH_PROGRAMS,
-  FILTERED_PROGRAMS,
 } from './ActionTypes';
 import { ImageInterface } from './adapter';
 import { calculateAverage } from './utils';
@@ -39,15 +37,11 @@ export interface ProgramInterface {
 const programsInitialState = {
   isLoadingPrograms: false,
   information: [],
-  searchedInformation: [],
-  filteredInformation: [],
 };
 
 export interface ProgramsStateInterface {
   isLoadingPrograms: boolean;
   information: ProgramInterface[];
-  searchedInformation: ProgramInterface[];
-  filteredInformation: ProgramInterface[];
 }
 
 function programsReducer(
@@ -59,10 +53,6 @@ function programsReducer(
       return { ...state, isLoadingPrograms: action.payload };
     case GET_ALL_PROGRAMS_SUCCESS:
       return { ...state, information: action.payload };
-    case SEARCH_PROGRAMS:
-      return { ...state, searchedInformation: action.payload };
-    case FILTERED_PROGRAMS:
-      return { ...state, filteredInformation: action.payload };
     default:
       return state;
   }
